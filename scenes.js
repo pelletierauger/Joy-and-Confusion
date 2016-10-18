@@ -1680,14 +1680,25 @@ autumnSpiral2.runPositions = function(t) {
         m: sliders.m.value
     };
 
+    //Taken from spiderSpiral
+    // if (!this.privateValues.spiral) {
+    //     this.privateValues.spiral = {
+    //         startingAngle: 2,
+    //         angle: 2,
+    //         speed: 0.05 / 360 * Math.PI * 2 /  50,
+    //         hyp: 0.1
+    //     };
+    // }
+
     if (!this.privateValues.spiral) {
         this.privateValues.spiral = {
-            startingAngle: 1,
-            angle: 0,
+            startingAngle: 0.9786,
+            angle: 0.9786,
             speed: 0.05 / 360 * Math.PI * 2 /  12,
             hyp: 0.1
         };
     }
+    // console.log(this.privateValues.spiral.angle);
     var spiralVal = this.privateValues.spiral;
     this.privateValues.spiral.angle = spiralVal.startingAngle + t * spiralVal.speed * -1;
 
