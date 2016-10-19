@@ -1742,7 +1742,37 @@ autumnSpiral3.runBackground = function(t) {
 // autumnSpiral2.privateValues.paletteIndex = 1304;
 // autumnSpiral2.privateValues.paletteIndex = 1398;
 // autumnSpiral3.privateValues.paletteIndex = 1472;
-autumnSpiral3.privateValues.paletteIndex = 2586;
+// autumnSpiral3.privateValues.paletteIndex = 2586;
+
+
+autumnSpiral3.runColors = function(t) {
+    if (!this.privateValues.paletteIndex) {
+        this.privateValues.paletteIndex = 2586;
+    }
+
+    if (allPalettes) {
+        this.privateValues.palette = allPalettes[this.privateValues.paletteIndex];
+    } else {
+        this.privateValues.palette = palette;
+    }
+
+    this.privateValues.colorGraph = [];
+    var currentColor = 0;
+    for (var i = 0; i < 1000; i++) {
+        var colorValues = hexToRgb(this.privateValues.palette[currentColor]);
+        var lev = sliders.levels.value;
+        colorValues.r = constrain(map(colorValues.r, 0, 255, lev, 255), 0, 255);
+        colorValues.g = constrain(map(colorValues.g, 0, 255, lev, 255), 0, 255);
+        colorValues.b = constrain(map(colorValues.b, 0, 255, lev, 255), 0, 255);
+        currentColor++;
+        if (currentColor > 4) {
+            currentColor = 0;
+        }
+        this.privateValues.colorGraph.push(colorValues);
+    }
+};
+
+
 autumnSpiral3.runLayout = function(t) {
     this.localValues.zoom = 0.12;
     this.localValues.rotation = 0.01;
