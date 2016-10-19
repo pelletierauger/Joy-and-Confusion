@@ -215,6 +215,8 @@ function createInfoDiv() {
     sliders.spiralScalar = new Slider("Spiral scalar", 1, 200, 1, 0.01);
     sliders.levels = new Slider("Levels", -200, 100, 0, 1);
     // sliders.spiralSpeed = new Slider("Spiral speed", 1, 100000, 1, 1);
+    info1 = createP('this is some text');
+    info1.parent(infoDiv);
     sliders.sheetSlider = new Slider("DrawCount", 0, sumSheet, drawCount);
 
     // sliders.sheetSlider.set = function(val) {

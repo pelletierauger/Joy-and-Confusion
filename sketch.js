@@ -70,6 +70,7 @@ function draw() {
         repositionSong = false;
     }
     sliders.sheetSlider.set(drawCount);
+    info1.html(queryXSheet(xSheet));
 }
 
 function printBackgroundGradient() {

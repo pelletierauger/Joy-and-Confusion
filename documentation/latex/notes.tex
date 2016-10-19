@@ -294,3 +294,22 @@ Scene.prototype.runColors = function() {
 };
 \end{lstlisting}
 
+\clearpage
+\section{Nouvelles notes}
+Je dois me créer un système pour ajuster les niveaux de mes couleurs. Ça ressemblerait un peu à ça:
+
+\begin{lstlisting}
+function adjustLevels(colInput, dark, mid, light) {
+    var r = colInput.r;
+    var g = colInput.g;
+    var b = colInput.b;
+    r = constrain(map(r, 0, 255, dark, 255), 0, 255);
+    g = constrain(map(g, 0, 255, dark, 255), 0, 255);
+    b = constrain(map(b, 0, 255, dark, 255), 0, 255);
+    return {
+        r: r, 
+        g: g, 
+        b: b
+    };
+}
+\end{lstlisting}

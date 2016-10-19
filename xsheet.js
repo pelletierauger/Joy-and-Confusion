@@ -1,12 +1,12 @@
 var xSheet = {
-    scene1: {
+    firstSpiral: {
         d: 450,
         f: function() {
             // var rN = getSum(xSheet, xSheet.grotte);
             firstSpiral.run();
         }
     },
-    scene2: {
+    secondSpiral: {
         d: 300,
         f: function(sum) {
             //The getSum function is used to get the sum another scene within the sheet.
@@ -26,7 +26,7 @@ var xSheet = {
     //         thirdSpiral.mix(0, secondSpiral, 0, coFade);
     //     }
     // },
-    scene5: {
+    octoSpiral: {
         d: 690,
         f: function(sum) {
             //The getSum function is used to get the sum another scene within the sheet.
@@ -38,7 +38,7 @@ var xSheet = {
     },
 
     //Chorus 1.
-    scene6: {
+    triangularSpiral2: {
         d: 130,
         f: function(sum) {
             //The getSum function is used to get the sum another scene within the sheet.
@@ -48,7 +48,7 @@ var xSheet = {
             triangularSpiral2.mix(sum, octoSpiral, 0, coFade);
         }
     },
-    superellipse1: {
+    superellipseSpiral: {
         d: 160,
         f: function(sum) {
             //The getSum function is used to get the sum another scene within the sheet.
@@ -58,7 +58,7 @@ var xSheet = {
             superellipseSpiral.mix(sum, triangularSpiral2, rN, coFade);
         }
     },
-    superellipse2: {
+    superellipseSpiral2: {
         d: 280,
         f: function(sum) {
             //The getSum function is used to get the sum another scene within the sheet.
@@ -70,7 +70,7 @@ var xSheet = {
     },
 
 
-    spider1: {
+    spiderSpiral: {
         d: 585,
         f: function(sum) {
             //The getSum function is used to get the sum another scene within the sheet.
@@ -80,7 +80,7 @@ var xSheet = {
             spiderSpiral.mix(sum, superellipseSpiral2, rN - 25, coFade);
         }
     },
-    star1: {
+    starSpiral2: {
         d: 575,
         f: function(sum) {
             //The getSum function is used to get the sum another scene within the sheet.
@@ -91,7 +91,7 @@ var xSheet = {
         }
     },
     //La meilleure fucking shit au monde.
-    spider2: {
+    spiderSpiral2: {
         d: 280,
         f: function(sum) {
             //The getSum function is used to get the sum another scene within the sheet.
@@ -101,7 +101,7 @@ var xSheet = {
             spiderSpiral2.mix(sum, starSpiral2, rN, coFade);
         }
     },
-    spider3: {
+    spiderSpiral3: {
         d: 280,
         f: function(sum) {
             //The getSum function is used to get the sum another scene within the sheet.
@@ -111,7 +111,7 @@ var xSheet = {
             spiderSpiral3.mix(sum, spiderSpiral2, rN, coFade);
         }
     },
-    octo2: {
+    octoSpiral2: {
         d: 290,
         f: function(sum) {
             //The getSum function is used to get the sum another scene within the sheet.
@@ -121,7 +121,7 @@ var xSheet = {
             octoSpiral2.mix(sum + 1000, spiderSpiral2, rN, coFade);
         }
     },
-    fast: {
+    fastSpiral: {
         d: 150,
         f: function(sum) {
             //The getSum function is used to get the sum another scene within the sheet.
@@ -131,7 +131,7 @@ var xSheet = {
             fastSpiral.mix(sum, octoSpiral2, rN + 1000, coFade);
         }
     },
-    fast2: {
+    fastSpiral2: {
         d: 440,
         f: function(sum) {
             //The getSum function is used to get the sum another scene within the sheet.
@@ -141,7 +141,7 @@ var xSheet = {
             fastSpiral2.mix(rN, fastSpiral, rN, coFade);
         }
     },
-    exit: {
+    exitSpiral: {
         d: 200,
         f: function(sum) {
             //The getSum function is used to get the sum another scene within the sheet.
@@ -151,7 +151,7 @@ var xSheet = {
             exitSpiral.mix(sum, fastSpiral2, rN, coFade);
         }
     },
-    exit2: {
+    exitSpiral2: {
         d: 700,
         f: function(sum) {
             //The getSum function is used to get the sum another scene within the sheet.
