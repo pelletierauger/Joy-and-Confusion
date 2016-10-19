@@ -305,18 +305,18 @@ function starrySpiralOctober2(controller, t) {
     var n = map(sin(t / 10), -1, 1, 0, 0.4);
     for (var j = 0; j < 1000; j++) {
         var t = angleTrig + angleTrig * j;
-        var lerpX = lerp(x, xx, 0);
-        var lerpY = lerp(y, yy, 0);
+        var lerpX = lerp(x, xx, 0.95);
+        var lerpY = lerp(y, yy, 0.95);
         // ellipse(lerpX, lerpY, s, s);
-        var vec = createVector(lerpX * scalar, lerpY * scalar);
+        var vec = createVector(x * scalar, y * scalar);
         graph.push(vec);
 
 
         xx += cos(t) * pow(cos(t * 5), 1) * (hyp + (j / 50));
         yy += sin(t) * pow(cos(t * 5), 1) * (hyp + (j / 50));
 
-        x += pow(cos(t * 2), 3) * pow(cos(t * 0.5), 2) * (hyp + (j / 50));
-        y += pow(sin(t * 2), 3) * pow(cos(t * 0.5), 2) * (hyp + (j / 50));
+        x += pow(cos(t), 1) * pow(cos(t * 0.5) * 10, 1) * (hyp + (j / 50));
+        y += pow(sin(t), 1) * pow(cos(t * 0.5) * 10, 1) * (hyp + (j / 50));
 
     }
     return graph;
