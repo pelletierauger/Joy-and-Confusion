@@ -73,7 +73,7 @@ Scene.prototype.mix = function(offset1, otherScene, offset2, lerpValue) {
     //Lerping the gradient colors.
     var gradientArray = [];
     if (this.localValues.gradient.length == otherScene.localValues.gradient.length) {
-        for (var i = 0; i <  this.localValues.gradient.length; i++) {
+        for (var i = 0; i < this.localValues.gradient.length; i++) {
             var offset = this.localValues.gradient[i].offset;
             var offset2 = otherScene.localValues.gradient[i].offset;
             var lerpOffset = lerp(offset, offset2, lerpValue);

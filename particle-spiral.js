@@ -321,3 +321,195 @@ function starrySpiralOctober2(controller, t) {
     }
     return graph;
 }
+
+
+
+function spiderWebSpiralNight(controller, t) {
+    var graph = [];
+    var scalar = controller.privateValues.scalar;
+    var vals = controller.privateValues.spiral;
+    var angleTrig = vals.angle;
+    var hyp = controller.privateValues.spiral.hyp || 0.2;;
+    var x = 0;
+    var y = 0;
+
+    for (var j = 0; j < 1000; j++) {
+        var t = angleTrig + angleTrig * j;
+        var vec = createVector(x * scalar, y * scalar);
+        graph.push(vec);
+
+        x += cos(t * 0.5) * (hyp + (j / 50));
+        y += sin(t * 0.5) * cos(t * 1) * (hyp + (j / 50));
+
+    }
+    return graph;
+}
+
+function spiderWebSpiralNight2(controller, t) {
+    var graph = [];
+    var scalar = controller.privateValues.scalar;
+    var vals = controller.privateValues.spiral;
+    var angleTrig = vals.angle;
+    var hyp = controller.privateValues.spiral.hyp || 0.2;;
+    var x = 0;
+    var y = 0;
+
+    for (var j = 0; j < 1000; j++) {
+        var t = angleTrig + angleTrig * j;
+        var vec = createVector(x * scalar, y * scalar);
+        graph.push(vec);
+
+        x += cos(t * 3) * cos(t * 1) * (hyp + (j / 50));
+        y += sin(t * 3) * cos(t * 1) * (hyp + (j / 50));
+
+    }
+    return graph;
+}
+
+function spiderWebSpiralNight3(controller, t) {
+    var graph = [];
+    var scalar = controller.privateValues.scalar;
+    var vals = controller.privateValues.spiral;
+    var angleTrig = vals.angle;
+    var hyp = controller.privateValues.spiral.hyp || 0.2;;
+    var x = 0;
+    var y = 0;
+
+    for (var j = 0; j < 1000; j++) {
+        var t = angleTrig + angleTrig * j;
+        var vec = createVector(x * scalar, y * scalar);
+        graph.push(vec);
+
+        x += cos(t * 3) * cos(sin(t * 1)) * (hyp + (j / 50));
+        y += sin(t * 3) * cos(sin(t * 1)) * (hyp + (j / 50));
+
+    }
+    return graph;
+}
+
+function spiderWebSpiralNight4(controller, t) {
+    var graph = [];
+    var scalar = controller.privateValues.scalar;
+    var vals = controller.privateValues.spiral;
+    var angleTrig = vals.angle;
+    var hyp = controller.privateValues.spiral.hyp || 0.2;;
+    var x = 0;
+    var y = 0;
+
+    for (var j = 0; j < 1000; j++) {
+        var t = angleTrig + angleTrig * j;
+        var vec = createVector(x * scalar, y * scalar);
+        graph.push(vec);
+
+        x += cos(t * 0.5) * cos(sin(t * 10)) * (hyp + (j / 50));
+        y += sin(t * 0.5) * cos(sin(t * 10)) * (hyp + (j / 50));
+
+    }
+    return graph;
+}
+
+function spiderWebSpiralNight5(controller, t) {
+    var graph = [];
+    var scalar = controller.privateValues.scalar;
+    var vals = controller.privateValues.spiral;
+    var angleTrig = vals.angle;
+    var hyp = controller.privateValues.spiral.hyp || 0.2;;
+    var x = 0;
+    var y = 0;
+
+    for (var j = 0; j < 1000; j++) {
+        var t = angleTrig + angleTrig * j;
+        var vec = createVector(x * scalar, y * scalar);
+        graph.push(vec);
+
+        x += sin(cos(t * 0.5)) * cos(sin(t * 5)) * (hyp + (j / 50));
+        y += sin(sin(t * 0.5)) * cos(sin(t * 5)) * (hyp + (j / 50));
+
+    }
+    return graph;
+}
+
+function spiderWebSpiralNight6(controller, t) {
+    var graph = [];
+    var scalar = controller.privateValues.scalar;
+    var vals = controller.privateValues.spiral;
+    var angleTrig = vals.angle;
+    var hyp = controller.privateValues.spiral.hyp || 0.2;;
+    var x = 0;
+    var y = 0;
+
+    for (var j = 0; j < 1000; j++) {
+        var t = angleTrig + angleTrig * j;
+        var vec = createVector(x * scalar, y * scalar);
+        graph.push(vec);
+
+        x += sin(pow(sin(t), 3)) * (hyp + (j / 50));
+        y += sin(cos(t)) * (hyp + (j / 50));
+
+    }
+    return graph;
+}
+
+function spiderWebSpiralNight6b(controller, t) {
+    var graph = [];
+    var scalar = controller.privateValues.scalar;
+    var vals = controller.privateValues.spiral;
+    var angleTrig = vals.angle;
+    var hyp = controller.privateValues.spiral.hyp || 0.2;;
+    var x = 0;
+    var y = 0;
+
+    for (var j = 0; j < 1000; j++) {
+        var t = angleTrig + angleTrig * j;
+        var vec = createVector(x * scalar, y * scalar);
+        graph.push(vec);
+
+        x += sin(t * 1.5) * sin(t * 0.5) * (hyp + (j / 50));
+        y += cos(t * 1.5) * cos(t * 0.5) * (hyp + (j / 50));
+
+    }
+    return graph;
+}
+
+//with autumnSpiral8
+function spiderWebSpiralNight7(controller, t) {
+    var graph = [];
+    var scalar = controller.privateValues.scalar;
+    var vals = controller.privateValues.spiral;
+    var angleTrig = vals.angle;
+    var hyp = controller.privateValues.spiral.hyp || 0.2;;
+    var x = 0;
+    var y = 0;
+
+    for (var j = 0; j < 1000; j++) {
+        var t = angleTrig + angleTrig * j;
+        var vec = createVector(x * scalar, y * scalar);
+        graph.push(vec);
+
+        x += sin(pow(sin(t), 3)) * (hyp + (j / 50));
+        y += sin(pow(cos(t), 3)) * (hyp + (j / 50));
+
+    }
+    return graph;
+}
+
+function spiderWebSpiralNight8(controller, t) {
+    var graph = [];
+    var scalar = controller.privateValues.scalar;
+    var vals = controller.privateValues.spiral;
+    var angleTrig = vals.angle;
+    var hyp = controller.privateValues.spiral.hyp || 0.2;;
+    var x = 0;
+    var y = 0;
+
+    for (var j = 0; j < 1000; j++) {
+        var t = angleTrig + angleTrig * j;
+        var vec = createVector(x * scalar, y * scalar);
+        graph.push(vec);
+
+        x += sin(pow(sin(t), 3)) * (hyp + (j / 30));
+        y += sin(pow(cos(t), 9)) * (hyp + (j / 30));
+
+    }
+    return graph;
+}
