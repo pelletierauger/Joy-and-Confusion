@@ -42,7 +42,7 @@ function draw() {
 
     if (userControl) {
         // userControlled.run();
-        autumnSpiral8.mix(0, spiderSpiral, 0, sliders.lerpy.value);
+        autumnSpiral6.mix(0, spiderSpiral, 0, sliders.lerpy.value);
     } else {
         runXSheet(xSheet);
     }

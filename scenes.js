@@ -2374,7 +2374,9 @@ autumnSpiral8.runBackground = function(t) {
 
 autumnSpiral8.runColors = function(t) {
     if (!this.privateValues.paletteIndex) {
-        this.privateValues.paletteIndex = 908;
+        // this.privateValues.paletteIndex = 908;
+        this.privateValues.paletteIndex = 1032;
+        //Also beautiful : 1102, 1150
     }
 
     if (allPalettes) {
