@@ -513,3 +513,149 @@ function spiderWebSpiralNight8(controller, t) {
     }
     return graph;
 }
+
+
+function octogonalSpiralAutumn(controller, t) {
+    var graph = [];
+    var scalar = controller.privateValues.scalar;
+    var vals = controller.privateValues.spiral;
+    var angleTrig = vals.angle;
+    var hyp = controller.privateValues.spiral.hyp || 0.2;
+    var x = 0;
+    var y = 0;
+    for (var j = 0; j < 1000; j++) {
+        var t = angleTrig + angleTrig * j;
+        var vec = createVector(x * scalar, y * scalar);
+        graph.push(vec);
+        x += cos(t / 2) * cos(t * 4) * cos(t * 4) * (hyp + (j / 50));
+        y += sin(t / 2) * cos(t * 4) * cos(t * 4) * (hyp + (j / 50));
+    }
+    return graph;
+}
+
+function octogonalSpiralAutumn2(controller, t) {
+    var graph = [];
+    var scalar = controller.privateValues.scalar;
+    var vals = controller.privateValues.spiral;
+    var angleTrig = vals.angle;
+    var hyp = controller.privateValues.spiral.hyp || 0.2;
+    var x = 0;
+    var y = 0;
+    for (var j = 0; j < 1000; j++) {
+        var t = angleTrig + angleTrig * j;
+        var vec = createVector(x * scalar, y * scalar);
+        graph.push(vec);
+        x += cos(t) * (hyp + (j / 50)) + cos(t) * (hyp + (j / 50));
+        y += sin(t) * (hyp + (j / 50));
+    }
+    return graph;
+}
+
+function octogonalSpiralAutumn3(controller, t) {
+    var graph = [];
+    var scalar = controller.privateValues.scalar;
+    var vals = controller.privateValues.spiral;
+    var angleTrig = vals.angle;
+    var hyp = controller.privateValues.spiral.hyp || 0.2;
+    var x = 0;
+    var y = 0;
+    for (var j = 0; j < 1000; j++) {
+        var t = angleTrig + angleTrig * j;
+        var vec = createVector(x * scalar, y * scalar);
+        graph.push(vec);
+        x += cos(t) * (hyp + (j / 50)) + cos(t * 2) * (hyp + (j / 50));
+        y += sin(t) * (hyp + (j / 50));
+    }
+    return graph;
+}
+
+function octogonalSpiralAutumn4(controller, t) {
+    var graph = [];
+    var scalar = controller.privateValues.scalar;
+    var vals = controller.privateValues.spiral;
+    var angleTrig = vals.angle;
+    var hyp = controller.privateValues.spiral.hyp || 0.2;
+    var x = 0;
+    var y = 0;
+    for (var j = 0; j < 1000; j++) {
+        var t = angleTrig + angleTrig * j;
+        var vec = createVector(x * scalar, y * scalar);
+        graph.push(vec);
+        x += cos(t) * (hyp + (j / 50)) + cos(t * 3) * (hyp + (j / 50));
+        y += sin(t) * (hyp + (j / 50));
+    }
+    return graph;
+}
+
+function octogonalSpiralAutumn5(controller, t) {
+    var graph = [];
+    var scalar = controller.privateValues.scalar;
+    var vals = controller.privateValues.spiral;
+    var angleTrig = vals.angle;
+    var hyp = controller.privateValues.spiral.hyp || 0.2;
+    var x = 0;
+    var y = 0;
+    for (var j = 0; j < 1000; j++) {
+        var t = angleTrig + angleTrig * j;
+        var vec = createVector(x * scalar, y * scalar);
+        graph.push(vec);
+        x += cos(t) * (hyp + (j / 50)) + cos(t * 0.5) * (hyp + (j / 50));
+        y += sin(t * 0.5) * (hyp + (j / 50)) + cos(t) * (hyp + (j / 50));
+    }
+    return graph;
+}
+
+function octogonalSpiralAutumn6(controller, t) {
+    var graph = [];
+    var scalar = controller.privateValues.scalar;
+    var vals = controller.privateValues.spiral;
+    var angleTrig = vals.angle;
+    var hyp = controller.privateValues.spiral.hyp || 0.2;
+    var x = 0;
+    var y = 0;
+    for (var j = 0; j < 1000; j++) {
+        var t = angleTrig + angleTrig * j;
+        var vec = createVector(x * scalar, y * scalar);
+        graph.push(vec);
+        x += cos(t) * (hyp + (j / 50) * 0.5) + cos(t * 0.5) * (hyp + (j / 50));
+        y += sin(t * 0.5) * (hyp + (j / 50)) + cos(t * 2) * (hyp + (j / 50));
+    }
+    return graph;
+}
+
+function octogonalSpiralAutumn7(controller, t) {
+    var graph = [];
+    var scalar = controller.privateValues.scalar;
+    var vals = controller.privateValues.spiral;
+    var angleTrig = vals.angle;
+    var hyp = controller.privateValues.spiral.hyp || 0.2;
+    var x = 0;
+    var y = 0;
+    for (var j = 0; j < 1000; j++) {
+        var t = angleTrig + angleTrig * j;
+        var vec = createVector(x * scalar, y * scalar);
+        graph.push(vec);
+        x += cos(t * 2) * (hyp + (j / 50)) + cos(t) * (hyp + (j / 50)) + cos(t) * (hyp + (j / 50));
+        y += sin(t * 0.5) * (hyp + (j / 50)) + cos(t) * (hyp + (j / 50)) + cos(t) * (hyp + (j / 50));
+    }
+    return graph;
+}
+
+function octogonalSpiralAutumn8(controller, t) {
+    var graph = [];
+    var scalar = controller.privateValues.scalar;
+    var vals = controller.privateValues.spiral;
+    var angleTrig = vals.angle;
+    var hyp = controller.privateValues.spiral.hyp || 0.2;
+    hyp *= 0.1;
+    var x = 0;
+    var y = 0;
+    for (var j = 0; j < 1000; j++) {
+        var t = angleTrig + angleTrig * j;
+        var vec = createVector(x * scalar, y * scalar);
+        graph.push(vec);
+        x += cos(t * 2) * (hyp + (j / 50)) + cos(t * 0.5) * (hyp + (j / 50)) + cos(t) * (hyp + (j / 50));
+        y += sin(t * 0.5) * (hyp + (j / 50)) + sin(t * 0.5) * (hyp + (j / 50)) + cos(t) * (hyp + (j / 50));
+    }
+    return graph;
+}

@@ -2463,3 +2463,256 @@ autumnSpiral8.runSizes = function(t) {
         this.localValues.sizes.push(s);
     }
 };
+
+//-----------------------------------------Version 0.05---------------------------------------------//
+var autumnSpiral9 = new Scene();
+
+// spiderSpiral.runBackground = userControlledSpiral.runBackground;
+autumnSpiral9.runBackground = function(t) {
+    var step = map(abs(sin(t / 20)), 0, 1, 0.1, 0.3);
+    this.localValues.gradient = [{
+        offset: 0,
+        r: 205,
+        g: 150,
+        b: 155
+    }, {
+        offset: 0.2,
+        r: 255,
+        g: 120,
+        b: 100
+    }, {
+        offset: 0.8,
+        r: 0,
+        g: 0,
+        b: 280
+    }];
+};
+// autumnSpiral.privateValues.paletteIndex = 1244;
+// autumnSpiral2.privateValues.paletteIndex = 1304;
+// autumnSpiral2.privateValues.paletteIndex = 1398;
+// autumnSpiral3.privateValues.paletteIndex = 1472;
+// autumnSpiral3.privateValues.paletteIndex = 2586;
+
+autumnSpiral9.runColors = function(t) {
+    if (!this.privateValues.paletteIndex) {
+        // this.privateValues.paletteIndex = 908;
+        this.privateValues.paletteIndex = 2014;
+        // this.privateValues.paletteIndex = 2114;
+        //Also beautiful : 1102, 1150
+    }
+
+    if (allPalettes) {
+        this.privateValues.palette = allPalettes[this.privateValues.paletteIndex];
+    } else {
+        this.privateValues.palette = palette;
+    }
+
+    this.privateValues.colorGraph = [];
+    var currentColor = 0;
+    for (var i = 0; i < 1000; i++) {
+        var colorValues = hexToRgb(this.privateValues.palette[currentColor]);
+        var lev = sliders.levels.value;
+        lev = -90;
+        colorValues.r = constrain(map(colorValues.r, 0, 255, lev, 255), 0, 255);
+        colorValues.g = constrain(map(colorValues.g, 0, 255, lev, 255), 0, 255);
+        colorValues.b = constrain(map(colorValues.b, 0, 255, lev, 255), 0, 255);
+        currentColor++;
+        if (currentColor > 4) {
+            currentColor = 0;
+        }
+        this.privateValues.colorGraph.push(colorValues);
+    }
+};
+
+
+autumnSpiral9.runLayout = function(t) {
+    this.localValues.zoom = 1.25;
+    this.localValues.rotation = 0.025;
+};
+
+autumnSpiral9.runPositions = function(t) {
+    this.privateValues.scalar = 30;
+    this.accMult = sliders.accMult.value;
+    this.velMult = sliders.velMult.value;
+    this.sc = sliders.sc.value;
+    this.scPow = sliders.scPow.value;
+    this.privateValues.shape = shape;
+
+    this.superformula = {
+        n1: map(abs(sin(t / (sliders.sc.value * pow(10, sliders.scPow.value)))), 0, 1, 0.15, 2),
+        n2: sliders.n2.value,
+        n3: 1,
+        a: 1,
+        b: 1,
+        m: sliders.m.value
+    };
+
+    //Taken from spiderSpiral
+    // if (!this.privateValues.spiral) {
+    //     this.privateValues.spiral = {
+    //         startingAngle: 2,
+    //         angle: 2,
+    //         speed: 0.05 / 360 * Math.PI * 2 /  50,
+    //         hyp: 0.1
+    //     };
+    // }
+
+    if (!this.privateValues.spiral) {
+        this.privateValues.spiral = {
+            startingAngle: 0.986,
+            angle: 0,
+            speed: 0.05 / 360 * Math.PI * 0.25,
+            hyp: 0.1
+        };
+    }
+    // console.log(this.privateValues.spiral.angle);
+    var spiralVal = this.privateValues.spiral;
+    this.privateValues.spiral.angle = spiralVal.startingAngle + t * spiralVal.speed * -1;
+    // this.privateValues.spiral.angle = map(sin(t / 20), -1, 1, 0.950, 0.895);
+
+    this.privateValues.posGraph = octogonalSpiralAutumn(this, t);
+
+};
+
+autumnSpiral9.runSizes = function(t) {
+    var pos = this.privateValues.posGraph;
+    this.localValues.sizes = [];
+    for (var i = 0; i < 1000; i++) {
+        var currentPos = dist(0, 0, pos[i].x, pos[i].y);
+        var s = 20 + map(currentPos, 0, 1000, 0, 200);
+        // s = map(i, 0, 1000, 20, 60);
+        // s = 20;
+        this.localValues.sizes.push(s);
+    }
+};
+
+
+//-----------------------------------------Version 0.05---------------------------------------------//
+var autumnSpiral10 = new Scene();
+
+// spiderSpiral.runBackground = userControlledSpiral.runBackground;
+autumnSpiral10.runBackground = function(t) {
+    var step = map(abs(sin(t / 20)), 0, 1, 0.1, 0.3);
+    this.localValues.gradient = [{
+        offset: 0,
+        r: 205,
+        g: 150,
+        b: 155
+    }, {
+        offset: 0.2,
+        r: 255,
+        g: 120,
+        b: 100
+    }, {
+        offset: 0.8,
+        r: 0,
+        g: 0,
+        b: 280
+    }];
+};
+// autumnSpiral.privateValues.paletteIndex = 1244;
+// autumnSpiral2.privateValues.paletteIndex = 1304;
+// autumnSpiral2.privateValues.paletteIndex = 1398;
+// autumnSpiral3.privateValues.paletteIndex = 1472;
+// autumnSpiral3.privateValues.paletteIndex = 2586;
+
+autumnSpiral10.runColors = function(t) {
+    if (!this.privateValues.paletteIndex) {
+        // this.privateValues.paletteIndex = 908;
+        // this.privateValues.paletteIndex = 2014;
+        // this.privateValues.paletteIndex = 2114;
+        // this.privateValues.paletteIndex = 2128;
+        this.privateValues.paletteIndex = 2224;
+        //Also beautiful : 1102, 1150
+    }
+
+    if (allPalettes) {
+        this.privateValues.palette = allPalettes[this.privateValues.paletteIndex];
+    } else {
+        this.privateValues.palette = palette;
+    }
+
+    this.privateValues.colorGraph = [];
+    var currentColor = 0;
+    for (var i = 0; i < 1000; i++) {
+        var colorValues = hexToRgb(this.privateValues.palette[currentColor]);
+        var lev = sliders.levels.value;
+        lev = -90;
+        colorValues.r = constrain(map(colorValues.r, 0, 255, lev, 255), 0, 255);
+        colorValues.g = constrain(map(colorValues.g, 0, 255, lev, 255), 0, 255);
+        colorValues.b = constrain(map(colorValues.b, 0, 255, lev, 255), 0, 255);
+        currentColor++;
+        if (currentColor > 4) {
+            currentColor = 0;
+        }
+        this.privateValues.colorGraph.push(colorValues);
+    }
+};
+
+
+autumnSpiral10.runLayout = function(t) {
+    this.localValues.zoom = sliders.zoom.value;
+    this.localValues.rotation = 0.025;
+};
+
+autumnSpiral10.runPositions = function(t) {
+    this.privateValues.scalar = 30;
+    this.accMult = sliders.accMult.value;
+    this.velMult = sliders.velMult.value;
+    this.sc = sliders.sc.value;
+    this.scPow = sliders.scPow.value;
+    this.privateValues.shape = shape;
+
+    this.superformula = {
+        n1: map(abs(sin(t / (sliders.sc.value * pow(10, sliders.scPow.value)))), 0, 1, 0.15, 2),
+        n2: sliders.n2.value,
+        n3: 1,
+        a: 1,
+        b: 1,
+        m: sliders.m.value
+    };
+
+    //Taken from spiderSpiral
+    // if (!this.privateValues.spiral) {
+    //     this.privateValues.spiral = {
+    //         startingAngle: 2,
+    //         angle: 2,
+    //         speed: 0.05 / 360 * Math.PI * 2 /  50,
+    //         hyp: 0.1
+    //     };
+    // }
+
+    if (!this.privateValues.spiral) {
+        this.privateValues.spiral = {
+            startingAngle: 0.986,
+            angle: 0,
+            speed: 0.05 / 360 * Math.PI * 0.25,
+            hyp: 0.1
+        };
+    }
+    // console.log(this.privateValues.spiral.angle);
+    var spiralVal = this.privateValues.spiral;
+    this.privateValues.spiral.angle = spiralVal.startingAngle + t * spiralVal.speed * -1;
+    // this.privateValues.spiral.angle = map(sin(t / 20), -1, 1, 0.950, 0.895);
+
+    // this.privateValues.posGraph = octogonalSpiralAutumn2(this, t);
+    // this.privateValues.posGraph = octogonalSpiralAutumn3(this, t);
+    // this.privateValues.posGraph = octogonalSpiralAutumn4(this, t);
+    // this.privateValues.posGraph = octogonalSpiralAutumn5(this, t);
+    // this.privateValues.posGraph = octogonalSpiralAutumn6(this, t);
+    // this.privateValues.posGraph = octogonalSpiralAutumn7(this, t);
+    this.privateValues.posGraph = octogonalSpiralAutumn8(this, t);
+
+};
+
+autumnSpiral10.runSizes = function(t) {
+    var pos = this.privateValues.posGraph;
+    this.localValues.sizes = [];
+    for (var i = 0; i < 1000; i++) {
+        var currentPos = dist(0, 0, pos[i].x, pos[i].y);
+        var s = 10 + map(currentPos, 0, 1000, 0, 150);
+        // s = map(i, 0, 1000, 20, 60);
+        // s = 20;
+        this.localValues.sizes.push(s);
+    }
+};

@@ -42,7 +42,7 @@ function draw() {
 
     if (userControl) {
         // userControlled.run();
-        autumnSpiral6.mix(0, spiderSpiral, 0, sliders.lerpy.value);
+        autumnSpiral10.mix(0, userControlledParticle, 0, sliders.lerpy.value);
     } else {
         runXSheet(xSheet);
     }
@@ -111,7 +111,7 @@ function keyPressed() {
     if (key == 'r' || key == 'R') {
         // userControlledSpiral.privateValues.paletteIndex += 2;
         // userControlledParticle.privateValues.paletteIndex += 2;
-        autumnSpiral8.privateValues.paletteIndex += 2;
+        autumnSpiral10.privateValues.paletteIndex += 2;
     }
     if (key == 'e' || key == 'E') {
         // userControlledSpiral.privateValues.paletteIndex += 2;
