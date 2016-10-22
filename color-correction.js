@@ -3,9 +3,6 @@
 
 //Levels.
 
-//My first version : 
-// colorValues.r = constrain(map(colorValues.r, 0, 255, lev, 255), 0, 255);
-
 // About levels : output white means to turn anything above it to 255, 
 //anything under output black becomes 0, easy enough. input is harder, 
 //and you don't mention a mid tone balancer. 
@@ -13,21 +10,50 @@
 // then for each pixel, if under 128, multiply the pixel level by the scale. 
 // if over 128, multiply by 1/scale. finally, min(255,p) and max(0, p) for safety.
 
+//My first version : 
+// colorValues.r = constrain(map(colorValues.r, 0, 255, lev, 255), 0, 255);
+
+//colorValues.r = map(colorValues.r, 0, 255, lev, 255);
+//colorValues.r = constrain(colorValues.r, 0, 255);
 
 //  V              V                V
 //  0-------------128-------------255
-//  
+//  dark = 0,     mid = 0;        light = 0;
 
+//midPoint at zero means that the middle is the middle between dark and light.
+//midPoint at another number means the middle is shifted up or down by midPoint.
+//What does it mean to shift the middle of the range??
 // Input : r, g, b
+r = map(input, 0, 255, 0 + dark, 255 + light);
+mid = (dark + light) / 2 + mid;
+
+
+// if mid = 50...
+if (r < )
+
+// Finding the middle between two numbers.
+// ( x1 + x2 ) / 2
+// (-50 + 150) / 2 = 50
+
+    r = constrain(colorValues.r, 0, 255);
+
 //If the color is below midPoint, map it from dark to midPoint.
 //Else, if the color is greater or equal to midPoint, map it from midPoint to light.
 
+// var colorValues = hexToRgb(this.privateValues.palette[currentColor]);
+// colorValues = adjustLevels(-50, 0, 0, adjustLevels);
+
 
 function adjustLevels(dark, mid, light, values) {
-    //For every argument starting at arguments[3], do this...
-    for (var i = 3; i < arguments.length; i++) {
+    var r, g, b;
 
-    }
+
+
+
+    //For every argument starting at arguments[3], do this...
+    // for (var i = 3; i < arguments.length; i++) {
+
+    // }
 
 }
 
