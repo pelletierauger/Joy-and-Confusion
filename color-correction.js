@@ -31,11 +31,24 @@ mid = (dark + light) / 2 + mid;
 // if mid = 50...
 if (r < )
 
+//  V              V                V
+//  0-------------128-------------255
+
+    mid = 50;
+
+//  V                    V          V
+//  0--------------------178------255
+
+// midPoint Shifting Algorithm : what is between 0 and 128 must be mapped between 0 and 178,
+// what is between 129 and 255 must be mapped between 179 and 255.
+
+
+
 // Finding the middle between two numbers.
 // ( x1 + x2 ) / 2
 // (-50 + 150) / 2 = 50
 
-    r = constrain(colorValues.r, 0, 255);
+r = constrain(colorValues.r, 0, 255);
 
 //If the color is below midPoint, map it from dark to midPoint.
 //Else, if the color is greater or equal to midPoint, map it from midPoint to light.
