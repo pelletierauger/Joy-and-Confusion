@@ -2697,11 +2697,14 @@ autumnSpiral10.runPositions = function(t) {
 
     // this.privateValues.posGraph = octogonalSpiralAutumn2(this, t);
     // this.privateValues.posGraph = octogonalSpiralAutumn3(this, t);
-    // this.privateValues.posGraph = octogonalSpiralAutumn4(this, t);
+    this.privateValues.posGraph = octogonalSpiralAutumn4(this, t);
     // this.privateValues.posGraph = octogonalSpiralAutumn5(this, t);
     // this.privateValues.posGraph = octogonalSpiralAutumn6(this, t);
     // this.privateValues.posGraph = octogonalSpiralAutumn7(this, t);
-    this.privateValues.posGraph = octogonalSpiralAutumn8(this, t);
+    // this.privateValues.posGraph = octogonalSpiralAutumn8(this, t);
+
+    //Beautiful vibration :
+    // whiteAcc : 0.163, yellRot:0.07, n2:0, sc:65, scPow:7, m:0, lerp:0.02,parScal:8.772
 
 };
 
