@@ -20,12 +20,19 @@ function setup() {
     canvas = createCanvas(windowWidth, windowWidth * 9 / 16);
     ctx = canvas.drawingContext;
     frameRate(20);
-    createInfoDiv();
-    setupInfoDiv();
+    createInterface();
+    setupInterface();
+    // createInfoDiv();
+    // setupInfoDiv();
     if (!looping) {
         noLoop();
     }
     noStroke();
+}
+
+function setupInterface() {
+    folders.spiral = new Folder("Spirals", true);
+    sliders.zoom = new Slider("Canvas scale", 0, 20, 1, 0.01, folders.spiral.div);
 }
 
 function playSong() {
@@ -38,7 +45,7 @@ function draw() {
         noLoop();
     };
     translate(width / 2, height / 2);
-    drawCount = sliders.sheetSlider.value;
+    drawCount = sliders.timeline.value;
 
     if (userControl) {
         // userControlled.run();
@@ -69,7 +76,7 @@ function draw() {
         // song.jump(drawCount / 24);
         repositionSong = false;
     }
-    sliders.sheetSlider.set(drawCount);
+    sliders.timeline.set(drawCount);
     info1.html(queryXSheet(xSheet));
 }
 
