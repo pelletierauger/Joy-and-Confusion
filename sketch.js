@@ -21,7 +21,7 @@ function setup() {
     ctx = canvas.drawingContext;
     frameRate(20);
     createInterface();
-    setupInterface();
+    configureInterface();
     // createInfoDiv();
     // setupInfoDiv();
     if (!looping) {
@@ -30,7 +30,7 @@ function setup() {
     noStroke();
 }
 
-function setupInterface() {
+function configureInterface() {
     folders.spiral = new Folder("Spirals", true);
     sliders.zoom = new Slider("Canvas scale", 0, 20, 1, 0.01, folders.spiral.div);
 }
