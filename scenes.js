@@ -2983,9 +2983,7 @@ var autumnSpiral13 = new Scene();
 
 // spiderSpiral.runBackground = userControlledSpiral.runBackground;
 autumnSpiral13.runBackground = function(t) {
-    // console.log("How many times does this run before it fails?");
     var step = map(abs(sin(t / 20)), 0, 1, 0.1, 0.3);
-    // console.log(this.localValues.gradient);
     this.localValues.gradient = [{
         offset: 0,
         r: 205,
@@ -3002,22 +3000,10 @@ autumnSpiral13.runBackground = function(t) {
         g: 0,
         b: 180
     }];
-    // console.log(this.localValues.gradient);
-    // // var moot = this.localValues.gradient;
-    // this.localValues.gradient[2] = adjustLevels(1, 0, 0, this.localValues.gradient[2]);
-    // this.localValues.gradient = gradient;
-
     for (var i = 0; i < this.localValues.gradient.length; i++) {
-        // console.log("Avant");
-        // console.log(this.localValues.gradient[i]);
         this.localValues.gradient[i] = adjustLevels(sliders.darkBg.value, sliders.midBg.value, sliders.lightBg.value, this.localValues.gradient[i]);
-        this.localValues.gradient[i] = adjustLevels(0, 0, 0, this.localValues.gradient[i]);
-
-        // console.log("Après");
-        // console.log(this.localValues.gradient[i]);
         this.localValues.gradient[i] = adjustHsv(sliders.hueBg.value, sliders.satBg.value, sliders.brightnessBg.value, this.localValues.gradient[i]);
     }
-    // console.log(this.localValues.gradient);
 };
 // autumnSpiral.privateValues.paletteIndex = 1244;
 // autumnSpiral2.privateValues.paletteIndex = 1304;
