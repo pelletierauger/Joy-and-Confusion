@@ -3000,6 +3000,10 @@ autumnSpiral13.runBackground = function(t) {
         g: 0,
         b: 180
     }];
+    for (var i = 0; i < this.localValues.gradient.length; i++) {
+        this.localValues.gradient[i] = adjustLevels(sliders.darkBg.value, sliders.midBg.value, sliders.lightBg.value, this.localValues.gradient[i]);
+        this.localValues.gradient[i] = adjustHsv(sliders.hueBg.value, sliders.satBg.value, sliders.brightnessBg.value, this.localValues.gradient[i]);
+    }
 };
 // autumnSpiral.privateValues.paletteIndex = 1244;
 // autumnSpiral2.privateValues.paletteIndex = 1304;
@@ -3028,11 +3032,8 @@ autumnSpiral13.runColors = function(t) {
     var currentColor = 0;
     for (var i = 0; i < 1000; i++) {
         var colorValues = hexToRgb(this.privateValues.palette[currentColor]);
-        var lev = sliders.levels.value;
-        lev = -120;
-        colorValues.r = constrain(map(colorValues.r, 0, 255, lev, 255), 0, 255);
-        colorValues.g = constrain(map(colorValues.g, 0, 255, lev, 255), 0, 255);
-        colorValues.b = constrain(map(colorValues.b, 0, 255, lev, 255), 0, 255);
+        colorValues = adjustLevels(sliders.dark.value, sliders.mid.value, sliders.light.value, colorValues);
+        colorValues = adjustHsv(sliders.hue.value, sliders.sat.value, sliders.brightness.value, colorValues);
         currentColor++;
         if (currentColor > 4) {
             currentColor = 0;
