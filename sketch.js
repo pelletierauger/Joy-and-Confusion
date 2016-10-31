@@ -34,7 +34,7 @@ function setup() {
 
 function configureInterface() {
 
-    folders.particles = new Folder("Particles", true);
+    folders.particles = new Folder("Particles", false);
     buttons.resetW = new Button("Reset white dot position and velocity", folders.particles.div, function() {});
     // resetW = createButton('Reset white dot position and velocity');
     // resetW.parent(infoDiv);
@@ -61,9 +61,10 @@ function configureInterface() {
     sliders.speed = new Slider("Yellow Dot Rotation rate", 0, 1, 0.29, 0.01, folders.particles.div);
 
 
-    folders.spiral = new Folder("Spirals", true);
+    folders.spiral = new Folder("Spirals", false);
     sliders.zoom = new Slider("Canvas scale", 0, 20, 1, 0.01, folders.spiral.div);
-    folders.superformula = new Folder("Superformula", true);
+
+    folders.superformula = new Folder("Superformula", false);
     sliders.n2 = new Slider("n2", 0, 10, 1, 0.1, folders.superformula.div);
     sliders.sc = new Slider("sc", 0, 100, 20, 1, folders.superformula.div);
     sliders.scPow = new Slider("scPow", -10, 10, 0, 1, folders.superformula.div);
@@ -74,9 +75,23 @@ function configureInterface() {
     sliders.spiralScalar = new Slider("Spiral scalar", 1, 200, 1, 0.01, folders.spiral.div);
     sliders.levels = new Slider("Levels", -200, 100, 0, 1, folders.spiral.div);
 
-    sliders.timeline.max = sumSheet;
-    sliders.timeline.min = 0;
-    sliders.timeline.start = 0;
+    folders.cols = new Folder("Color adjustments, foreground", true);
+    sliders.dark = new Slider("Dark", -100, 100, 0, 1, folders.cols.div);
+    sliders.mid = new Slider("Mid", -100, 100, 0, 1, folders.cols.div);
+    sliders.light = new Slider("Light", -100, 100, 0, 1, folders.cols.div);
+    sliders.hue = new Slider("Hue", -180, 180, 0, 1, folders.cols.div);
+    sliders.sat = new Slider("Saturation", -100, 100, 0, 1, folders.cols.div);
+    sliders.brightness = new Slider("Brightness", -100, 100, 0, 1, folders.cols.div);
+
+    folders.colsBg = new Folder("Color adjustments, background", true);
+    sliders.darkBg = new Slider("Dark", -100, 100, 0, 1, folders.colsBg.div);
+    sliders.midBg = new Slider("Mid", -100, 100, 0, 1, folders.colsBg.div);
+    sliders.lightBg = new Slider("Light", -100, 100, 0, 1, folders.colsBg.div);
+    sliders.hueBg = new Slider("Hue", -180, 180, 0, 1, folders.colsBg.div);
+    sliders.satBg = new Slider("Saturation", -100, 100, 0, 1, folders.colsBg.div);
+    sliders.brightnessBg = new Slider("Brightness", -100, 100, 0, 1, folders.colsBg.div);
+
+
     // sumSheet, drawCount
 }
 
