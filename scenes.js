@@ -3281,7 +3281,7 @@ autumnSpiral15.runColors = function(t) {
         // this.privateValues.paletteIndex = 2114;
         // this.privateValues.paletteIndex = 2128;
         // this.privateValues.paletteIndex = 3160;
-        this.privateValues.paletteIndex = 340;
+        this.privateValues.paletteIndex = 342;
         //Also beautiful : 1102, 1150
     }
 
@@ -3353,7 +3353,12 @@ autumnSpiral15.runPositions = function(t) {
     // this.privateValues.spiral.angle = map(sin(t / 20), -1, 1, 0.950, 0.895);
 
 
-    this.privateValues.posGraph = mysterySpiral(this, t);
+    // this.privateValues.posGraph = mysterySpiral(this, t);
+    // this.privateValues.posGraph = mysterySpiral(this, t);
+    // this.privateValues.posGraph = mysterySpiral6(this, t);
+    this.privateValues.posGraph = mysterySpiral7(this, t);
+
+
     //Beautiful vibration :
     // whiteAcc : 0.163, yellRot:0.07, n2:0, sc:65, scPow:7, m:0, lerp:0.02,parScal:8.772
 
@@ -3364,7 +3369,7 @@ autumnSpiral15.runSizes = function(t) {
     this.localValues.sizes = [];
     for (var i = 0; i < 1000; i++) {
         var currentPos = dist(0, 0, pos[i].x, pos[i].y);
-        var s = 30 + map(currentPos, 0, 1000, 0, 150);
+        var s = 10 + map(currentPos, 0, 1000, 0, 150);
         // s = map(i, 0, 1000, 20, 200);
         // s = 10;
         this.localValues.sizes.push(s);

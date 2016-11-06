@@ -969,14 +969,142 @@ function mysterySpiral(controller, t) {
     var hyp = controller.privateValues.spiral.hyp || 0.2;
     var x = 0;
     var y = 0;
-    var m = 1.396498;
+    var m = sin(t);
     m = 0.486509;
     for (var j = 0; j < 1000; j++) {
         var t = angleTrig + angleTrig * j;
         var vec = createVector(x * scalar, y * scalar);
         graph.push(vec);
-        x += cos(t) * cos(t * 2) * cos(t * 2) * sin(t * m) * (hyp + (j / 50));
-        y += sin(t) * cos(t * 2) * cos(t * 2) * sin(t * m) * (hyp + (j / 50));
+        x += cos(t) * sin(t * m) * (hyp + (j / 50));
+        y += sin(t) * sin(t * m) * (hyp + (j / 50));
+    }
+    return graph;
+}
+
+function mysterySpiral2(controller, t) {
+    var graph = [];
+    var scalar = controller.privateValues.scalar;
+    var vals = controller.privateValues.spiral;
+    var angleTrig = vals.angle + 0.9;
+    var hyp = controller.privateValues.spiral.hyp || 0.2;
+    var x = 0;
+    var y = 0;
+    var m = sin(t / 100);
+    m = 0.486509;
+    for (var j = 0; j < 1000; j++) {
+        var t = angleTrig + angleTrig * j;
+        var vec = createVector(x * scalar, y * scalar);
+        graph.push(vec);
+        x += cos(t / 2) * sin(t * m / 2) * (hyp + (j / 50));
+        y += sin(t / 2) * sin(t * m / 2) * (hyp + (j / 50));
+    }
+    return graph;
+}
+
+function mysterySpiral3(controller, t) {
+    var graph = [];
+    var scalar = controller.privateValues.scalar;
+    var vals = controller.privateValues.spiral;
+    var angleTrig = vals.angle + 0.9;
+    var hyp = controller.privateValues.spiral.hyp || 0.2;
+    var x = 0;
+    var y = 0;
+    var m = sin(t / 10000) / 10;
+    // var n = sin(t / 10000) / 10;
+    // m = 0.486509;
+    for (var j = 0; j < 1000; j++) {
+        var t = angleTrig + angleTrig * j;
+        var vec = createVector(x * scalar, y * scalar);
+        graph.push(vec);
+        x += cos(t / 2) * sin(t * m / 2) * (hyp + (j / 50));
+        y += sin(t / 2) * sin(t * m / 2) * (hyp + (j / 50));
+    }
+    return graph;
+}
+
+
+function mysterySpiral4(controller, t) {
+    var graph = [];
+    var scalar = controller.privateValues.scalar;
+    var vals = controller.privateValues.spiral;
+    var angleTrig = vals.angle + 0.9;
+    var hyp = controller.privateValues.spiral.hyp || 0.2;
+    var x = 0;
+    var y = 0;
+    var m = sin(t / 1000) / 100;
+    var n = cos(t / 1000) / 100;
+    // var n = sin(t / 10000) / 10;
+    // m = 0.486509;
+    for (var j = 0; j < 1000; j++) {
+        var t = angleTrig + angleTrig * j;
+        var vec = createVector(x * scalar, y * scalar);
+        graph.push(vec);
+        x += cos(t) * sin(t * m / 2) * (hyp + (j / 50));
+        y += sin(t) * sin(t * n / 2) * (hyp + (j / 50));
+    }
+    return graph;
+}
+
+function mysterySpiral5(controller, t) {
+    var graph = [];
+    var scalar = controller.privateValues.scalar;
+    var vals = controller.privateValues.spiral;
+    var angleTrig = vals.angle + 0.9;
+    var hyp = controller.privateValues.spiral.hyp || 0.2;
+    var x = 0;
+    var y = 0;
+    var m = sin(t / 1000) / 100;
+    var n = cos(t / 1000) / 100;
+    // var n = sin(t / 10000) / 10;
+    // m = 0.486509;
+    for (var j = 0; j < 1000; j++) {
+        var t = angleTrig + angleTrig * j;
+        var vec = createVector(x * scalar, y * scalar);
+        graph.push(vec);
+        x += cos(t / 2) * sin(t * m / 2) * (hyp + (j / 50));
+        y += sin(t / 2) * sin(t * n / 2) * (hyp + (j / 50));
+    }
+    return graph;
+}
+
+
+function mysterySpiral6(controller, t) {
+    var graph = [];
+    var scalar = controller.privateValues.scalar;
+    var vals = controller.privateValues.spiral;
+    var angleTrig = vals.angle + 0.9;
+    var hyp = controller.privateValues.spiral.hyp || 0.2;
+    var x = 0;
+    var y = 0;
+    var m = sin(t / 10000) / 100;
+    var n = cos(t / 10000) / 100;
+    // var n = sin(t / 10000) / 10;
+    // m = 0.486509;
+    for (var j = 0; j < 1000; j++) {
+        var t = angleTrig + angleTrig * j;
+        var vec = createVector(x * scalar, y * scalar);
+        graph.push(vec);
+        x += cos(t / 4) * sin(t * m / 4) * (hyp + (j / 50));
+        y += sin(t / 4) * sin(t * n / 4) * (hyp + (j / 50));
+    }
+    return graph;
+}
+
+function mysterySpiral7(controller, t) {
+    var graph = [];
+    var scalar = controller.privateValues.scalar;
+    var vals = controller.privateValues.spiral;
+    var angleTrig = vals.angle;
+    var hyp = controller.privateValues.spiral.hyp || 0.2;
+    var x = 0;
+    var y = 0;
+    var n = sin(frameCount / 10);
+    for (var j = 0; j < 1000; j++) {
+        var t = angleTrig + angleTrig * j;
+        var vec = createVector(x * scalar, y * scalar);
+        graph.push(vec);
+        x += cos(t) * (hyp + (j / 5));
+        y += sin(sqrt(t)) * sin(t) * (hyp + (j / 5));
     }
     return graph;
 }

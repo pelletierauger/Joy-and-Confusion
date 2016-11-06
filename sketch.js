@@ -91,13 +91,17 @@ function configureInterface() {
     sliders.satBg = new Slider("Saturation", -100, 100, 0, 1, folders.colsBg.div);
     sliders.brightnessBg = new Slider("Brightness", -100, 100, 0, 1, folders.colsBg.div);
 
-
-    // sumSheet, drawCount
+    sliders.timeline.slider.input(function() {
+        if (!userControl) {
+            repositionSong = true;
+        }
+    });
 }
 
 function playSong() {
+    song.rate(20 / 24);
+    console.log("Song rate!");
     // song.play();
-    song.rate(20 / 24)
 }
 
 function draw() {
@@ -109,7 +113,7 @@ function draw() {
 
     if (userControl) {
         // userControlled.run();
-        autumnSpiral15.mix(0, userControlledParticle, 0, sliders.lerpy.value);
+        autumnSpiral13.mix(0, userControlledParticle, 0, sliders.lerpy.value);
     } else {
         runXSheet(xSheet);
     }
@@ -132,8 +136,9 @@ function draw() {
     //     // console.log("songTime : " + (song.currentTime() * 24));
     // }
     drawCount++;
-    if (repositionSong) {
-        // song.jump(drawCount / 24);
+    if (!userControl && repositionSong) {
+        song.jump(drawCount / 24);
+        song.rate(20 / 24);
         repositionSong = false;
     }
     sliders.timeline.set(drawCount);
@@ -165,11 +170,16 @@ function keyPressed() {
         if (looping) {
             noLoop();
             looping = false;
-            // song.pause();
+            if (!userControl) {
+                song.pause();
+            }
         } else {
             loop();
             looping = true;
-            // song.play();
+            if (!userControl) {
+                song.play();
+                song.rate(20 / 24);
+            }
         }
     }
     if (key == 'y' || key == 'Y') {
