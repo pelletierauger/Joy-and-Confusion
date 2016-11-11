@@ -17,13 +17,68 @@ var xSheet = {
         }
     },
     scene3: {
-        d: 170,
+        d: 9,
         f: function(sum) {
             //The getSum function is used to get the sum another scene within the sheet.
             //Calling the getSum on the first scene of the x-sheet should be pointless.
             // var rN = getSum(xSheet, xSheet.scene2);
             var coFade = cosineFadeSynchronous(drawCount, sum, 9);
             coFade = map(coFade, 0, 1, 0, 0.45);
+            secondSpiral.mix(0, userControlledParticle, 0, coFade);
+        }
+    },
+    scene4: {
+        d: 9,
+        f: function(sum) {
+            //The getSum function is used to get the sum another scene within the sheet.
+            //Calling the getSum on the first scene of the x-sheet should be pointless.
+            // var rN = getSum(xSheet, xSheet.scene2);
+            var coFade = cosineFadeSynchronous(drawCount, sum, 9);
+            coFade = map(coFade, 0, 1, 0, 0.125);
+            secondSpiral.mix(0, userControlledParticle, 0, coFade);
+        }
+    },
+    scene4b: {
+        d: 9,
+        f: function(sum) {
+            //The getSum function is used to get the sum another scene within the sheet.
+            //Calling the getSum on the first scene of the x-sheet should be pointless.
+            // var rN = getSum(xSheet, xSheet.scene2);
+            var coFade = cosineFadeSynchronous(drawCount, sum, 9);
+            coFade = map(coFade, 0, 1, 0, 0.0225);
+            secondSpiral.mix(0, userControlledParticle, 0, coFade);
+        }
+    },
+    scene4c: {
+        d: 9,
+        f: function(sum) {
+            //The getSum function is used to get the sum another scene within the sheet.
+            //Calling the getSum on the first scene of the x-sheet should be pointless.
+            // var rN = getSum(xSheet, xSheet.scene2);
+            var coFade = cosineFadeSynchronous(drawCount, sum, 9);
+            coFade = map(coFade, 0, 1, 0, 0.0125);
+            secondSpiral.mix(0, userControlledParticle, 0, coFade);
+        }
+    },
+    scene4d: {
+        d: 9,
+        f: function(sum) {
+            //The getSum function is used to get the sum another scene within the sheet.
+            //Calling the getSum on the first scene of the x-sheet should be pointless.
+            // var rN = getSum(xSheet, xSheet.scene2);
+            var coFade = cosineFadeSynchronous(drawCount, sum, 9);
+            coFade = map(coFade, 0, 1, 0, 0.00525);
+            secondSpiral.mix(0, userControlledParticle, 0, coFade);
+        }
+    },
+    scene4e: {
+        d: 125,
+        f: function(sum) {
+            //The getSum function is used to get the sum another scene within the sheet.
+            //Calling the getSum on the first scene of the x-sheet should be pointless.
+            // var rN = getSum(xSheet, xSheet.scene2);
+            var coFade = cosineFadeSynchronous(drawCount, sum, 9);
+            coFade = map(coFade, 0, 1, 0, 0.00525);
             secondSpiral.mix(0, userControlledParticle, 0, coFade);
         }
     },
