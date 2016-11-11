@@ -193,6 +193,14 @@ function cosineFade(sum, dur) {
     return coFade;
 }
 
+function cosineFadeSynchronous(t, sum, dur) {
+    var fade = map(t, sum, sum + dur, 1, 0);
+    var fadeCons = constrain(fade, 0, 1);
+    var fadeSmooth = fadeCons * PI;
+    var coFade = map(cos(fadeSmooth), 1, -1, 0, 1);
+    return coFade;
+}
+
 function cosineFade2(t, dur) {
     var fade = map(t, sum, sum + dur, 1, 0);
     var fadeCons = constrain(fade, 0, 1);

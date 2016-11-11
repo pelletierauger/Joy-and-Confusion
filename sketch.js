@@ -4,7 +4,7 @@ var x, y, t, w;
 var drawCount = 0;
 var looping = false;
 var showPanel = true;
-var userControl = true;
+var userControl = false;
 var exporting = false;
 var fileName = "joy-and-confusion-0003";
 var shape;
@@ -79,7 +79,7 @@ function configureInterface() {
     sliders.dark = new Slider("Dark", -100, 100, 0, 1, folders.cols.div);
     sliders.mid = new Slider("Mid", -100, 100, 0, 1, folders.cols.div);
     sliders.light = new Slider("Light", -100, 100, 0, 1, folders.cols.div);
-    sliders.hue = new Slider("Hue", -180, 180, 0, 1, folders.cols.div);
+    sliders.hue = new Slider("Hue", -360, 360, 0, 1, folders.cols.div);
     sliders.sat = new Slider("Saturation", -100, 100, 0, 1, folders.cols.div);
     sliders.brightness = new Slider("Brightness", -100, 100, 0, 1, folders.cols.div);
 
@@ -87,7 +87,7 @@ function configureInterface() {
     sliders.darkBg = new Slider("Dark", -100, 100, 0, 1, folders.colsBg.div);
     sliders.midBg = new Slider("Mid", -100, 100, 0, 1, folders.colsBg.div);
     sliders.lightBg = new Slider("Light", -100, 100, 0, 1, folders.colsBg.div);
-    sliders.hueBg = new Slider("Hue", -180, 180, 0, 1, folders.colsBg.div);
+    sliders.hueBg = new Slider("Hue", -360, 360, 0, 1, folders.colsBg.div);
     sliders.satBg = new Slider("Saturation", -100, 100, 0, 1, folders.colsBg.div);
     sliders.brightnessBg = new Slider("Brightness", -100, 100, 0, 1, folders.colsBg.div);
 

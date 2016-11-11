@@ -393,6 +393,12 @@ var firstSpiral = new Scene();
 firstSpiral.privateValues.paletteIndex = 3;
 
 firstSpiral.runBackground = function(t) {
+    var fadeSize = cosineFadeSynchronous(t, 0, 50);
+    var curSize = map(fadeSize, 0, 1, 1, 0);
+    curSize = constrain(curSize, 0, 1);
+    var fadeSize2 = cosineFadeSynchronous(t, 0, 20);
+    var curSize2 = map(fadeSize2, 0, 1, 1, 0);
+    curSize2 = constrain(curSize2, 0, 1);
     var step = map(abs(sin(t / 100)), 0, 1, 0.15, 0.2);
     this.localValues.gradient = [{
         offset: 0,
@@ -400,16 +406,20 @@ firstSpiral.runBackground = function(t) {
         g: 150,
         b: 55
     }, {
-        offset: step,
+        offset: step * curSize,
         r: 155,
         g: 0,
         b: 0
     }, {
-        offset: 0.8,
+        offset: 0.8 * curSize2,
         r: 0,
         g: 0,
         b: 0
     }];
+    for (var i = 0; i < this.localValues.gradient.length; i++) {
+        this.localValues.gradient[i] = adjustLevels(sliders.darkBg.value, sliders.midBg.value, sliders.lightBg.value, this.localValues.gradient[i]);
+        this.localValues.gradient[i] = adjustHsv(sliders.hueBg.value, sliders.satBg.value, sliders.brightnessBg.value, this.localValues.gradient[i]);
+    }
 };
 
 firstSpiral.runLayout = function(t) {
@@ -442,11 +452,45 @@ firstSpiral.runPositions = function(t) {
 
 firstSpiral.runSizes = function(t) {
     this.localValues.sizes = [];
+    var ss = map(t, 0, 30, 0, 1);
+    var fadeSize = cosineFadeSynchronous(t, 0, 50);
+    var curSize = map(fadeSize, 0, 1, 1, 0);
+    curSize = constrain(curSize, 0, 1);
+    ss = constrain(ss, 0, 1);
     for (var i = 0; i < 1000; i++) {
-        var s = 200;
+        var s = 200 * curSize;
         this.localValues.sizes.push(s);
     }
 };
+
+firstSpiral.runColors = function(t) {
+    if (!this.privateValues.paletteIndex) {
+        this.privateValues.paletteIndex = 1000;
+    }
+
+    if (allPalettes) {
+        this.privateValues.palette = allPalettes[this.privateValues.paletteIndex];
+    } else {
+        this.privateValues.palette = palette;
+    }
+
+    this.privateValues.colorGraph = [];
+    var currentColor = 0;
+    for (var i = 0; i < 1000; i++) {
+        var colorValues = hexToRgb(this.privateValues.palette[currentColor]);
+        colorValues = adjustLevels(sliders.dark.value, sliders.mid.value, sliders.light.value, colorValues);
+        colorValues = adjustHsv(sliders.hue.value, sliders.sat.value, sliders.brightness.value, colorValues);
+
+        currentColor++;
+        if (currentColor > 4) {
+            currentColor = 0;
+        }
+        this.privateValues.colorGraph.push(colorValues);
+    }
+};
+
+
+//-------------------------------------------------------------------------------------------------//
 
 var secondSpiral = new Scene();
 secondSpiral.privateValues.paletteIndex = 11;
