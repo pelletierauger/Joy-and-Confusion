@@ -78,7 +78,7 @@ var xSheet = {
             //Calling the getSum on the first scene of the x-sheet should be pointless.
             // var rN = getSum(xSheet, xSheet.scene2);
             var coFade = cosineFadeSynchronous(drawCount, sum, 9);
-            coFade = map(coFade, 0, 1, 0, 0.00525);
+            coFade = map(coFade, 0, 1, 0, 0.00225);
             secondSpiral.mix(0, userControlledParticle, 0, coFade);
         }
     },
