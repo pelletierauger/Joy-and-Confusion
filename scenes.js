@@ -393,7 +393,7 @@ var firstSpiral = new Scene();
 firstSpiral.privateValues.paletteIndex = 3;
 
 firstSpiral.runBackground = function(t) {
-    var fadeSize = cosineFadeSynchronous(t, 0, 50);
+    var fadeSize = cosineFadeSynchronous(t, 0, 30);
     var curSize = map(fadeSize, 0, 1, 1, 0);
     curSize = constrain(curSize, 0, 1);
     var fadeSize2 = cosineFadeSynchronous(t, 0, 20);
@@ -406,7 +406,7 @@ firstSpiral.runBackground = function(t) {
         g: 150,
         b: 55
     }, {
-        offset: step * curSize,
+        offset: 0.15 * curSize,
         r: 155,
         g: 0,
         b: 0
@@ -452,12 +452,12 @@ firstSpiral.runPositions = function(t) {
 
 firstSpiral.runSizes = function(t) {
     this.localValues.sizes = [];
-    var ss = map(t, 0, 30, 0, 1);
-    var fadeSize = cosineFadeSynchronous(t, 0, 50);
-    var curSize = map(fadeSize, 0, 1, 1, 0);
-    curSize = constrain(curSize, 0, 1);
-    ss = constrain(ss, 0, 1);
     for (var i = 0; i < 1000; i++) {
+        var sizeSpeed = map(i, 0, 5, 40, 60);
+        var ss = map(t, 0, sizeSpeed, 0, 1);
+        var fadeSize = cosineFadeSynchronous(t, 0, sizeSpeed);
+        var curSize = map(fadeSize, 0, 1, 1, 0);
+        curSize = constrain(curSize, 0, 1);
         var s = 200 * curSize;
         this.localValues.sizes.push(s);
     }
@@ -476,10 +476,18 @@ firstSpiral.runColors = function(t) {
 
     this.privateValues.colorGraph = [];
     var currentColor = 0;
+
     for (var i = 0; i < 1000; i++) {
         var colorValues = hexToRgb(this.privateValues.palette[currentColor]);
         colorValues = adjustLevels(sliders.dark.value, sliders.mid.value, sliders.light.value, colorValues);
+
+        colorValues = adjustLevels(-30, sliders.mid.value, 23, colorValues);
+
+        var hueShift = map(i, 0, 1000, 0, -180);
+        colorValues = adjustHsv(hueShift, 0, 0, colorValues);
+
         colorValues = adjustHsv(sliders.hue.value, sliders.sat.value, sliders.brightness.value, colorValues);
+
 
         currentColor++;
         if (currentColor > 4) {
@@ -527,6 +535,11 @@ secondSpiral.runColors = function(t) {
             g: lerp(colorValues1.g, colorValues2.g, lerpy),
             b: lerp(colorValues1.b, colorValues2.b, lerpy)
         };
+        colorValues = adjustLevels(-30, sliders.mid.value, 23, colorValues);
+
+        var hueShift = map(i, 0, 1000, 0, -80);
+        // colorValues = adjustHsv(hueShift, 0, 0, colorValues);
+
         currentColor++;
         if (currentColor > 4) {
             currentColor = 0;
