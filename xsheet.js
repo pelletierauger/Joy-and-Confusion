@@ -7,13 +7,24 @@ var xSheet = {
         }
     },
     scene2: {
-        d: 300,
+        d: 130,
         f: function(sum) {
             //The getSum function is used to get the sum another scene within the sheet.
             //Calling the getSum on the first scene of the x-sheet should be pointless.
             var rN = getSum(xSheet, xSheet.scene2);
             var coFade = cosineFade(sum, 50);
             secondSpiral.mix(0, firstSpiral, 0, coFade);
+        }
+    },
+    scene3: {
+        d: 170,
+        f: function(sum) {
+            //The getSum function is used to get the sum another scene within the sheet.
+            //Calling the getSum on the first scene of the x-sheet should be pointless.
+            // var rN = getSum(xSheet, xSheet.scene2);
+            var coFade = cosineFadeSynchronous(drawCount, sum, 9);
+            coFade = map(coFade, 0, 1, 0, 0.45);
+            secondSpiral.mix(0, userControlledParticle, 0, coFade);
         }
     },
     // scene3: {

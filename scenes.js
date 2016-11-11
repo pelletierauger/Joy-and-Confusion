@@ -24,7 +24,7 @@ userControlledParticle.runBackground = function(t) {
 
 userControlledParticle.runLayout = function(t) {
     this.localValues.zoom = sliders.zoom.value;
-    this.localValues.rotation = 0;
+    this.localValues.rotation = 0.01;
 };
 
 userControlledParticle.runPositions = function(t) {
@@ -420,6 +420,15 @@ firstSpiral.runBackground = function(t) {
         this.localValues.gradient[i] = adjustLevels(sliders.darkBg.value, sliders.midBg.value, sliders.lightBg.value, this.localValues.gradient[i]);
         this.localValues.gradient[i] = adjustHsv(sliders.hueBg.value, sliders.satBg.value, sliders.brightnessBg.value, this.localValues.gradient[i]);
     }
+
+    if (drawCount > 578 && drawCount < 587) {
+        for (var i = 0; i < this.localValues.gradient.length; i++) {
+            var s = sin(drawCount * 10);
+            var sMap = map(s, -1, 1, -180, 180);
+            // this.localValues.gradient[i] = adjustLevels(sliders.darkBg.value, sliders.midBg.value, sliders.lightBg.value, this.localValues.gradient[i]);
+            this.localValues.gradient[i] = adjustHsv(sMap, sliders.satBg.value, sliders.brightnessBg.value, this.localValues.gradient[i]);
+        }
+    }
 };
 
 firstSpiral.runLayout = function(t) {
@@ -436,7 +445,7 @@ firstSpiral.runPositions = function(t) {
         this.privateValues.spiral = {
             startingAngle: 0,
             angle: 0,
-            speed: 0.05 / 360 * Math.PI * 2 / 5,
+            speed: 0.05 / 360 * Math.PI * 2 / 5 * 1.1,
             hyp: 8
         };
     }
@@ -489,6 +498,18 @@ firstSpiral.runColors = function(t) {
         colorValues = adjustHsv(sliders.hue.value, sliders.sat.value, sliders.brightness.value, colorValues);
 
 
+        if (drawCount > 578 && drawCount < 587) {
+
+            var s = sin(drawCount * 10);
+            var sMap = map(s, -1, 1, 0, 380);
+            // this.localValues.gradient[i] = adjustLevels(sliders.darkBg.value, sliders.midBg.value, sliders.lightBg.value, this.localValues.gradient[i]);
+            colorValues = adjustHsv(sMap, sliders.satBg.value, sliders.brightnessBg.value, colorValues);
+        }
+
+
+
+
+
         currentColor++;
         if (currentColor > 4) {
             currentColor = 0;
@@ -505,7 +526,15 @@ secondSpiral.privateValues.paletteIndex = 11;
 secondSpiral.runBackground = firstSpiral.runBackground;
 secondSpiral.runLayout = firstSpiral.runLayout;
 secondSpiral.runPositions = firstSpiral.runPositions;
-secondSpiral.runSizes = firstSpiral.runSizes;
+// secondSpiral.runSizes = firstSpiral.runSizes;
+
+secondSpiral.runSizes = function(t) {
+    this.localValues.sizes = [];
+    for (var i = 0; i < 1000; i++) {
+        var s = 200;
+        this.localValues.sizes.push(s);
+    }
+};
 secondSpiral.runColors = function(t) {
     if (!this.privateValues.paletteIndex) {
         this.privateValues.paletteIndex = 1000;
@@ -525,10 +554,38 @@ secondSpiral.runColors = function(t) {
     }
 
     this.privateValues.colorGraph = [];
-    var currentColor = 0;
+    if (!this.privateValues.currentColor) {
+        this.privateValues.currentColor = 0;
+    }
+    if (!this.privateValues.nextColor) {
+        this.privateValues.nextColor = 3;
+    }
+    var lerpyColorOffset = map(sin(t / 10), -1, 1, 0, 1);
+    // console.log(lerpyColorOffset);
+    // if (lerpyColorOffset <= 0.007) {
+    //     // console.log("lerp lerp!! min");
+    //     // for (var i = 0; i < 1; i++) {
+    //     //     this.privateValues.nextColor++;
+    //     //     if (this.privateValues.nextColor > 4) {
+    //     //         this.privateValues.nextColor = 0;
+    //     //     }
+    //     // }
+    //     // this.privateValues.paletteIndex2++;
+    // }
+    // if (lerpyColorOffset >= 0.99) {
+    //     // console.log("lerp lerp!! max");
+    //     // for (var i = 0; i < 1; i++) {
+    //     //     this.privateValues.currentColor++;
+    //     //     if (this.privateValues.currentColor > 4) {
+    //     //         this.privateValues.currentColor = 0;
+    //     //     }
+    //     // }
+    //     // this.privateValues.paletteIndex++;
+    // }
+
     for (var i = 0; i < 1000; i++) {
-        var colorValues1 = hexToRgb(this.privateValues.palette[currentColor]);
-        var colorValues2 = hexToRgb(this.privateValues.palette2[currentColor]);
+        var colorValues1 = hexToRgb(this.privateValues.palette[this.privateValues.currentColor]);
+        var colorValues2 = hexToRgb(this.privateValues.palette2[this.privateValues.nextColor]);
         var lerpy = map(sin(t / 10), -1, 1, 0, 1);
         var colorValues = {
             r: lerp(colorValues1.r, colorValues2.r, lerpy),
@@ -540,9 +597,13 @@ secondSpiral.runColors = function(t) {
         var hueShift = map(i, 0, 1000, 0, -80);
         // colorValues = adjustHsv(hueShift, 0, 0, colorValues);
 
-        currentColor++;
-        if (currentColor > 4) {
-            currentColor = 0;
+        this.privateValues.currentColor++;
+        if (this.privateValues.currentColor > 4) {
+            this.privateValues.currentColor = 0;
+        }
+        this.privateValues.nextColor++;
+        if (this.privateValues.nextColor > 4) {
+            this.privateValues.nextColor = 0;
         }
         this.privateValues.colorGraph.push(colorValues);
     }
@@ -702,7 +763,7 @@ octoSpiral.runPositions = function(t) {
         this.privateValues.spiral = {
             startingAngle: 0,
             angle: 0,
-            speed: 0.05 / 360 * Math.PI * 2 / 10
+            speed: 0.05 / 360 * Math.PI * 2 / 10 * 1.1
         };
     }
     var spiralVal = this.privateValues.spiral;

@@ -3,8 +3,10 @@ var ctx;
 var x, y, t, w;
 var drawCount = 0;
 var looping = false;
+var showInterface = true;
 var showPanel = true;
 var userControl = false;
+var songPlay = true;
 var exporting = false;
 var fileName = "joy-and-confusion-0003";
 var shape;
@@ -22,7 +24,7 @@ function setup() {
     ctx = canvas.drawingContext;
     frameRate(20);
     sumSheet = sumXSheet(xSheet);
-    createInterface(0, sumSheet, 0);
+    createInterface(0, sumSheet, drawCount);
     configureInterface();
     // createInfoDiv();
     // setupInfoDiv();
@@ -100,7 +102,7 @@ function configureInterface() {
 
 function playSong() {
     song.rate(20 / 24);
-    console.log("Song rate!");
+    // console.log("Song rate!");
     // song.play();
 }
 
@@ -136,7 +138,7 @@ function draw() {
     //     // console.log("songTime : " + (song.currentTime() * 24));
     // }
     drawCount++;
-    if (!userControl && repositionSong) {
+    if (!userControl && repositionSong && songPlay) {
         song.jump(drawCount / 24);
         song.rate(20 / 24);
         repositionSong = false;
@@ -170,14 +172,16 @@ function keyPressed() {
         if (looping) {
             noLoop();
             looping = false;
-            if (!userControl) {
+            if (!userControl && songPlay) {
                 song.pause();
             }
         } else {
             loop();
             looping = true;
-            if (!userControl) {
+            if (!userControl && songPlay) {
+
                 song.play();
+                song.jump(drawCount / 24);
                 song.rate(20 / 24);
             }
         }
@@ -188,7 +192,7 @@ function keyPressed() {
     if (key == 'r' || key == 'R') {
         // userControlledSpiral.privateValues.paletteIndex += 2;
         // userControlledParticle.privateValues.paletteIndex += 2;
-        autumnSpiral15.privateValues.paletteIndex += 2;
+        secondSpiral.privateValues.paletteIndex += 2;
     }
     if (key == 'e' || key == 'E') {
         // userControlledSpiral.privateValues.paletteIndex += 2;
@@ -196,23 +200,56 @@ function keyPressed() {
         // userControlledSpiral.privateValues.paletteIndex += 2;
     }
     if (key == 't' || key == 'T') {
-        change_erase_color();
+        // change_erase_color();
+        secondSpiral.privateValues.paletteIndex2 += 2;
     }
     if (key == 'n' || key == 'N') {
         nb = (nb) ? false : true;
     }
 
     if (key == 'g' || key == 'G') {
-        if (showPanel) {
-            showPanel = false;
+        if (showInterface) {
+            showInterface = false;
             interface.style("display", "none");
             timeline.style("display", "none");
         } else {
-            showPanel = true;
-            interface.style("display", "block");
+            showInterface = true;
+            if (showPanel) {
+                interface.style("display", "block");
+            }
             timeline.style("display", "block");
         }
     }
+    if (key == 'h' || key == 'H') {
+        if (showPanel) {
+            showPanel = false;
+            interface.style("display", "none");
+        } else {
+            showPanel = true;
+            interface.style("display", "block");
+        }
+    }
+    if (keyCode == LEFT_ARROW) {
+        repositionXSheet(0);
+    }
+    if (key == 'p' || key == 'P') {
+        repositionXSheet(430);
+    }
+
+}
+
+function repositionXSheet(t) {
+    drawCount = t;
+    if (songPlay) {
+        repositionSong = true;
+    }
+    if (!userControl && repositionSong && songPlay) {
+        song.jump(drawCount / 24);
+        song.rate(20 / 24);
+        repositionSong = false;
+    }
+    sliders.timeline.set(drawCount);
+    sliders.timeline.paragraph.html(queryXSheet(xSheet) + ", drawCount : " + drawCount);
 }
 
 function frameExport() {
