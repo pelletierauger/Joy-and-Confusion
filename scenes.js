@@ -3304,19 +3304,21 @@ autumnSpiral13b.runLayout = function(t) {
 
 autumnSpiral13b.runPositions = function(t) {
     this.privateValues.scalar = 30;
+
+    this.speed = sliders.speed.value;
     this.accMult = sliders.accMult.value;
     this.velMult = sliders.velMult.value;
     this.sc = sliders.sc.value;
-    this.scPow = sliders.scPow.value;
+    this.scPow = 7;
     this.privateValues.shape = shape;
 
     this.superformula = {
         n1: map(abs(sin(t / (sliders.sc.value * pow(10, sliders.scPow.value)))), 0, 1, 0.15, 2),
-        n2: sliders.n2.value,
+        n2: 7,
         n3: 1,
         a: 1,
         b: 1,
-        m: sliders.m.value
+        m: 0
     };
 
     //Taken from spiderSpiral
@@ -3346,18 +3348,43 @@ autumnSpiral13b.runPositions = function(t) {
     // this.privateValues.posGraph = octogonalSpiralAutumn11(this, t);
     // this.privateValues.posGraph = octogonalSpiralAutumn12(this, t);
     // this.privateValues.posGraph = octogonalSpiralAutumn13(this, t);
-    this.privateValues.posGraph = octogonalSpiralAutumn16(this, t);
+    // this.privateValues.posGraph = octogonalSpiralAutumn16(this, t);
     //Beautiful vibration :
     // whiteAcc : 0.163, yellRot:0.07, n2:0, sc:65, scPow:7, m:0, lerp:0.02,parScal:8.772
+    this.privateValues.spiGraph = octogonalSpiralAutumn16(this, t);
+
+    this.privateValues.parGraph = this.particle.run(this, t);
+
+    this.privateValues.posGraph = [];
+
+    var lerpTiming = map(drawCount, 2368, 2570, 0, 0.0025);
+    lerpTiming = constrain(lerpTiming, 0, 1);
+    for (var i = 0; i < 1000; i++) {
+        var x = this.privateValues.spiGraph[i].x;
+        var y = this.privateValues.spiGraph[i].y;
+        var xx = this.privateValues.parGraph.g[i].x;
+        var yy = this.privateValues.parGraph.g[i].y;
+        var lerpX = lerp(x, xx, lerpTiming);
+        var lerpY = lerp(y, yy, lerpTiming);
+        var v = createVector(lerpX, lerpY);
+        this.privateValues.posGraph.push(v);
+    }
+
+
+
+
+
 
 };
 
 autumnSpiral13b.runSizes = function(t) {
+    var lerpTiming = map(drawCount, 2368, 2570, 0, 12);
+    lerpTiming = constrain(lerpTiming, 0, 12);
     var pos = this.privateValues.posGraph;
     this.localValues.sizes = [];
     for (var i = 0; i < 1000; i++) {
         var currentPos = dist(0, 0, pos[i].x, pos[i].y);
-        var s = 2 + map(currentPos, 0, 1000, 0, 200);
+        var s = 2 + map(currentPos, 0, 1000, 0, 200) + lerpTiming;
         // s = map(i, 0, 1000, 20, 200);
         // s = 20;
         this.localValues.sizes.push(s);
