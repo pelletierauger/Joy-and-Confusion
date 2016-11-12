@@ -235,7 +235,9 @@ function keyPressed() {
     if (key == 'p' || key == 'P') {
         repositionXSheet(430);
     }
-
+    if (key == 'o' || key == 'O') {
+        repositionXSheet(1950);
+    }
 }
 
 function repositionXSheet(t) {

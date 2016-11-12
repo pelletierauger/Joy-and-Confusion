@@ -3230,6 +3230,143 @@ autumnSpiral13.runSizes = function(t) {
 };
 
 //-----------------------------------------Version 0.05---------------------------------------------//
+var autumnSpiral13b = new Scene();
+
+// spiderSpiral.runBackground = userControlledSpiral.runBackground;
+autumnSpiral13b.runBackground = function(t) {
+    var step = map(abs(sin(t / 20)), 0, 1, 0.1, 0.3);
+    this.localValues.gradient = [{
+        offset: 0,
+        r: 255,
+        g: 255,
+        b: 0
+    }, {
+        offset: step,
+        r: 255,
+        g: 120,
+        b: 0
+    }, {
+        offset: 0.8,
+        r: 155,
+        g: 55,
+        b: 250
+    }];
+    for (var i = 0; i < this.localValues.gradient.length; i++) {
+        this.localValues.gradient[i] = adjustLevels(sliders.darkBg.value, sliders.midBg.value, sliders.lightBg.value, this.localValues.gradient[i]);
+        this.localValues.gradient[i] = adjustHsv(sliders.hueBg.value, sliders.satBg.value, sliders.brightnessBg.value, this.localValues.gradient[i]);
+    }
+};
+
+
+// spiderSpiral.privateValues.paletteIndex = 236;
+
+
+autumnSpiral13b.runColors = function(t) {
+    if (!this.privateValues.paletteIndex) {
+        // this.privateValues.paletteIndex = 908;
+        // this.privateValues.paletteIndex = 2014;
+        // this.privateValues.paletteIndex = 2114;
+        // this.privateValues.paletteIndex = 2128;
+        // this.privateValues.paletteIndex = 3160;
+        this.privateValues.paletteIndex = 236;
+        //Also beautiful : 1102, 1150
+    }
+
+    if (allPalettes) {
+        this.privateValues.palette = allPalettes[this.privateValues.paletteIndex];
+    } else {
+        this.privateValues.palette = palette;
+    }
+
+    this.privateValues.colorGraph = [];
+    var currentColor = 0;
+    for (var i = 0; i < 1000; i++) {
+        var colorValues = hexToRgb(this.privateValues.palette[currentColor]);
+        colorValues = adjustLevels(sliders.dark.value, sliders.mid.value, sliders.light.value, colorValues);
+        colorValues = adjustLevels(-30, 0, 0, colorValues);
+
+        colorValues = adjustHsv(sliders.hue.value, sliders.sat.value, sliders.brightness.value, colorValues);
+        currentColor++;
+        if (currentColor > 4) {
+            currentColor = 0;
+        }
+        this.privateValues.colorGraph.push(colorValues);
+    }
+};
+
+
+autumnSpiral13b.runLayout = function(t) {
+    this.localValues.zoom = 1.25;
+    this.localValues.zoom = sliders.zoom.value;
+    // this.localValues.rotation = 0.025;
+    this.localValues.rotation = 0.01;
+};
+
+autumnSpiral13b.runPositions = function(t) {
+    this.privateValues.scalar = 30;
+    this.accMult = sliders.accMult.value;
+    this.velMult = sliders.velMult.value;
+    this.sc = sliders.sc.value;
+    this.scPow = sliders.scPow.value;
+    this.privateValues.shape = shape;
+
+    this.superformula = {
+        n1: map(abs(sin(t / (sliders.sc.value * pow(10, sliders.scPow.value)))), 0, 1, 0.15, 2),
+        n2: sliders.n2.value,
+        n3: 1,
+        a: 1,
+        b: 1,
+        m: sliders.m.value
+    };
+
+    //Taken from spiderSpiral
+    // if (!this.privateValues.spiral) {
+    //     this.privateValues.spiral = {
+    //         startingAngle: 2,
+    //         angle: 2,
+    //         speed: 0.05 / 360 * Math.PI * 2 /  50,
+    //         hyp: 0.1
+    //     };
+    // }
+
+    if (!this.privateValues.spiral) {
+        this.privateValues.spiral = {
+            startingAngle: 1.486,
+            angle: 0,
+            speed: 0.05 / 360 * Math.PI * 0.95 * 1.3,
+            hyp: 0.1
+        };
+    }
+    // console.log(this.privateValues.spiral.angle);
+    var spiralVal = this.privateValues.spiral;
+    this.privateValues.spiral.angle = spiralVal.startingAngle + t * spiralVal.speed * -1;
+    // this.privateValues.spiral.angle = map(sin(t / 20), -1, 1, 0.950, 0.895);
+
+    // this.privateValues.posGraph = octogonalSpiralAutumn10(this, t);
+    // this.privateValues.posGraph = octogonalSpiralAutumn11(this, t);
+    // this.privateValues.posGraph = octogonalSpiralAutumn12(this, t);
+    // this.privateValues.posGraph = octogonalSpiralAutumn13(this, t);
+    this.privateValues.posGraph = octogonalSpiralAutumn16(this, t);
+    //Beautiful vibration :
+    // whiteAcc : 0.163, yellRot:0.07, n2:0, sc:65, scPow:7, m:0, lerp:0.02,parScal:8.772
+
+};
+
+autumnSpiral13b.runSizes = function(t) {
+    var pos = this.privateValues.posGraph;
+    this.localValues.sizes = [];
+    for (var i = 0; i < 1000; i++) {
+        var currentPos = dist(0, 0, pos[i].x, pos[i].y);
+        var s = 2 + map(currentPos, 0, 1000, 0, 200);
+        // s = map(i, 0, 1000, 20, 200);
+        // s = 20;
+        this.localValues.sizes.push(s);
+    }
+};
+
+
+
+//-----------------------------------------Version 0.05---------------------------------------------//
 var autumnSpiral14 = new Scene();
 
 // spiderSpiral.runBackground = userControlledSpiral.runBackground;

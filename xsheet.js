@@ -80,25 +80,37 @@ var xSheet = {
         }
     },
 
-
-    spider1: {
+    //--------------Second verse---------------------------------------------------//
+    autumn13: {
         d: 585,
         f: function(sum) {
             //The getSum function is used to get the sum another scene within the sheet.
             //Calling the getSum on the first scene of the x-sheet should be pointless.
             var rN = getSum(xSheet, xSheet.superellipse2);
             var coFade = cosineFade(sum, 15);
-            spiderSpiral.mix(sum, superellipseSpiral2, rN - 25, coFade);
+            autumnSpiral13b.mix(sum - 1000, superellipseSpiral2, rN - 25, coFade);
         }
     },
+    // spider1: {
+    //     d: 585,
+    //     f: function(sum) {
+    //         //The getSum function is used to get the sum another scene within the sheet.
+    //         //Calling the getSum on the first scene of the x-sheet should be pointless.
+    //         var rN = getSum(xSheet, xSheet.superellipse2);
+    //         var coFade = cosineFade(sum, 15);
+    //         spiderSpiral.mix(sum, superellipseSpiral2, rN - 25, coFade);
+    //     }
+    // },
+
+    //--------------Second chorus---------------------------------------------------//
     star1: {
         d: 575,
         f: function(sum) {
             //The getSum function is used to get the sum another scene within the sheet.
             //Calling the getSum on the first scene of the x-sheet should be pointless.
-            var rN = getSum(xSheet, xSheet.spider1);
+            var rN = getSum(xSheet, xSheet.autumn13);
             var coFade = cosineFade(sum, 15);
-            starSpiral2.mix(sum, spiderSpiral, rN, coFade);
+            starSpiral2.mix(sum, autumnSpiral13b, rN - 1000, coFade);
         }
     },
     //La meilleure fucking shit au monde.
