@@ -1,7 +1,7 @@
 var canvas;
 var ctx;
 var x, y, t, w;
-var drawCount = 0;
+var drawCount = 2833;
 var looping = false;
 var showInterface = true;
 var showPanel = true;
@@ -189,19 +189,19 @@ function keyPressed() {
     if (key == 'y' || key == 'Y') {
         showYellow = (showYellow) ? false : true;
     }
-    if (key == 'r' || key == 'R') {
+    if (key == 'a' || key == 'A') {
         // userControlledSpiral.privateValues.paletteIndex += 2;
         // userControlledParticle.privateValues.paletteIndex += 2;
-        secondSpiral.privateValues.paletteIndex += 2;
+        autumnSpiral2b.privateValues.paletteIndex += 2;
     }
-    if (key == 'e' || key == 'E') {
-        // userControlledSpiral.privateValues.paletteIndex += 2;
-        // userControlledParticle.privateValues.paletteIndex += 2;
-        // userControlledSpiral.privateValues.paletteIndex += 2;
-    }
-    if (key == 't' || key == 'T') {
+    // if (key == 'e' || key == 'E') {
+    //     // userControlledSpiral.privateValues.paletteIndex += 2;
+    //     // userControlledParticle.privateValues.paletteIndex += 2;
+    //     // userControlledSpiral.privateValues.paletteIndex += 2;
+    // }
+    if (key == 's' || key == 'S') {
         // change_erase_color();
-        secondSpiral.privateValues.paletteIndex2 += 2;
+        autumnSpiral2b.privateValues.paletteIndex2 += 2;
     }
     if (key == 'n' || key == 'N') {
         nb = (nb) ? false : true;
@@ -232,11 +232,17 @@ function keyPressed() {
     if (keyCode == LEFT_ARROW) {
         repositionXSheet(0);
     }
-    if (key == 'p' || key == 'P') {
+    if (key == 'q' || key == 'Q') {
         repositionXSheet(430);
     }
-    if (key == 'o' || key == 'O') {
+    if (key == 'w' || key == 'W') {
         repositionXSheet(1950);
+    }
+    if (key == 'e' || key == 'E') {
+        repositionXSheet(2590);
+    }
+    if (key == 'r' || key == 'R') {
+        repositionXSheet(2833);
     }
 }
 

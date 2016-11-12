@@ -103,8 +103,10 @@ var xSheet = {
     // },
 
     //--------------Second chorus---------------------------------------------------//
+    // star1: {
+    //     d: 575,
     star1: {
-        d: 575,
+        d: 286,
         f: function(sum) {
             //The getSum function is used to get the sum another scene within the sheet.
             //Calling the getSum on the first scene of the x-sheet should be pointless.
@@ -113,15 +115,26 @@ var xSheet = {
             starSpiral2.mix(sum, autumnSpiral13b, rN - 1000, coFade);
         }
     },
-    //La meilleure fucking shit au monde.
-    spider2: {
-        d: 280,
+    starAutumn: {
+        d: 287,
         f: function(sum) {
             //The getSum function is used to get the sum another scene within the sheet.
             //Calling the getSum on the first scene of the x-sheet should be pointless.
             var rN = getSum(xSheet, xSheet.star1);
             var coFade = cosineFade(sum, 15);
-            spiderSpiral2.mix(sum, starSpiral2, rN, coFade);
+            autumnSpiral2b.mix(sum, starSpiral2, rN, coFade);
+        }
+    },
+
+    //--------------Bridge, conclusion---------------------------------------------------//
+    spider2: {
+        d: 280,
+        f: function(sum) {
+            //The getSum function is used to get the sum another scene within the sheet.
+            //Calling the getSum on the first scene of the x-sheet should be pointless.
+            var rN = getSum(xSheet, xSheet.starAutumn);
+            var coFade = cosineFade(sum, 15);
+            spiderSpiral2.mix(sum, autumnSpiral2b, rN, coFade);
         }
     },
     spider3: {
@@ -139,9 +152,9 @@ var xSheet = {
         f: function(sum) {
             //The getSum function is used to get the sum another scene within the sheet.
             //Calling the getSum on the first scene of the x-sheet should be pointless.
-            var rN = getSum(xSheet, xSheet.spider2);
+            var rN = getSum(xSheet, xSheet.spider3);
             var coFade = cosineFade(sum, 15);
-            octoSpiral2.mix(sum + 1000, spiderSpiral2, rN, coFade);
+            octoSpiral2.mix(sum + 1000, spiderSpiral3, rN, coFade);
         }
     },
     fast: {
