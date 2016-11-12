@@ -1653,18 +1653,22 @@ autumnSpiral2.runBackground = function(t) {
         offset: 0,
         r: 255,
         g: 255,
-        b: 0
+        b: 55
     }, {
         offset: step,
-        r: 255,
-        g: 120,
-        b: 0
+        r: 155,
+        g: 0,
+        b: 100
     }, {
         offset: 0.8,
-        r: 155,
+        r: 55,
         g: 55,
         b: 250
     }];
+    for (var i = 0; i < this.localValues.gradient.length; i++) {
+        this.localValues.gradient[i] = adjustLevels(sliders.darkBg.value, sliders.midBg.value, sliders.lightBg.value, this.localValues.gradient[i]);
+        this.localValues.gradient[i] = adjustHsv(sliders.hueBg.value, sliders.satBg.value, sliders.brightnessBg.value, this.localValues.gradient[i]);
+    }
 };
 // autumnSpiral.privateValues.paletteIndex = 1244;
 // autumnSpiral2.privateValues.paletteIndex = 1304;
@@ -1691,6 +1695,9 @@ autumnSpiral2.runColors = function(t) {
         colorValues.r = constrain(map(colorValues.r, 0, 255, lev, 255), 0, 255);
         colorValues.g = constrain(map(colorValues.g, 0, 255, lev, 255), 0, 255);
         colorValues.b = constrain(map(colorValues.b, 0, 255, lev, 255), 0, 255);
+        colorValues = adjustLevels(sliders.dark.value, sliders.mid.value, sliders.light.value, colorValues);
+        colorValues = adjustHsv(sliders.hue.value, sliders.sat.value, sliders.brightness.value, colorValues);
+
         currentColor++;
         if (currentColor > 4) {
             currentColor = 0;
@@ -1735,9 +1742,9 @@ autumnSpiral2.runPositions = function(t) {
 
     if (!this.privateValues.spiral) {
         this.privateValues.spiral = {
-            startingAngle: 0.9786,
+            startingAngle: 0.9445660795861106,
             angle: 0.9786,
-            speed: 0.05 / 360 * Math.PI * 2 /  12,
+            speed: 0.05 / 360 * Math.PI * 2 / 2,
             hyp: 0.1
         };
     }
@@ -2154,6 +2161,12 @@ autumnSpiral6.runColors = function(t) {
         colorValues.r = constrain(map(colorValues.r, 0, 255, lev, 255), 0, 255);
         colorValues.g = constrain(map(colorValues.g, 0, 255, lev, 255), 0, 255);
         colorValues.b = constrain(map(colorValues.b, 0, 255, lev, 255), 0, 255);
+        colorValues = adjustLevels(sliders.dark.value, sliders.mid.value, sliders.light.value, colorValues);
+        colorValues = adjustHsv(sliders.hue.value, sliders.sat.value, sliders.brightness.value, colorValues);
+        // var mappy = map(i, 0, 1000, 0, 80);
+        // colorValues = adjustLevels(mappy, mappy, 0, colorValues);
+        // colorValues = adjustHsv(-mappy / 10, 0, 0, colorValues);
+
         currentColor++;
         if (currentColor > 4) {
             currentColor = 0;
@@ -2197,9 +2210,10 @@ autumnSpiral6.runPositions = function(t) {
 
     if (!this.privateValues.spiral) {
         this.privateValues.spiral = {
-            startingAngle: 0.986,
+            // startingAngle: 0.986,
+            startingAngle: 1.0886,
             angle: 0,
-            speed: 0.05 / 360 * Math.PI * 0.5,
+            speed: 0.05 / 360 * Math.PI * 2,
             hyp: 0.1
         };
     }
