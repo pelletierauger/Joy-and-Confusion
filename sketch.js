@@ -10,7 +10,7 @@ var songPlay = true;
 var exporting = false;
 var fileName = "joy-and-confusion-0003";
 var shape;
-var showYellow = true;
+var showYellow = false;
 var norma = false;
 var globalValues = {};
 var song;

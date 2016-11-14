@@ -1163,7 +1163,7 @@ superellipseSpiral.runBackground = function(t) {
         b: col2
     }];
 };
-superellipseSpiral.privateValues.scalar = 10;
+superellipseSpiral.privateValues.scalar = 12;
 // superellipseSpiral.privateValues.paletteIndex = 96;
 superellipseSpiral.runLayout = starSpiral.runLayout;
 superellipseSpiral.runPositions = function(t) {
@@ -1175,7 +1175,7 @@ superellipseSpiral.runPositions = function(t) {
         this.privateValues.spiral = {
             startingAngle: 0.135,
             angle: 2,
-            speed: 0.05 / 360 * Math.PI * 2 / 10
+            speed: 0.05 / 360 * Math.PI * 2 / 2.5
         };
     }
     var spiralVal = this.privateValues.spiral;
@@ -3715,7 +3715,7 @@ autumnSpiral13b.runColors = function(t) {
         colorValues = adjustLevels(sliders.dark.value, sliders.mid.value, sliders.light.value, colorValues);
         colorValues = adjustLevels(-30, 0, 0, colorValues);
 
-        var mapMiddle = map(i, 0, 1000, 0, -50);
+        var mapMiddle = map(i, 0, 1000, -50, 0);
         colorValues = adjustLevels(0, mapMiddle, 0, colorValues)
 
         colorValues = adjustHsv(sliders.hue.value, sliders.sat.value, sliders.brightness.value, colorValues);
