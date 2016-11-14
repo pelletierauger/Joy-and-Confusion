@@ -817,7 +817,7 @@ function octogonalSpiralAutumn15(controller, t) {
 
 function octogonalSpiralAutumn16(controller, t) {
     var graph = [];
-    var scalar = controller.privateValues.scalar;
+    var scalar = controller.privateValues.spiral.scalar;
     var vals = controller.privateValues.spiral;
     var angleTrig = vals.angle;
     var hyp = controller.privateValues.spiral.hyp || 0.2;

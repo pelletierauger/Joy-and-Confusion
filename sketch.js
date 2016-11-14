@@ -10,7 +10,7 @@ var songPlay = true;
 var exporting = false;
 var fileName = "joy-and-confusion-0003";
 var shape;
-var showYellow = false;
+var showYellow = true;
 var norma = false;
 var globalValues = {};
 var song;
@@ -184,6 +184,16 @@ function printDotsWobbly() {
     }
 }
 
+showYellowDots = function() {
+    fill(255, 255, 0);
+    if (globalValues.yellowGraph) {
+        for (var i = 0; i < globalValues.yellowGraph.length; i++) {
+            var vec = globalValues.yellowGraph[i];
+            ellipse(vec.x, vec.y, 2.5, 2.5);
+        }
+    }
+}
+
 function keyPressed() {
     if (keyCode === 32) {
         if (looping) {
@@ -203,7 +213,7 @@ function keyPressed() {
             }
         }
     }
-    if (key == 'y' || key == 'Y') {
+    if (key == 'm' || key == 'M') {
         showYellow = (showYellow) ? false : true;
     }
     if (key == 'a' || key == 'A') {
@@ -262,9 +272,12 @@ function keyPressed() {
         repositionXSheet(1950);
     }
     if (key == 't' || key == 'T') {
-        repositionXSheet(2590);
+        repositionXSheet(2350);
     }
     if (key == 'y' || key == 'Y') {
+        repositionXSheet(2590);
+    }
+    if (key == 'u' || key == 'U') {
         repositionXSheet(2833);
     }
 }

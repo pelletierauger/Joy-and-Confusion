@@ -3736,22 +3736,26 @@ autumnSpiral13b.runLayout = function(t) {
 };
 
 autumnSpiral13b.runPositions = function(t) {
-    this.privateValues.scalar = 30;
+    // this.privateValues.scalar = 19.823 ||  sliders.particleScalar.value;
+    // this.privateValues.scalar = sliders.particleScalar.value;
 
-    this.speed = sliders.speed.value;
+    var mapScalar = map(drawCount, 2500, 2590, 19.823, 100);
+    mapScalar = constrain(mapScalar, 19.823, 100);
+    this.privateValues.scalar = mapScalar;
+    this.speed = 0.93 || sliders.speed.value;
     this.accMult = sliders.accMult.value;
     this.velMult = sliders.velMult.value;
     this.sc = sliders.sc.value;
-    this.scPow = 7;
+    this.scPow = sliders.scPow.value;
     this.privateValues.shape = shape;
 
     this.superformula = {
         n1: map(abs(sin(t / (sliders.sc.value * pow(10, sliders.scPow.value)))), 0, 1, 0.15, 2),
-        n2: 7,
+        n2: 0 || sliders.n2.value,
         n3: 1,
         a: 1,
         b: 1,
-        m: 0
+        m: 3 || sliders.m.value
     };
 
     //Taken from spiderSpiral
@@ -3766,10 +3770,14 @@ autumnSpiral13b.runPositions = function(t) {
 
     if (!this.privateValues.spiral) {
         this.privateValues.spiral = {
-            startingAngle: 0.9412020189746649,
+            // Wider spiral
+            // startingAngle: 0.9412020189746649,
+            // Narrower spiral, taken from master branch
+            startingAngle: 1.486,
             angle: 0,
-            speed: 0.05 / 360 * Math.PI * 0.95 * 1,
-            hyp: 0.1
+            speed: 0.05 / 360 * Math.PI * 0.95 * 0.2,
+            hyp: 0.1,
+            scalar: 35
         };
     }
     // console.log(this.privateValues.spiral.angle);
@@ -3787,6 +3795,7 @@ autumnSpiral13b.runPositions = function(t) {
     this.privateValues.spiGraph = octogonalSpiralAutumn16(this, t);
 
     this.privateValues.parGraph = this.particle.run(this, t);
+    this.localValues.yellowGraph = this.privateValues.parGraph.yellowGraph;
 
     this.privateValues.posGraph = [];
 
@@ -3807,7 +3816,6 @@ autumnSpiral13b.runPositions = function(t) {
 
 
 
-
 };
 
 autumnSpiral13b.runSizes = function(t) {
@@ -3817,7 +3825,7 @@ autumnSpiral13b.runSizes = function(t) {
     this.localValues.sizes = [];
     for (var i = 0; i < 1000; i++) {
         var currentPos = dist(0, 0, pos[i].x, pos[i].y);
-        var s = 2 + map(currentPos, 0, 1000, 0, 200) + 0;
+        var s = 2 + map(currentPos, 0, 1000, 0, 250);
         s = Math.max(20, s);
         // s = map(i, 0, 1000, 20, 200);
         // s = 20;
