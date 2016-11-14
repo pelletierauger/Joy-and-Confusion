@@ -1,7 +1,7 @@
 var canvas;
 var ctx;
 var x, y, t, w;
-var drawCount = 0;
+var drawCount = 3990;
 var looping = false;
 var showInterface = true;
 var showPanel = true;
@@ -279,6 +279,12 @@ function keyPressed() {
     }
     if (key == 'u' || key == 'U') {
         repositionXSheet(2833);
+    }
+    if (key == 'i' || key == 'I') {
+        repositionXSheet(3990);
+    }
+    if (key == 'o' || key == 'O') {
+        repositionXSheet(4150);
     }
 }
 

@@ -148,7 +148,7 @@ var xSheet = {
         }
     },
     octo2: {
-        d: 290,
+        d: 300,
         f: function(sum) {
             //The getSum function is used to get the sum another scene within the sheet.
             //Calling the getSum on the first scene of the x-sheet should be pointless.
@@ -163,12 +163,12 @@ var xSheet = {
             //The getSum function is used to get the sum another scene within the sheet.
             //Calling the getSum on the first scene of the x-sheet should be pointless.
             var rN = getSum(xSheet, xSheet.octo2);
-            var coFade = cosineFade(sum, 3);
-            fastSpiral.mix(sum, octoSpiral2, rN + 1000, coFade);
+            var coFade = cosineFade(sum, 10);
+            fastSpiral.mix(sum + 20, octoSpiral2, rN + 1000, coFade);
         }
     },
     fast2: {
-        d: 440,
+        d: 430,
         f: function(sum) {
             //The getSum function is used to get the sum another scene within the sheet.
             //Calling the getSum on the first scene of the x-sheet should be pointless.
