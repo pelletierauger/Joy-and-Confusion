@@ -88,7 +88,7 @@ var xSheet = {
             //Calling the getSum on the first scene of the x-sheet should be pointless.
             var rN = getSum(xSheet, xSheet.superellipse2);
             var coFade = cosineFade(sum, 15);
-            autumnSpiral13b.mix(sum - 1000, autumnSpiral3, rN, coFade);
+            autumnSpiral13b.mix(sum, autumnSpiral3, rN, coFade);
         }
     },
     // spider1: {
@@ -112,7 +112,7 @@ var xSheet = {
             //Calling the getSum on the first scene of the x-sheet should be pointless.
             var rN = getSum(xSheet, xSheet.autumn13);
             var coFade = cosineFade(sum, 15);
-            starSpiral2.mix(sum, autumnSpiral13b, rN - 1000, coFade);
+            starSpiral2.mix(sum, autumnSpiral13b, rN, coFade);
         }
     },
     starAutumn: {

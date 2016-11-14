@@ -3766,9 +3766,9 @@ autumnSpiral13b.runPositions = function(t) {
 
     if (!this.privateValues.spiral) {
         this.privateValues.spiral = {
-            startingAngle: 1.486,
+            startingAngle: 0.9412020189746649,
             angle: 0,
-            speed: 0.05 / 360 * Math.PI * 0.95 * 1.3,
+            speed: 0.05 / 360 * Math.PI * 0.95 * 1,
             hyp: 0.1
         };
     }

@@ -6,7 +6,7 @@ var looping = false;
 var showInterface = true;
 var showPanel = true;
 var userControl = false;
-var songPlay = false;
+var songPlay = true;
 var exporting = false;
 var fileName = "joy-and-confusion-0003";
 var shape;
