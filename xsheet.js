@@ -48,7 +48,7 @@ var xSheet = {
         }
     },
 
-    //Chorus 1.
+    //--------------First chorus---------------------------------------------------//
     scene6: {
         d: 130,
         f: function(sum) {
@@ -66,7 +66,7 @@ var xSheet = {
             //Calling the getSum on the first scene of the x-sheet should be pointless.
             var rN = getSum(xSheet, xSheet.scene6);
             var coFade = cosineFade(sum, 10);
-            superellipseSpiral.mix(sum, triangularSpiral2, rN, coFade);
+            superellipseSpiral.mix(sum + 80, triangularSpiral2, rN, coFade);
         }
     },
     superellipse2: {
@@ -76,7 +76,7 @@ var xSheet = {
             //Calling the getSum on the first scene of the x-sheet should be pointless.
             var rN = getSum(xSheet, xSheet.superellipse1);
             var coFade = cosineFade(sum, 10);
-            superellipseSpiral2.mix(sum - 25, superellipseSpiral, rN, coFade);
+            autumnSpiral3.mix(sum, superellipseSpiral, rN + 80, coFade);
         }
     },
 
@@ -88,7 +88,7 @@ var xSheet = {
             //Calling the getSum on the first scene of the x-sheet should be pointless.
             var rN = getSum(xSheet, xSheet.superellipse2);
             var coFade = cosineFade(sum, 15);
-            autumnSpiral13b.mix(sum - 1000, superellipseSpiral2, rN - 25, coFade);
+            autumnSpiral13b.mix(sum - 1000, autumnSpiral3, rN, coFade);
         }
     },
     // spider1: {

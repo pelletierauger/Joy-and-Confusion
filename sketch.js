@@ -1,12 +1,12 @@
 var canvas;
 var ctx;
 var x, y, t, w;
-var drawCount = 2833;
+var drawCount = 0;
 var looping = false;
 var showInterface = true;
 var showPanel = true;
 var userControl = false;
-var songPlay = true;
+var songPlay = false;
 var exporting = false;
 var fileName = "joy-and-confusion-0003";
 var shape;
@@ -124,7 +124,7 @@ function draw() {
     scale(globalValues.zoom, globalValues.zoom);
     // rotate(globalValues.rotation);
     rotate(drawCount * globalValues.rotation);
-    printDots();
+    printDotsWobbly();
     if (showYellow) {
         showYellowDots();
     };
@@ -132,6 +132,9 @@ function draw() {
     if (exporting) {
         frameExport();
     }
+    // if (drawCount > 1850 && drawCount < 2250) {
+    //     frameExport();
+    // }
     // if (drawCount % 10 === 0) {
     //     console.log("frameRate : " + frameRate());
     //     // console.log("drawCount : " + drawCount);
@@ -167,6 +170,20 @@ function printDots() {
     }
 }
 
+function printDotsWobbly() {
+    var wob = noise(drawCount / 10) * 5;
+    var wob2 = noise(100 + drawCount / 10) * 5;
+    for (var i = 0; i < globalValues.graph.length; i++) {
+        var wob3 = noise(i * 100 + drawCount / 10) * 2;
+        var wob4 = noise(100 + i * 100 + drawCount / 10) * 2;
+        var dot = globalValues.graph[i];
+        var size = globalValues.sizes[i];
+        fill(dot.col.r, dot.col.g, dot.col.b);
+        // ellipse(dot.pos.x, dot.pos.y, dot.size, dot.size);
+        ellipse(dot.pos.x + wob + wob3, dot.pos.y + wob2 + wob4, size, size);
+    }
+}
+
 function keyPressed() {
     if (keyCode === 32) {
         if (looping) {
@@ -192,7 +209,7 @@ function keyPressed() {
     if (key == 'a' || key == 'A') {
         // userControlledSpiral.privateValues.paletteIndex += 2;
         // userControlledParticle.privateValues.paletteIndex += 2;
-        autumnSpiral2b.privateValues.paletteIndex += 2;
+        superellipseSpiral.privateValues.paletteIndex += 2;
     }
     // if (key == 'e' || key == 'E') {
     //     // userControlledSpiral.privateValues.paletteIndex += 2;
@@ -201,7 +218,7 @@ function keyPressed() {
     // }
     if (key == 's' || key == 'S') {
         // change_erase_color();
-        autumnSpiral2b.privateValues.paletteIndex2 += 2;
+        superellipseSpiral.privateValues.paletteIndex2 += 2;
     }
     if (key == 'n' || key == 'N') {
         nb = (nb) ? false : true;
@@ -236,12 +253,18 @@ function keyPressed() {
         repositionXSheet(430);
     }
     if (key == 'w' || key == 'W') {
-        repositionXSheet(1950);
+        repositionXSheet(1550);
     }
     if (key == 'e' || key == 'E') {
-        repositionXSheet(2590);
+        repositionXSheet(1700);
     }
     if (key == 'r' || key == 'R') {
+        repositionXSheet(1950);
+    }
+    if (key == 't' || key == 'T') {
+        repositionXSheet(2590);
+    }
+    if (key == 'y' || key == 'Y') {
         repositionXSheet(2833);
     }
 }

@@ -1164,7 +1164,7 @@ superellipseSpiral.runBackground = function(t) {
     }];
 };
 superellipseSpiral.privateValues.scalar = 10;
-superellipseSpiral.privateValues.paletteIndex = 96;
+// superellipseSpiral.privateValues.paletteIndex = 96;
 superellipseSpiral.runLayout = starSpiral.runLayout;
 superellipseSpiral.runPositions = function(t) {
     if (!this.privateValues.scalar) {
@@ -1175,7 +1175,7 @@ superellipseSpiral.runPositions = function(t) {
         this.privateValues.spiral = {
             startingAngle: 0.135,
             angle: 2,
-            speed: 0.05 / 360 * Math.PI * 2 /  10
+            speed: 0.05 / 360 * Math.PI * 2 / 10
         };
     }
     var spiralVal = this.privateValues.spiral;
@@ -1188,16 +1188,16 @@ superellipseSpiral.runSizes = function(t) {
     this.localValues.sizes = [];
     for (var i = 0; i < 1000; i++) {
         var currentPos = dist(0, 0, pos[i].x, pos[i].y);
-        var s = 10 + map(currentPos, 0, 1000, 0, 150);
+        var s = 10 + map(currentPos, 0, 1000, 0, 175);
         this.localValues.sizes.push(s);
     }
 };
 superellipseSpiral.runColors = function(t) {
     if (!this.privateValues.paletteIndex) {
-        this.privateValues.paletteIndex = 1000;
+        this.privateValues.paletteIndex = 320;
     }
     if (!this.privateValues.paletteIndex2) {
-        this.privateValues.paletteIndex2 = 3008;
+        this.privateValues.paletteIndex2 = 3340;
         //Très beau aussi.
         //this.privateValues.paletteIndex2 = 3014;
     }
@@ -1221,6 +1221,15 @@ superellipseSpiral.runColors = function(t) {
             g: lerp(colorValues1.g, colorValues2.g, lerpy),
             b: lerp(colorValues1.b, colorValues2.b, lerpy)
         };
+
+
+        // colorValues = adjustLevels(sliders.dark.value, sliders.mid.value, sliders.light.value, colorValues);
+        // colorValues = adjustHsv(sliders.hue.value, sliders.sat.value, sliders.brightness.value, colorValues);
+
+        colorValues = adjustLevels(-90, 0, 0, colorValues);
+
+
+
         currentColor++;
         if (currentColor > 4) {
             currentColor = 0;
@@ -2072,15 +2081,17 @@ var autumnSpiral3 = new Scene();
 
 // spiderSpiral.runBackground = userControlledSpiral.runBackground;
 autumnSpiral3.runBackground = function(t) {
+    var col = floor(map(abs(sin(t / 20)), 0, 1, 0, 255));
+    var col2 = floor(map(abs(sin(t / 40)), 0, 1, 0, 255));
     var step = map(abs(sin(t / 20)), 0, 1, 0.1, 0.3);
     this.localValues.gradient = [{
         offset: 0,
         r: 255,
-        g: 255,
+        g: col,
         b: 155
     }, {
         offset: step,
-        r: 155,
+        r: col2,
         g: 120,
         b: 205
     }, {
@@ -2097,7 +2108,7 @@ autumnSpiral3.runBackground = function(t) {
 // autumnSpiral3.privateValues.paletteIndex = 2586;
 
 
-autumnSpiral3.runColors = function(t) {
+autumnSpiral3.runColorsB = function(t) {
     if (!this.privateValues.paletteIndex) {
         this.privateValues.paletteIndex = 2586;
     }
@@ -2125,14 +2136,67 @@ autumnSpiral3.runColors = function(t) {
     }
 };
 
+autumnSpiral3.runColors = function(t) {
+    if (!this.privateValues.paletteIndex) {
+        this.privateValues.paletteIndex = 2586;
+    }
+    if (!this.privateValues.paletteIndex2) {
+        // this.privateValues.paletteIndex2 = 222;
+        this.privateValues.paletteIndex2 = 238;
+        //Très beau aussi.
+        //this.privateValues.paletteIndex2 = 3014;
+    }
+
+    if (allPalettes) {
+        this.privateValues.palette = allPalettes[this.privateValues.paletteIndex];
+        this.privateValues.palette2 = allPalettes[this.privateValues.paletteIndex2];
+    } else {
+        this.privateValues.palette = palette;
+        this.privateValues.palette2 = palette;
+    }
+
+    this.privateValues.colorGraph = [];
+    var currentColor = 0;
+    for (var i = 0; i < 1000; i++) {
+        var colorValues1 = hexToRgb(this.privateValues.palette[currentColor]);
+        var colorValues2 = hexToRgb(this.privateValues.palette2[currentColor]);
+        var lerpy = map(sin(t / 10), -1, 1, 0, 1);
+        var colorValues = {
+            r: lerp(colorValues1.r, colorValues2.r, lerpy),
+            g: lerp(colorValues1.g, colorValues2.g, lerpy),
+            b: lerp(colorValues1.b, colorValues2.b, lerpy)
+        };
+
+        //New, temporary way of adjusting the color levels.
+        // var lev = sliders.levels.value;
+        // colorValues.r = constrain(map(colorValues.r, 0, 255, lev, 255), 0, 255);
+        // colorValues.g = constrain(map(colorValues.g, 0, 255, lev, 255), 0, 255);
+        // colorValues.b = constrain(map(colorValues.b, 0, 255, lev, 255), 0, 255);
+
+
+        // colorValues = adjustLevels(sliders.dark.value, sliders.mid.value, sliders.light.value, colorValues);
+        // colorValues = adjustHsv(sliders.hue.value, sliders.sat.value, sliders.brightness.value, colorValues);
+
+
+        colorValues = adjustLevels(-51, 0, 0, colorValues);
+
+        currentColor++;
+        if (currentColor > 4) {
+            currentColor = 0;
+        }
+        this.privateValues.colorGraph.push(colorValues);
+    }
+};
+
 
 autumnSpiral3.runLayout = function(t) {
-    this.localValues.zoom = 0.12;
+    this.localValues.zoom = sliders.zoom.value;
+    this.localValues.zoom = 0.72;
     this.localValues.rotation = 0.01;
 };
 
 autumnSpiral3.runPositions = function(t) {
-    this.privateValues.scalar = 30;
+    this.privateValues.scalar = 3;
     this.accMult = sliders.accMult.value;
     this.velMult = sliders.velMult.value;
     this.sc = sliders.sc.value;
@@ -2162,8 +2226,8 @@ autumnSpiral3.runPositions = function(t) {
         this.privateValues.spiral = {
             startingAngle: 0.786,
             angle: 0,
-            speed: 0.05 / 360 * Math.PI * 2,
-            hyp: 0.1
+            speed: 0.05 / 360 * Math.PI * 1.5,
+            hyp: 0.01
         };
     }
     // console.log(this.privateValues.spiral.angle);
