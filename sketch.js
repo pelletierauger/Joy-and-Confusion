@@ -286,6 +286,9 @@ function keyPressed() {
     if (key == 'o' || key == 'O') {
         repositionXSheet(4150);
     }
+    if (key == 'p' || key == 'P') {
+        repositionXSheet(4300);
+    }
 }
 
 function repositionXSheet(t) {

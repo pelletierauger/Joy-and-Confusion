@@ -168,13 +168,33 @@ var xSheet = {
         }
     },
     fast2: {
-        d: 430,
+        d: 143,
         f: function(sum) {
             //The getSum function is used to get the sum another scene within the sheet.
             //Calling the getSum on the first scene of the x-sheet should be pointless.
             var rN = getSum(xSheet, xSheet.fast);
             var coFade = cosineFade(sum, 1);
             fastSpiral2.mix(rN, fastSpiral, rN, coFade);
+        }
+    },
+    valley1: {
+        d: 143,
+        f: function(sum) {
+            //The getSum function is used to get the sum another scene within the sheet.
+            //Calling the getSum on the first scene of the x-sheet should be pointless.
+            var rN = getSum(xSheet, xSheet.fast2);
+            var coFade = cosineFade(sum, 1);
+            autumnSpiral9.mix(sum, fastSpiral2, rN, coFade);
+        }
+    },
+    fast3: {
+        d: 143,
+        f: function(sum) {
+            //The getSum function is used to get the sum another scene within the sheet.
+            //Calling the getSum on the first scene of the x-sheet should be pointless.
+            var rN = getSum(xSheet, xSheet.valley1);
+            var coFade = cosineFade(sum, 1);
+            fastSpiral2.mix(rN, autumnSpiral11, rN, coFade);
         }
     },
     exit: {

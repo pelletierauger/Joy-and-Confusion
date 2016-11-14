@@ -3048,7 +3048,8 @@ autumnSpiral9.runColors = function(t) {
         // this.privateValues.paletteIndex = 2114;
         //Also beautiful : 1102, 1150
     }
-
+    // this.privateValues.paletteIndex += 1;
+    // this.privateValues.paletteIndex2 += 1;
     if (allPalettes) {
         this.privateValues.palette = allPalettes[this.privateValues.paletteIndex];
     } else {
@@ -3107,9 +3108,9 @@ autumnSpiral9.runPositions = function(t) {
 
     if (!this.privateValues.spiral) {
         this.privateValues.spiral = {
-            startingAngle: 0.986,
+            startingAngle: 0.9689830397930552,
             angle: 0,
-            speed: 0.05 / 360 * Math.PI * 0.25,
+            speed: 0.05 / 360 * Math.PI * 1,
             hyp: 0.1
         };
     }
