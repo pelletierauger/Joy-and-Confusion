@@ -3739,8 +3739,8 @@ autumnSpiral13b.runPositions = function(t) {
     // this.privateValues.scalar = 19.823 ||  sliders.particleScalar.value;
     // this.privateValues.scalar = sliders.particleScalar.value;
 
-    var mapScalar = map(drawCount, 2500, 2590, 19.823, 100);
-    mapScalar = constrain(mapScalar, 19.823, 100);
+    var mapScalar = map(drawCount, 2540, 2590, 19.823, 70);
+    mapScalar = constrain(mapScalar, 19.823, 70);
     this.privateValues.scalar = mapScalar;
     this.speed = 0.93 || sliders.speed.value;
     this.accMult = sliders.accMult.value;
