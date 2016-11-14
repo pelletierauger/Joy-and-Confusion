@@ -3800,6 +3800,10 @@ autumnSpiral13b.runPositions = function(t) {
     this.privateValues.posGraph = [];
 
     var lerpTiming = map(drawCount, 2368, 2570, 0, 0.0025);
+    // var lerpTiming = cosineFadeSynchronous(drawCount, 2368, 2590);
+    // lerpTiming = map(lerpTiming, 1, 0, 0, 1);
+    // console.log(lerpTiming);
+    // lerpTiming *= 0.25;
     lerpTiming = constrain(lerpTiming, 0, 1);
     for (var i = 0; i < 1000; i++) {
         var x = this.privateValues.spiGraph[i].x;
