@@ -183,7 +183,7 @@ var xSheet = {
             //The getSum function is used to get the sum another scene within the sheet.
             //Calling the getSum on the first scene of the x-sheet should be pointless.
             var rN = getSum(xSheet, xSheet.fast2);
-            var coFade = cosineFade(sum, 1);
+            var coFade = cosineFade(sum, 5);
             autumnSpiral9.mix(sum, fastSpiral2, rN, coFade);
         }
     },
@@ -193,7 +193,7 @@ var xSheet = {
             //The getSum function is used to get the sum another scene within the sheet.
             //Calling the getSum on the first scene of the x-sheet should be pointless.
             var rN = getSum(xSheet, xSheet.valley1);
-            var coFade = cosineFade(sum, 1);
+            var coFade = cosineFade(sum, 5);
             autumnSpiral6c.mix(sum, fastSpiral2, rN, coFade);
         }
     },
@@ -203,7 +203,7 @@ var xSheet = {
             //The getSum function is used to get the sum another scene within the sheet.
             //Calling the getSum on the first scene of the x-sheet should be pointless.
             var rN = getSum(xSheet, xSheet.valley2);
-            var coFade = cosineFade(sum, 1);
+            var coFade = cosineFade(sum, 5);
             autumnSpiral2.mix(sum, autumnSpiral6c, rN, coFade);
         }
     },
@@ -213,7 +213,7 @@ var xSheet = {
             //The getSum function is used to get the sum another scene within the sheet.
             //Calling the getSum on the first scene of the x-sheet should be pointless.
             var rN = getSum(xSheet, xSheet.valley3);
-            var coFade = cosineFade(sum, 1);
+            var coFade = cosineFade(sum, 5);
             autumnSpiral6.mix(sum, autumnSpiral2, rN, coFade);
         }
     },

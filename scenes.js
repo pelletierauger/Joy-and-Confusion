@@ -1881,7 +1881,8 @@ autumnSpiral2.runPositions = function(t) {
 
     if (!this.privateValues.spiral) {
         this.privateValues.spiral = {
-            startingAngle: 0.9786,
+            // startingAngle: 0.9786,
+            startingAngle: 0.86246,
             angle: 0.9786,
             speed: 0.05 / 360 * Math.PI * 2,
             hyp: 0.1
@@ -2714,11 +2715,14 @@ autumnSpiral6c.runPositions = function(t) {
     if (!this.privateValues.spiral) {
         this.privateValues.spiral = {
             // Original startingAngle : 
-            startingAngle: 0.7060928,
+            // startingAngle: 0.7060928,
+
             // New startingAngle : 
             // startingAngle: 1.0996,
+            // Third startingAngle :
+            startingAngle: 0.8764805,
             angle: 0,
-            speed: 0.05 / 360 * Math.PI * 1,
+            speed: 0.05 / 360 * Math.PI * 4,
             hyp: 0.1
         };
     }
@@ -3256,9 +3260,10 @@ autumnSpiral9.runPositions = function(t) {
 
     if (!this.privateValues.spiral) {
         this.privateValues.spiral = {
-            startingAngle: 0.975528,
+            // startingAngle: 0.975528,
+            startingAngle: 0.945421,
             angle: 0,
-            speed: 0.05 / 360 * Math.PI * 1,
+            speed: 0.05 / 360 * Math.PI * 0.5,
             hyp: 0.1
         };
     }
