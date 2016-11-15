@@ -1,7 +1,7 @@
 var canvas;
 var ctx;
 var x, y, t, w;
-var drawCount = 3990;
+var drawCount = 0;
 var looping = false;
 var showInterface = true;
 var showPanel = true;
@@ -107,7 +107,7 @@ function playSong() {
 }
 
 function draw() {
-    if (drawCount > 5500) {
+    if (drawCount > sumSheet) {
         noLoop();
     };
     translate(width / 2, height / 2);
@@ -288,6 +288,9 @@ function keyPressed() {
     }
     if (key == 'p' || key == 'P') {
         repositionXSheet(4300);
+    }
+    if (key == 'z' || key == 'Z') {
+        repositionXSheet(4580);
     }
 }
 

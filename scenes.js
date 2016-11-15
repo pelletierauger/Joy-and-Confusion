@@ -52,6 +52,75 @@ userControlledParticle.runPositions = function(t) {
 
 //--------------------------------------------------------------------------------------------//
 
+var exitParticle = new Scene();
+exitParticle.privateValues.paletteIndex = 236;
+
+exitParticle.runBackground = function(t) {
+    this.localValues.gradient = [{
+        offset: 0,
+        r: 0,
+        g: 0,
+        b: 0
+    }, {
+        offset: 0.01,
+        r: 0,
+        g: 0,
+        b: 0
+    }, {
+        offset: 0.03,
+        r: 0,
+        g: 0,
+        b: 0
+    }];
+};
+
+exitParticle.runLayout = function(t) {
+    // this.localValues.zoom = sliders.zoom.value;
+    // this.localValues.rotation = 0.01;
+    this.localValues.zoom = 0.2;
+    this.localValues.rotation = 0.01;
+};
+
+exitParticle.runPositions = function(t) {
+    this.privateValues.scalar = 50;
+    this.speed = sliders.speed.value;
+    this.accMult = sliders.accMult.value;
+    this.velMult = sliders.velMult.value;
+    this.sc = sliders.sc.value;
+    this.scPow = sliders.scPow.value;
+    this.privateValues.shape = shape;
+
+    this.superformula = {
+        n1: map(abs(sin(t / (sliders.sc.value * pow(10, sliders.scPow.value)))), 0, 1, 0.15, 2),
+        n2: sliders.n2.value,
+        n3: 1,
+        a: 1,
+        b: 1,
+        m: sliders.m.value
+    };
+
+    this.privateValues.graphs = this.particle.run(this, t);
+    this.privateValues.posGraph = this.privateValues.graphs.g;
+    this.localValues.yellowGraph = this.privateValues.graphs.yellowGraph;
+};
+
+exitParticle.runSizes = function(t) {
+    this.localValues.sizes = [];
+    for (var i = 0; i < 1000; i++) {
+        var s = sliders.s.value;
+        if (drawCount > 5482) {
+            s = 0;
+        }
+        this.localValues.sizes.push(s);
+    }
+};
+
+
+
+//--------------------------------------------------------------------------------------------//
+
+
+
 var userControlledSpiral = new Scene();
 
 userControlledSpiral.runBackground = function(t) {
@@ -1618,6 +1687,13 @@ exitSpiral.runColors = function(t) {
             g: lerp(colorValues1.g, colorValues2.g, lerpy),
             b: lerp(colorValues1.b, colorValues2.b, lerpy)
         };
+
+        colorValues = adjustLevels(sliders.dark.value, sliders.mid.value, sliders.light.value, colorValues);
+        // colorValues = adjustHsv(sliders.hue.value, sliders.sat.value, sliders.brightness.value, colorValues);
+
+        colorValues = adjustLevels(-67, 0, 31, colorValues);
+
+
         currentColor++;
         if (currentColor > 4) {
             currentColor = 0;
@@ -1644,32 +1720,95 @@ exitSpiral2.runBackground = function(t) {
     var col = floor(map(abs(cos(t / 20)), 0, 1, 0, 255));
     var col2 = floor(map(abs(cos(t / 40)), 0, 1, 0, 255));
     var step = map(abs(sin(t / 20)), 0, 1, 0.1, 0.3);
-    this.localValues.gradient = [{
+    var premappy = map(drawCount, 5200, 5430, 1, 0);
+    premappy = constrain(premappy, 1, 0);
+    var premappy2 = map(drawCount, 5200, 5330, 1, 0);
+    premappy2 = constrain(premappy2, 1, 0);
+    this.localValues.gradient1 = [{
         offset: 0,
         r: 255,
         g: col / 2,
         b: 150
     }, {
-        offset: step,
-        r: 255,
+        offset: 0.3,
+        r: 255 * premappy,
         g: col2 / 2,
         b: 50
     }, {
         offset: 0.7,
-        r: col2,
-        g: 55,
-        b: 150
+        r: col2 * premappy2,
+        g: 55 * premappy2,
+        b: 150 * premappy2
+    }];
+    var mappy = map(drawCount, 5300, 5530, 1, 0);
+    mappy = constrain(mappy, 1, 0);
+    var mappy2 = map(drawCount, 5300, 5550, 1, 0);
+    mappy2 = constrain(mappy2, 1, 0);
+    this.localValues.gradient2 = [{
+        offset: 0,
+        r: 255 * mappy2,
+        g: 200 * mappy2,
+        b: 100 * mappy2
+    }, {
+        offset: 0.04,
+        r: 155 * mappy,
+        g: 90 * mappy,
+        b: 150 * mappy
+    }, {
+        offset: 0.06,
+        r: 0,
+        g: 0,
+        b: 0
+    }];
+    var lerpy = map(drawCount, 5200, 5480, 0, 1);
+    lerpy = constrain(lerpy, 0, 1);
+    this.localValues.gradient = [{
+        offset: lerp(this.localValues.gradient1[0].offset, this.localValues.gradient2[0].offset, lerpy),
+        r: lerp(this.localValues.gradient1[0].r, this.localValues.gradient2[0].r, lerpy),
+        g: lerp(this.localValues.gradient1[0].g, this.localValues.gradient2[0].g, lerpy),
+        b: lerp(this.localValues.gradient1[0].b, this.localValues.gradient2[0].b, lerpy)
+    }, {
+        offset: lerp(this.localValues.gradient1[1].offset, this.localValues.gradient2[1].offset, lerpy),
+        r: lerp(this.localValues.gradient1[1].r, this.localValues.gradient2[1].r, lerpy),
+        g: lerp(this.localValues.gradient1[1].g, this.localValues.gradient2[1].g, lerpy),
+        b: lerp(this.localValues.gradient1[1].b, this.localValues.gradient2[1].b, lerpy)
+    }, {
+        offset: lerp(this.localValues.gradient1[2].offset, this.localValues.gradient2[2].offset, lerpy),
+        r: lerp(this.localValues.gradient1[2].r, this.localValues.gradient2[2].r, lerpy),
+        g: lerp(this.localValues.gradient1[2].g, this.localValues.gradient2[2].g, lerpy),
+        b: lerp(this.localValues.gradient1[2].b, this.localValues.gradient2[2].b, lerpy)
     }];
 };
 
 exitSpiral2.runLayout = function(t) {
     // var z = map(t, 0, 1000, 1, 0.8);
     // z = constrain(z, 0.1, 1);
-    this.localValues.zoom = 0.01;
+    this.localValues.zoom = 0.04;
     this.localValues.rotation = 0.1;
 };
-exitSpiral2.runPositions = exitSpiral.runPositions;
+exitSpiral2.runPositions = function(t) {
+    // var mappyScalar = map(drawCount, 5480, 5500, 20, 1255);
+    // mappyScalar = constrain(mappyScalar, 20, 1255);
 
+    this.privateValues.scalar = 30;
+
+    if (!this.privateValues.spiral) {
+        this.privateValues.spiral = {
+            startingAngle: -0.09,
+            angle: 0,
+            speed: 0.05 / 360 * Math.PI * 0.5,
+            hyp: 0.8
+        };
+    }
+    // var coFade = cosineFade(-4600, 500);
+    // this.privateValues.spiral.hyp = map(coFade, 0, 1, 0.1, 8);
+    // // console.log(this.privateValues.spiral.hyp);
+    // this.privateValues.spiral.hyp = constrain(this.privateValues.spiral.hyp, 0.1, 8);
+    var spiralVal = this.privateValues.spiral;
+    this.privateValues.spiral.angle = spiralVal.startingAngle + t * spiralVal.speed * -1;
+
+    this.privateValues.posGraph = spiral(this, t);
+};
 exitSpiral2.runColors = function(t) {
     if (!this.privateValues.paletteIndex) {
         this.privateValues.paletteIndex = 1000;
@@ -1699,6 +1838,17 @@ exitSpiral2.runColors = function(t) {
             g: lerp(colorValues1.g, colorValues2.g, lerpy),
             b: lerp(colorValues1.b, colorValues2.b, lerpy)
         };
+
+        colorValues = adjustLevels(sliders.dark.value, sliders.mid.value, sliders.light.value, colorValues);
+        // colorValues = adjustHsv(sliders.hue.value, sliders.sat.value, sliders.brightness.value, colorValues);
+
+        colorValues = adjustLevels(-67, 0, 31, colorValues);
+
+        // var mappyLevels = map(drawCount, 5300, 5509, 0, 255);
+        // mappyLevels = constrain(mappyLevels, 0, 255);
+        // colorValues = adjustLevels(mappyLevels, mappyLevels, mappyLevels, colorValues);
+        // colorValues = adjustHsv(0, 0, mappyLevels, colorValues);
+
         currentColor++;
         if (currentColor > 4) {
             currentColor = 0;
