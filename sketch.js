@@ -3,8 +3,10 @@ var ctx;
 var x, y, t, w;
 var drawCount = 0;
 var looping = false;
+var showInterface = true;
 var showPanel = true;
-var userControl = true;
+var userControl = false;
+var songPlay = true;
 var exporting = false;
 var fileName = "joy-and-confusion-0003";
 var shape;
@@ -22,7 +24,7 @@ function setup() {
     ctx = canvas.drawingContext;
     frameRate(20);
     sumSheet = sumXSheet(xSheet);
-    createInterface(0, sumSheet, 0);
+    createInterface(0, sumSheet, drawCount);
     configureInterface();
     // createInfoDiv();
     // setupInfoDiv();
@@ -79,7 +81,7 @@ function configureInterface() {
     sliders.dark = new Slider("Dark", -100, 100, 0, 1, folders.cols.div);
     sliders.mid = new Slider("Mid", -100, 100, 0, 1, folders.cols.div);
     sliders.light = new Slider("Light", -100, 100, 0, 1, folders.cols.div);
-    sliders.hue = new Slider("Hue", -180, 180, 0, 1, folders.cols.div);
+    sliders.hue = new Slider("Hue", -360, 360, 0, 1, folders.cols.div);
     sliders.sat = new Slider("Saturation", -100, 100, 0, 1, folders.cols.div);
     sliders.brightness = new Slider("Brightness", -100, 100, 0, 1, folders.cols.div);
 
@@ -87,7 +89,7 @@ function configureInterface() {
     sliders.darkBg = new Slider("Dark", -100, 100, 0, 1, folders.colsBg.div);
     sliders.midBg = new Slider("Mid", -100, 100, 0, 1, folders.colsBg.div);
     sliders.lightBg = new Slider("Light", -100, 100, 0, 1, folders.colsBg.div);
-    sliders.hueBg = new Slider("Hue", -180, 180, 0, 1, folders.colsBg.div);
+    sliders.hueBg = new Slider("Hue", -360, 360, 0, 1, folders.colsBg.div);
     sliders.satBg = new Slider("Saturation", -100, 100, 0, 1, folders.colsBg.div);
     sliders.brightnessBg = new Slider("Brightness", -100, 100, 0, 1, folders.colsBg.div);
 
@@ -100,12 +102,12 @@ function configureInterface() {
 
 function playSong() {
     song.rate(20 / 24);
-    console.log("Song rate!");
+    // console.log("Song rate!");
     // song.play();
 }
 
 function draw() {
-    if (drawCount > 5500) {
+    if (drawCount > sumSheet) {
         noLoop();
     };
     translate(width / 2, height / 2);
@@ -122,7 +124,7 @@ function draw() {
     scale(globalValues.zoom, globalValues.zoom);
     // rotate(globalValues.rotation);
     rotate(drawCount * globalValues.rotation);
-    printDots();
+    printDotsWobbly();
     if (showYellow) {
         showYellowDots();
     };
@@ -130,13 +132,16 @@ function draw() {
     if (exporting) {
         frameExport();
     }
+    // if (drawCount > 1850 && drawCount < 2250) {
+    //     frameExport();
+    // }
     // if (drawCount % 10 === 0) {
     //     console.log("frameRate : " + frameRate());
     //     // console.log("drawCount : " + drawCount);
     //     // console.log("songTime : " + (song.currentTime() * 24));
     // }
     drawCount++;
-    if (!userControl && repositionSong) {
+    if (!userControl && repositionSong && songPlay) {
         song.jump(drawCount / 24);
         song.rate(20 / 24);
         repositionSong = false;
@@ -165,54 +170,142 @@ function printDots() {
     }
 }
 
+function printDotsWobbly() {
+    var wob = noise(drawCount / 10) * 5;
+    var wob2 = noise(100 + drawCount / 10) * 5;
+    for (var i = 0; i < globalValues.graph.length; i++) {
+        var wob3 = noise(i * 100 + drawCount / 10) * 2;
+        var wob4 = noise(100 + i * 100 + drawCount / 10) * 2;
+        var dot = globalValues.graph[i];
+        var size = globalValues.sizes[i];
+        fill(dot.col.r, dot.col.g, dot.col.b);
+        // ellipse(dot.pos.x, dot.pos.y, dot.size, dot.size);
+        ellipse(dot.pos.x + wob + wob3, dot.pos.y + wob2 + wob4, size, size);
+    }
+}
+
+showYellowDots = function() {
+    fill(255, 255, 0);
+    if (globalValues.yellowGraph) {
+        for (var i = 0; i < globalValues.yellowGraph.length; i++) {
+            var vec = globalValues.yellowGraph[i];
+            ellipse(vec.x, vec.y, 2.5, 2.5);
+        }
+    }
+}
+
 function keyPressed() {
     if (keyCode === 32) {
         if (looping) {
             noLoop();
             looping = false;
-            if (!userControl) {
+            if (!userControl && songPlay) {
                 song.pause();
             }
         } else {
             loop();
             looping = true;
-            if (!userControl) {
+            if (!userControl && songPlay) {
+
                 song.play();
+                song.jump(drawCount / 24);
                 song.rate(20 / 24);
             }
         }
     }
-    if (key == 'y' || key == 'Y') {
+    if (key == 'm' || key == 'M') {
         showYellow = (showYellow) ? false : true;
     }
-    if (key == 'r' || key == 'R') {
+    if (key == 'a' || key == 'A') {
         // userControlledSpiral.privateValues.paletteIndex += 2;
         // userControlledParticle.privateValues.paletteIndex += 2;
-        autumnSpiral15.privateValues.paletteIndex += 2;
+        superellipseSpiral.privateValues.paletteIndex += 2;
     }
-    if (key == 'e' || key == 'E') {
-        // userControlledSpiral.privateValues.paletteIndex += 2;
-        // userControlledParticle.privateValues.paletteIndex += 2;
-        // userControlledSpiral.privateValues.paletteIndex += 2;
-    }
-    if (key == 't' || key == 'T') {
-        change_erase_color();
+    // if (key == 'e' || key == 'E') {
+    //     // userControlledSpiral.privateValues.paletteIndex += 2;
+    //     // userControlledParticle.privateValues.paletteIndex += 2;
+    //     // userControlledSpiral.privateValues.paletteIndex += 2;
+    // }
+    if (key == 's' || key == 'S') {
+        // change_erase_color();
+        superellipseSpiral.privateValues.paletteIndex2 += 2;
     }
     if (key == 'n' || key == 'N') {
         nb = (nb) ? false : true;
     }
 
     if (key == 'g' || key == 'G') {
-        if (showPanel) {
-            showPanel = false;
+        if (showInterface) {
+            showInterface = false;
             interface.style("display", "none");
             timeline.style("display", "none");
         } else {
-            showPanel = true;
-            interface.style("display", "block");
+            showInterface = true;
+            if (showPanel) {
+                interface.style("display", "block");
+            }
             timeline.style("display", "block");
         }
     }
+    if (key == 'h' || key == 'H') {
+        if (showPanel) {
+            showPanel = false;
+            interface.style("display", "none");
+        } else {
+            showPanel = true;
+            interface.style("display", "block");
+        }
+    }
+    if (keyCode == LEFT_ARROW) {
+        repositionXSheet(0);
+    }
+    if (key == 'q' || key == 'Q') {
+        repositionXSheet(430);
+    }
+    if (key == 'w' || key == 'W') {
+        repositionXSheet(1550);
+    }
+    if (key == 'e' || key == 'E') {
+        repositionXSheet(1700);
+    }
+    if (key == 'r' || key == 'R') {
+        repositionXSheet(1950);
+    }
+    if (key == 't' || key == 'T') {
+        repositionXSheet(2350);
+    }
+    if (key == 'y' || key == 'Y') {
+        repositionXSheet(2590);
+    }
+    if (key == 'u' || key == 'U') {
+        repositionXSheet(2833);
+    }
+    if (key == 'i' || key == 'I') {
+        repositionXSheet(3990);
+    }
+    if (key == 'o' || key == 'O') {
+        repositionXSheet(4150);
+    }
+    if (key == 'p' || key == 'P') {
+        repositionXSheet(4300);
+    }
+    if (key == 'z' || key == 'Z') {
+        repositionXSheet(4580);
+    }
+}
+
+function repositionXSheet(t) {
+    drawCount = t;
+    if (songPlay) {
+        repositionSong = true;
+    }
+    if (!userControl && repositionSong && songPlay) {
+        song.jump(drawCount / 24);
+        song.rate(20 / 24);
+        repositionSong = false;
+    }
+    sliders.timeline.set(drawCount);
+    sliders.timeline.paragraph.html(queryXSheet(xSheet) + ", drawCount : " + drawCount);
 }
 
 function frameExport() {
