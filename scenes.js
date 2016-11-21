@@ -514,7 +514,7 @@ firstSpiral.runPositions = function(t) {
         this.privateValues.spiral = {
             startingAngle: 0,
             angle: 0,
-            speed: 0.05 / 360 * Math.PI * 2 / 5 * 1.1,
+            speed: 0.05 / 360 * Math.PI * 2 / 5 * 1.11125,
             hyp: 8
         };
     }
@@ -832,7 +832,8 @@ octoSpiral.runPositions = function(t) {
         this.privateValues.spiral = {
             startingAngle: 0,
             angle: 0,
-            speed: 0.05 / 360 * Math.PI * 2 / 10 * 1.1
+            // speed: 0.05 / 360 * Math.PI * 2 / 10 * 1.1
+            speed: firstSpiral.privateValues.spiral.speed / 2
         };
     }
     var spiralVal = this.privateValues.spiral;

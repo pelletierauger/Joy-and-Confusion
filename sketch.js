@@ -275,7 +275,7 @@ function keyPressed() {
         repositionXSheet(2350);
     }
     if (key == 'y' || key == 'Y') {
-        repositionXSheet(2590);
+        repositionXSheet(2580);
     }
     if (key == 'u' || key == 'U') {
         repositionXSheet(2833);
@@ -291,6 +291,9 @@ function keyPressed() {
     }
     if (key == 'z' || key == 'Z') {
         repositionXSheet(4580);
+    }
+    if (key == 'x' || key == 'X') {
+        repositionXSheet(5300);
     }
 }
 
