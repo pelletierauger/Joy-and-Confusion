@@ -17,6 +17,9 @@ var song;
 var repositionSong = false;
 var sumSheet;
 
+var valleyArray;
+var currentValley = 0;
+
 function setup() {
     song = loadSound("mindonfire.mp3", playSong);
     loadJSON("https://dl.dropboxusercontent.com/u/1484440/art_numerique/palettes.json", gotPalettes);
@@ -32,6 +35,7 @@ function setup() {
         noLoop();
     }
     noStroke();
+    valleyArray = [autumnSpiral9, autumnSpiral6c, autumnSpiral2, autumnSpiral6];
 }
 
 function configureInterface() {
@@ -219,7 +223,13 @@ function keyPressed() {
     if (key == 'a' || key == 'A') {
         // userControlledSpiral.privateValues.paletteIndex += 2;
         // userControlledParticle.privateValues.paletteIndex += 2;
-        superellipseSpiral.privateValues.paletteIndex += 2;
+        // superellipseSpiral.privateValues.paletteIndex += 2;
+        // autumnSpiral6.privateValues.palettesSubgroup[4]++;
+        currentValley++;
+        if (currentValley > 3) {
+            currentValley = 0;
+        }
+        console.log("currentValley : " + currentValley);
     }
     // if (key == 'e' || key == 'E') {
     //     // userControlledSpiral.privateValues.paletteIndex += 2;
@@ -228,13 +238,31 @@ function keyPressed() {
     // }
     if (key == 's' || key == 'S') {
         // change_erase_color();
-        superellipseSpiral.privateValues.paletteIndex2 += 2;
+        // superellipseSpiral.privateValues.paletteIndex2 += 2;
+        valleyArray[currentValley].privateValues.palettesSubgroup[0] += 2;
+        console.log(valleyArray[currentValley].constructor.name + " pal " + valleyArray[currentValley].privateValues.palettesSubgroup[0]);
     }
+    if (key == 'd' || key == 'D') {
+        valleyArray[currentValley].privateValues.palettesSubgroup[1] += 2;
+    }
+    if (key == 'e' || key == 'E') {
+        valleyArray[currentValley].privateValues.palettesSubgroup[2] += 2;
+    }
+    if (key == 'f' || key == 'F') {
+        valleyArray[currentValley].privateValues.palettesSubgroup[3] += 2;
+    }
+    if (key == 'g' || key == 'G') {
+        valleyArray[currentValley].privateValues.palettesSubgroup[4] += 2;
+    }
+    if (key == 'h' || key == 'H') {
+        valleyArray[currentValley].privateValues.palettesSubgroup[5] += 2;;
+    }
+
     if (key == 'n' || key == 'N') {
         nb = (nb) ? false : true;
     }
 
-    if (key == 'g' || key == 'G') {
+    if (key == 'v' || key == 'V') {
         if (showInterface) {
             showInterface = false;
             interface.style("display", "none");
@@ -247,7 +275,7 @@ function keyPressed() {
             timeline.style("display", "block");
         }
     }
-    if (key == 'h' || key == 'H') {
+    if (key == 'b' || key == 'B') {
         if (showPanel) {
             showPanel = false;
             interface.style("display", "none");
@@ -287,6 +315,9 @@ function keyPressed() {
         repositionXSheet(4150);
     }
     if (key == 'p' || key == 'P') {
+        for (var p = 0; p < valleyArray.length; p++) {
+            valleyArray[p].privateValues.paletteSubgroupIndex = 0;
+        }
         repositionXSheet(4300);
     }
     if (key == 'z' || key == 'Z') {

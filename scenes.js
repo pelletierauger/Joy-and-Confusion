@@ -490,10 +490,11 @@ firstSpiral.runBackground = function(t) {
         this.localValues.gradient[i] = adjustHsv(sliders.hueBg.value, sliders.satBg.value, sliders.brightnessBg.value, this.localValues.gradient[i]);
     }
 
-    if (drawCount > 578 && drawCount < 587) {
+    if (drawCount > 540 && drawCount < 590) {
         for (var i = 0; i < this.localValues.gradient.length; i++) {
-            var s = sin(drawCount * 10);
-            var sMap = map(s, -1, 1, -180, 180);
+            // var s = sin(drawCount * 10);
+            var sMap = map(drawCount, 540, 590, 0, 180);
+            sMap = constrain(sMap, 0, 180);
             // this.localValues.gradient[i] = adjustLevels(sliders.darkBg.value, sliders.midBg.value, sliders.lightBg.value, this.localValues.gradient[i]);
             this.localValues.gradient[i] = adjustHsv(sMap, sliders.satBg.value, sliders.brightnessBg.value, this.localValues.gradient[i]);
         }
@@ -1964,12 +1965,21 @@ autumnSpiral2.runBackground = function(t) {
 autumnSpiral2.runColors = function(t) {
     if (!this.privateValues.paletteIndex) {
         this.privateValues.paletteIndex = 1472;
+        this.privateValues.palettesSubgroup = [1472, 1474, 2395, 1478, 2428, 1482, 1484];
+        this.privateValues.paletteSubgroupIndex = 0;
     }
 
     if (t % 9 == 0) {
-        this.privateValues.paletteIndex += 2;
-        this.privateValues.paletteIndex2 += 2;
+        // this.privateValues.paletteIndex += 2;
+        // this.privateValues.paletteIndex2 += 2;
+        this.privateValues.paletteSubgroupIndex++;
+        if (!this.privateValues.palettesSubgroup[this.privateValues.paletteSubgroupIndex]) {
+            this.privateValues.paletteSubgroupIndex = 0;
+        }
     }
+
+    this.privateValues.paletteIndex = this.privateValues.palettesSubgroup[this.privateValues.paletteSubgroupIndex];
+
 
     if (allPalettes) {
         this.privateValues.palette = allPalettes[this.privateValues.paletteIndex];
@@ -2671,12 +2681,20 @@ autumnSpiral6.runBackground = function(t) {
 autumnSpiral6.runColors = function(t) {
     if (!this.privateValues.paletteIndex) {
         this.privateValues.paletteIndex = 2714;
+        this.privateValues.palettesSubgroup = [2714, 2716, 94, 2987, 2935, 2724, 2726];
+        this.privateValues.paletteSubgroupIndex = 0;
     }
 
     if (t % 9 == 0) {
-        this.privateValues.paletteIndex += 2;
-        this.privateValues.paletteIndex2 += 2;
+        // this.privateValues.paletteIndex += 2;
+        // this.privateValues.paletteIndex2 += 2;
+        this.privateValues.paletteSubgroupIndex++;
+        if (!this.privateValues.palettesSubgroup[this.privateValues.paletteSubgroupIndex]) {
+            this.privateValues.paletteSubgroupIndex = 0;
+        }
     }
+
+    this.privateValues.paletteIndex = this.privateValues.palettesSubgroup[this.privateValues.paletteSubgroupIndex];
 
     if (allPalettes) {
         this.privateValues.palette = allPalettes[this.privateValues.paletteIndex];
@@ -2798,12 +2816,21 @@ autumnSpiral6c.runBackground = function(t) {
 autumnSpiral6c.runColors = function(t) {
     if (!this.privateValues.paletteIndex) {
         this.privateValues.paletteIndex = 2714;
+        this.privateValues.palettesSubgroup = [2714, 2716, 2410, 2750, 2935, 2724, 2726];
+        this.privateValues.paletteSubgroupIndex = 0;
     }
 
     if (t % 9 == 0) {
-        this.privateValues.paletteIndex += 2;
-        this.privateValues.paletteIndex2 += 2;
+        // this.privateValues.paletteIndex += 2;
+        // this.privateValues.paletteIndex2 += 2;
+        this.privateValues.paletteSubgroupIndex++;
+        if (!this.privateValues.palettesSubgroup[this.privateValues.paletteSubgroupIndex]) {
+            this.privateValues.paletteSubgroupIndex = 0;
+        }
     }
+
+    this.privateValues.paletteIndex = this.privateValues.palettesSubgroup[this.privateValues.paletteSubgroupIndex];
+
 
     if (allPalettes) {
         this.privateValues.palette = allPalettes[this.privateValues.paletteIndex];
@@ -3342,15 +3369,22 @@ autumnSpiral9.runBackground = function(t) {
 
 autumnSpiral9.runColors = function(t) {
     if (!this.privateValues.paletteIndex) {
-        // this.privateValues.paletteIndex = 908;
         this.privateValues.paletteIndex = 2014;
-        // this.privateValues.paletteIndex = 2114;
-        //Also beautiful : 1102, 1150
+        this.privateValues.palettesSubgroup = [2014, 2358, 2018, 2020, 2395, 2088, 2026];
+        this.privateValues.paletteSubgroupIndex = 0;
     }
+
     if (t % 9 == 0) {
-        this.privateValues.paletteIndex += 2;
-        this.privateValues.paletteIndex2 += 2;
+        // this.privateValues.paletteIndex += 2;
+        // this.privateValues.paletteIndex2 += 2;
+        this.privateValues.paletteSubgroupIndex++;
+        if (!this.privateValues.palettesSubgroup[this.privateValues.paletteSubgroupIndex]) {
+            this.privateValues.paletteSubgroupIndex = 0;
+        }
     }
+
+    this.privateValues.paletteIndex = this.privateValues.palettesSubgroup[this.privateValues.paletteSubgroupIndex];
+
     if (allPalettes) {
         this.privateValues.palette = allPalettes[this.privateValues.paletteIndex];
     } else {
