@@ -6,8 +6,8 @@ var looping = false;
 var showInterface = true;
 var showPanel = true;
 var userControl = false;
-var songPlay = true;
-var exporting = false;
+var songPlay = false;
+var exporting = true;
 var fileName = "joy-and-confusion-0003";
 var shape;
 var showYellow = false;
@@ -25,7 +25,7 @@ function setup() {
     loadJSON("https://dl.dropboxusercontent.com/u/1484440/art_numerique/palettes.json", gotPalettes);
     canvas = createCanvas(windowWidth, windowWidth * 9 / 16);
     ctx = canvas.drawingContext;
-    frameRate(20);
+    frameRate(5);
     sumSheet = sumXSheet(xSheet);
     createInterface(0, sumSheet, drawCount);
     configureInterface();
@@ -36,6 +36,7 @@ function setup() {
     }
     noStroke();
     valleyArray = [autumnSpiral9, autumnSpiral6c, autumnSpiral2, autumnSpiral6];
+    noiseSeed(99);
 }
 
 function configureInterface() {
@@ -133,7 +134,7 @@ function draw() {
         showYellowDots();
     };
 
-    if (exporting) {
+    if (exporting && drawCount < 1580) {
         frameExport();
     }
     // if (drawCount > 1850 && drawCount < 2250) {
@@ -175,11 +176,14 @@ function printDots() {
 }
 
 function printDotsWobbly() {
-    var wob = noise(drawCount / 10) * 5;
-    var wob2 = noise(100 + drawCount / 10) * 5;
+    var wobScalar = map(drawCount, 0, 1050, 0.8, 0.5);
+    wobScalar = constrain(wobScalar, 0.5, 0.8);
+    // wobScalar = 0.8;
+    var wob = noise(drawCount / 10) * 2.5 * wobScalar;
+    var wob2 = noise(100 + drawCount / 10) * 2.5 * wobScalar;
     for (var i = 0; i < globalValues.graph.length; i++) {
-        var wob3 = noise(i * 100 + drawCount / 10) * 2;
-        var wob4 = noise(100 + i * 100 + drawCount / 10) * 2;
+        var wob3 = noise(i * 100 + drawCount / 10) * 2 * wobScalar;
+        var wob4 = noise(100 + i * 100 + drawCount / 10) * 2 * wobScalar;
         var dot = globalValues.graph[i];
         var size = globalValues.sizes[i];
         fill(dot.col.r, dot.col.g, dot.col.b);
