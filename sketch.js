@@ -42,6 +42,20 @@ function setup() {
 }
 
 function configureInterface() {
+    folders.documentation = new Folder("Documentation", true);
+    var docsString = "<u>Joy and Confusion</u> is a short animation film programmed entirely with p5.js.";
+    docsString += "<br /><br />Pushing the space bar will play and pause the film.";
+    docsString += "<br /><br />Cliking on the large slider below (which acts as a timeline for the film) will reposition the player to that part of the film.";
+    docsString += "<br /><br />In the foldable panels below (which you can unfold by clicking on their titles), you can find various sliders which were used in the creation of this film. They are mostly unusable in this demonstration state.";
+    docsString += "<br /><br />Pressing 'V' will toggle the visibility of the timeline slider. Pressing 'B' will toggle the visibility of the foldable panels.";
+    docsString += "<br /><br />This film was originally synchronized with a copyrighted piece of music that I cannot use here. Using of a copyrighted piece of music was clearly a mistake in retrospect.";
+    docsString += "<br /><br />I now plan to make a new soundtrack that will be generated live in the code using p5.sound.";
+
+    var docs = createP(docsString);
+
+
+    docs.parent(folders.documentation.div);
+
 
     folders.particles = new Folder("Particles", false);
     buttons.resetW = new Button("Reset white dot position and velocity", folders.particles.div, function() {});
@@ -84,7 +98,7 @@ function configureInterface() {
     sliders.spiralScalar = new Slider("Spiral scalar", 1, 200, 1, 0.01, folders.spiral.div);
     sliders.levels = new Slider("Levels", -200, 100, 0, 1, folders.spiral.div);
 
-    folders.cols = new Folder("Color adjustments, foreground", true);
+    folders.cols = new Folder("Color adjustments, foreground", false);
     sliders.dark = new Slider("Dark", -100, 100, 0, 1, folders.cols.div);
     sliders.mid = new Slider("Mid", -100, 100, 0, 1, folders.cols.div);
     sliders.light = new Slider("Light", -100, 100, 0, 1, folders.cols.div);
@@ -92,7 +106,7 @@ function configureInterface() {
     sliders.sat = new Slider("Saturation", -100, 100, 0, 1, folders.cols.div);
     sliders.brightness = new Slider("Brightness", -100, 100, 0, 1, folders.cols.div);
 
-    folders.colsBg = new Folder("Color adjustments, background", true);
+    folders.colsBg = new Folder("Color adjustments, background", false);
     sliders.darkBg = new Slider("Dark", -100, 100, 0, 1, folders.colsBg.div);
     sliders.midBg = new Slider("Mid", -100, 100, 0, 1, folders.colsBg.div);
     sliders.lightBg = new Slider("Light", -100, 100, 0, 1, folders.colsBg.div);
@@ -131,7 +145,7 @@ function draw() {
     scale(globalValues.zoom, globalValues.zoom);
     // rotate(globalValues.rotation);
     rotate(drawCount * globalValues.rotation);
-    printDotsWobbly();
+    printDots();
     if (showYellow) {
         showYellowDots();
     };
