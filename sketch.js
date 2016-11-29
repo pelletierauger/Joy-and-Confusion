@@ -7,7 +7,7 @@ var showInterface = true;
 var showPanel = true;
 var userControl = false;
 var songPlay = false;
-var exporting = true;
+var exporting = false;
 var fileName = "joy-and-confusion-0003";
 var shape;
 var showYellow = false;
@@ -21,11 +21,13 @@ var valleyArray;
 var currentValley = 0;
 
 function setup() {
-    song = loadSound("mindonfire.mp3", playSong);
+    if (songPlay) {
+        song = loadSound("mindonfire.mp3", playSong);
+    }
     loadJSON("https://dl.dropboxusercontent.com/u/1484440/art_numerique/palettes.json", gotPalettes);
     canvas = createCanvas(windowWidth, windowWidth * 9 / 16);
     ctx = canvas.drawingContext;
-    frameRate(5);
+    frameRate(20);
     sumSheet = sumXSheet(xSheet);
     createInterface(0, sumSheet, drawCount);
     configureInterface();
