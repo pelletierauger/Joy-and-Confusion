@@ -24,15 +24,14 @@ function setup() {
     if (songPlay) {
         song = loadSound("mindonfire.mp3", playSong);
     }
-    loadJSON("https://dl.dropboxusercontent.com/u/1484440/art_numerique/palettes.json", gotPalettes);
-    canvas = createCanvas(windowWidth, windowWidth * 9 / 16);
+    loadJSON("palettes.json", gotPalettes);
+    // canvas = createCanvas(windowWidth, windowWidth * 9 / 16);
+    canvas = createCanvas(min(windowHeight * 16 / 9, min(1440, windowWidth)), min(windowHeight, min(1440, windowWidth) * 9 / 16));
     ctx = canvas.drawingContext;
     frameRate(20);
     sumSheet = sumXSheet(xSheet);
     createInterface(0, sumSheet, drawCount);
     configureInterface();
-    // createInfoDiv();
-    // setupInfoDiv();
     if (!looping) {
         noLoop();
     }
@@ -43,19 +42,16 @@ function setup() {
 
 function configureInterface() {
     folders.documentation = new Folder("Documentation", true);
-    var docsString = "<u>Joy and Confusion</u> is a short animation film programmed entirely with p5.js.";
-    docsString += "<br /><br />Pushing the space bar will play and pause the film.";
-    docsString += "<br /><br />Cliking on the large slider below (which acts as a timeline for the film) will reposition the player to that part of the film.";
-    docsString += "<br /><br />In the foldable panels below (which you can unfold by clicking on their titles), you can find various sliders which were used in the creation of this film. They are mostly unusable in this demonstration state.";
-    docsString += "<br /><br />Pressing 'V' will toggle the visibility of the timeline slider. Pressing 'B' will toggle the visibility of the foldable panels.";
-    docsString += "<br /><br />This film was originally synchronized with a copyrighted piece of music that I cannot use here. Using of a copyrighted piece of music was clearly a mistake in retrospect.";
-    docsString += "<br /><br />I now plan to make a new soundtrack that will be generated live in the code using p5.sound.";
+    var docsString = "<i>Joy and Confusion</i> is a short animation film programmed with p5.js.";
+    docsString += "<br /><br />Push the space bar to play or pause the film.";
+    docsString += "<br /><br />Click on the large slider below (which acts as a timeline) to jump anywhere in the film.";
+    docsString += "<br /><br />If you unfold the panels below by clicking on their titles, you'll see various sliders used while developing this film. They're unusable in this demo state.";
+    docsString += "<br /><br />Press 'V' to toggle the visibility of the whole interface. Press 'B' to toggle only the visibility of the foldable panels.";
+    docsString += "<br /><br />The film was originally synchronized with a copyrighted song that I'm currently trying to license for use.";
+    docsString += "You can watch the <a href='https://www.youtube.com/watch?v=FAQV680acEU'>film with music here</a> (an unlisted YouTube link allowed by the rights holder).";
 
     var docs = createP(docsString);
-
-
     docs.parent(folders.documentation.div);
-
 
     folders.particles = new Folder("Particles", false);
     buttons.resetW = new Button("Reset white dot position and velocity", folders.particles.div, function() {});
@@ -132,6 +128,7 @@ function draw() {
         noLoop();
     };
     translate(width / 2, height / 2);
+
     drawCount = sliders.timeline.value;
 
     if (userControl) {
@@ -142,6 +139,7 @@ function draw() {
     }
 
     printBackgroundGradient();
+    scale(width / 1280, width / 1280);
     scale(globalValues.zoom, globalValues.zoom);
     // rotate(globalValues.rotation);
     rotate(drawCount * globalValues.rotation);
@@ -237,50 +235,50 @@ function keyPressed() {
             }
         }
     }
-    if (key == 'm' || key == 'M') {
-        showYellow = (showYellow) ? false : true;
-    }
-    if (key == 'a' || key == 'A') {
-        // userControlledSpiral.privateValues.paletteIndex += 2;
-        // userControlledParticle.privateValues.paletteIndex += 2;
-        // superellipseSpiral.privateValues.paletteIndex += 2;
-        // autumnSpiral6.privateValues.palettesSubgroup[4]++;
-        currentValley++;
-        if (currentValley > 3) {
-            currentValley = 0;
-        }
-        console.log("currentValley : " + currentValley);
-    }
+    // if (key == 'm' || key == 'M') {
+    //     showYellow = (showYellow) ? false : true;
+    // }
+    // if (key == 'a' || key == 'A') {
+    //     // userControlledSpiral.privateValues.paletteIndex += 2;
+    //     // userControlledParticle.privateValues.paletteIndex += 2;
+    //     // superellipseSpiral.privateValues.paletteIndex += 2;
+    //     // autumnSpiral6.privateValues.palettesSubgroup[4]++;
+    //     currentValley++;
+    //     if (currentValley > 3) {
+    //         currentValley = 0;
+    //     }
+    //     console.log("currentValley : " + currentValley);
+    // }
     // if (key == 'e' || key == 'E') {
     //     // userControlledSpiral.privateValues.paletteIndex += 2;
     //     // userControlledParticle.privateValues.paletteIndex += 2;
     //     // userControlledSpiral.privateValues.paletteIndex += 2;
     // }
-    if (key == 's' || key == 'S') {
-        // change_erase_color();
-        // superellipseSpiral.privateValues.paletteIndex2 += 2;
-        valleyArray[currentValley].privateValues.palettesSubgroup[0] += 2;
-        console.log(valleyArray[currentValley].constructor.name + " pal " + valleyArray[currentValley].privateValues.palettesSubgroup[0]);
-    }
-    if (key == 'd' || key == 'D') {
-        valleyArray[currentValley].privateValues.palettesSubgroup[1] += 2;
-    }
-    if (key == 'e' || key == 'E') {
-        valleyArray[currentValley].privateValues.palettesSubgroup[2] += 2;
-    }
-    if (key == 'f' || key == 'F') {
-        valleyArray[currentValley].privateValues.palettesSubgroup[3] += 2;
-    }
-    if (key == 'g' || key == 'G') {
-        valleyArray[currentValley].privateValues.palettesSubgroup[4] += 2;
-    }
-    if (key == 'h' || key == 'H') {
-        valleyArray[currentValley].privateValues.palettesSubgroup[5] += 2;;
-    }
+    // if (key == 's' || key == 'S') {
+    //     // change_erase_color();
+    //     // superellipseSpiral.privateValues.paletteIndex2 += 2;
+    //     valleyArray[currentValley].privateValues.palettesSubgroup[0] += 2;
+    //     console.log(valleyArray[currentValley].constructor.name + " pal " + valleyArray[currentValley].privateValues.palettesSubgroup[0]);
+    // }
+    // if (key == 'd' || key == 'D') {
+    //     valleyArray[currentValley].privateValues.palettesSubgroup[1] += 2;
+    // }
+    // if (key == 'e' || key == 'E') {
+    //     valleyArray[currentValley].privateValues.palettesSubgroup[2] += 2;
+    // }
+    // if (key == 'f' || key == 'F') {
+    //     valleyArray[currentValley].privateValues.palettesSubgroup[3] += 2;
+    // }
+    // if (key == 'g' || key == 'G') {
+    //     valleyArray[currentValley].privateValues.palettesSubgroup[4] += 2;
+    // }
+    // if (key == 'h' || key == 'H') {
+    //     valleyArray[currentValley].privateValues.palettesSubgroup[5] += 2;;
+    // }
 
-    if (key == 'n' || key == 'N') {
-        nb = (nb) ? false : true;
-    }
+    // if (key == 'n' || key == 'N') {
+    //     nb = (nb) ? false : true;
+    // }
 
     if (key == 'v' || key == 'V') {
         if (showInterface) {
