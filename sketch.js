@@ -47,9 +47,11 @@ function configureInterface() {
     docsString += "<br /><br />Click on the large slider below (which acts as a timeline) to jump anywhere in the film.";
     docsString += "<br /><br />If you unfold the panels below by clicking on their titles, you'll see various sliders used while developing this film. They're unusable in this demo state.";
     docsString += "<br /><br />Press 'V' to toggle the visibility of the whole interface. Press 'B' to toggle only the visibility of the foldable panels.";
+
     docsString += "<br /><br />The film was originally synchronized with a copyrighted song that I'm currently trying to license for use.";
     // docsString += "You can watch the <a href='https://www.youtube.com/watch?v=FAQV680acEU'>film with music here</a> (an unlisted YouTube link allowed by the rights holder).";
     docsString += "<br /><br /> The code for this project <a href='https://github.com/pelletierauger/Joy-and-Confusion'>is on GitHub</a>.";
+    docsString += "<br /><br />Press the letters Q, W, E, R, T, Y, U, I, O, P, A, or S to jump to various moments in the film. Press the left arrow to go back to the beginning.";
 
     var docs = createP(docsString);
     docs.parent(folders.documentation.div);
@@ -112,6 +114,11 @@ function configureInterface() {
     sliders.brightnessBg = new Slider("Brightness", -100, 100, 0, 1, folders.colsBg.div);
 
     sliders.timeline.slider.input(function() {
+        for (var p = 0; p < valleyArray.length; p++) {
+            valleyArray[p].privateValues.paletteSubgroupIndex = 0;
+        }
+        fastSpiral2.privateValues.paletteIndex = 0;
+        fastSpiral2.privateValues.paletteIndex2 = 58;
         if (!userControl) {
             repositionSong = true;
         }
@@ -334,20 +341,22 @@ function keyPressed() {
         repositionXSheet(4150);
     }
     if (key == 'p' || key == 'P') {
-        for (var p = 0; p < valleyArray.length; p++) {
-            valleyArray[p].privateValues.paletteSubgroupIndex = 0;
-        }
         repositionXSheet(4300);
     }
-    if (key == 'z' || key == 'Z') {
+    if (key == 'a' || key == 'A') {
         repositionXSheet(4580);
     }
-    if (key == 'x' || key == 'X') {
+    if (key == 's' || key == 'S') {
         repositionXSheet(5300);
     }
 }
 
 function repositionXSheet(t) {
+    for (var p = 0; p < valleyArray.length; p++) {
+        valleyArray[p].privateValues.paletteSubgroupIndex = 0;
+    }
+    fastSpiral2.privateValues.paletteIndex = 0;
+    fastSpiral2.privateValues.paletteIndex2 = 58;
     drawCount = t;
     if (songPlay) {
         repositionSong = true;
