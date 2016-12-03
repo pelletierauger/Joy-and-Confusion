@@ -41,7 +41,9 @@ function setup() {
 }
 
 function configureInterface() {
-    folders.documentation = new Folder("Documentation", true);
+
+    //--------------------------- Documentation panel-------------------//
+    folders.documentation = new Folder("Documentation", false);
     var docsString = "<span class='hl'><i>Joy and Confusion</i></span> is a short animation film programmed with p5.js.";
     docsString += "<br /><br />Push the space bar to play or pause the film.";
     docsString += "<br /><br />Click on the large slider below (which acts as a timeline) to jump anywhere in the film.";
@@ -55,6 +57,31 @@ function configureInterface() {
 
     var docs = createP(docsString);
     docs.parent(folders.documentation.div);
+
+    //--------------------------- Interactivity panel-------------------//
+
+    folders.documentationInteractivity = new Folder("Interactive mode", true);
+    var interactivityString = "<br /><br />Press the letters q, w, e, r, t, y, u, i, o, p, a, s, or d to jump to various moments in the film. When the film is paused, press the left and right arrows to go backward and forward frame by frame.";
+    var interactivityDocs = createP(interactivityString);
+    interactivityDocs.parent(folders.documentationInteractivity.div);
+    //-------- Interactivity switch------------------//
+    menus.interactivity = new Menu("Interactivity", folders.documentationInteractivity.div);
+    menus.interactivity.menu.option("Deactivated");
+    menus.interactivity.menu.option("Activated");
+
+    menus.interactivity.menu.changed(function() {
+        if (menus.interactivity.menu.value() == "Deactivated") {
+            userControl = false;
+        } else {
+            userControl = true;
+        }
+
+    });
+    menus.interactivity.menu.value("Deactivated");
+
+
+
+
 
     folders.particles = new Folder("Particles", false);
     buttons.resetW = new Button("Reset white dot position and velocity", folders.particles.div, function() {});
@@ -70,7 +97,7 @@ function configureInterface() {
     }
     menus.curves.menu.changed(function() {
         var item = menus.curves.menu.value();
-        for (var i = 0; i <  curves.length; i++) {
+        for (var i = 0; i < curves.length; i++) {
             if (item === curves[i].name) {
                 shape = curves[i];
             }
@@ -150,7 +177,7 @@ function draw() {
 
     if (userControl) {
         // userControlled.run();
-        autumnSpiral13.mix(0, userControlledParticle, 0, sliders.lerpy.value);
+        userControlledSpiral.mix(0, userControlledParticle, 0, sliders.lerpy.value);
     } else {
         runXSheet(xSheet);
     }
