@@ -46,12 +46,12 @@ function configureInterface() {
     docsString += "<br /><br />Push the space bar to play or pause the film.";
     docsString += "<br /><br />Click on the large slider below (which acts as a timeline) to jump anywhere in the film.";
     docsString += "<br /><br />If you unfold the panels below by clicking on their titles, you'll see various sliders used while developing this film. They're unusable in this demo state.";
-    docsString += "<br /><br />Press 'V' to toggle the visibility of the whole interface. Press 'B' to toggle only the visibility of the foldable panels.";
+    docsString += "<br /><br />Press 'v' to toggle the visibility of the whole interface. Press 'b' to toggle only the visibility of the foldable panels.";
 
     docsString += "<br /><br />The film was originally synchronized with a copyrighted song that I'm currently trying to license for use.";
     // docsString += "You can watch the <a href='https://www.youtube.com/watch?v=FAQV680acEU'>film with music here</a> (an unlisted YouTube link allowed by the rights holder).";
     docsString += "<br /><br /> The code for this project <a href='https://github.com/pelletierauger/Joy-and-Confusion'>is on GitHub</a>.";
-    docsString += "<br /><br />Press the letters Q, W, E, R, T, Y, U, I, O, P, A, or S to jump to various moments in the film. Press the left arrow to go back to the beginning.";
+    docsString += "<br /><br />Press the letters q, w, e, r, t, y, u, i, o, p, a, s, or d to jump to various moments in the film. When the film is paused, press the left and right arrows to go backward and forward frame by frame.";
 
     var docs = createP(docsString);
     docs.parent(folders.documentation.div);
@@ -122,6 +122,11 @@ function configureInterface() {
         if (!userControl) {
             repositionSong = true;
         }
+
+        if (!looping) {
+            // drawCount = sliders.timeline.value;
+            redraw();
+        }
     });
 }
 
@@ -132,8 +137,12 @@ function playSong() {
 }
 
 function draw() {
-    if (drawCount > sumSheet) {
+    if (drawCount >= sumSheet) {
         noLoop();
+        looping = false;
+        if (!userControl && songPlay) {
+            song.pause();
+        }
     };
     translate(width / 2, height / 2);
 
@@ -311,42 +320,53 @@ function keyPressed() {
         }
     }
     if (keyCode == LEFT_ARROW) {
-        repositionXSheet(0);
+        if (!looping) {
+            repositionXSheet(max(0, drawCount - 2));
+        }
+    }
+    if (keyCode == RIGHT_ARROW) {
+        if (!looping) {
+            repositionXSheet(drawCount);
+            // redraw();
+        }
     }
     if (key == 'q' || key == 'Q') {
-        repositionXSheet(430);
+        repositionXSheet(0);
     }
     if (key == 'w' || key == 'W') {
-        repositionXSheet(1550);
+        repositionXSheet(430);
     }
     if (key == 'e' || key == 'E') {
-        repositionXSheet(1700);
+        repositionXSheet(1550);
     }
     if (key == 'r' || key == 'R') {
-        repositionXSheet(1950);
+        repositionXSheet(1700);
     }
     if (key == 't' || key == 'T') {
-        repositionXSheet(2350);
+        repositionXSheet(1950);
     }
     if (key == 'y' || key == 'Y') {
-        repositionXSheet(2580);
+        repositionXSheet(2350);
     }
     if (key == 'u' || key == 'U') {
-        repositionXSheet(2833);
+        repositionXSheet(2580);
     }
     if (key == 'i' || key == 'I') {
-        repositionXSheet(3990);
+        repositionXSheet(2833);
     }
     if (key == 'o' || key == 'O') {
-        repositionXSheet(4150);
+        repositionXSheet(3990);
     }
     if (key == 'p' || key == 'P') {
-        repositionXSheet(4300);
+        repositionXSheet(4150);
     }
     if (key == 'a' || key == 'A') {
-        repositionXSheet(4580);
+        repositionXSheet(4300);
     }
     if (key == 's' || key == 'S') {
+        repositionXSheet(4580);
+    }
+    if (key == 'd' || key == 'D') {
         repositionXSheet(5300);
     }
 }
@@ -368,6 +388,9 @@ function repositionXSheet(t) {
     }
     sliders.timeline.set(drawCount);
     sliders.timeline.paragraph.html(queryXSheet(xSheet) + ", drawCount : " + drawCount);
+    if (!looping) {
+        redraw();
+    }
 }
 
 function frameExport() {
