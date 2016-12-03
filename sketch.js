@@ -42,7 +42,7 @@ function setup() {
 
 function configureInterface() {
     folders.documentation = new Folder("Documentation", true);
-    var docsString = "<i>Joy and Confusion</i> is a short animation film programmed with p5.js.";
+    var docsString = "<span class='hl'><i>Joy and Confusion</i></span> is a short animation film programmed with p5.js.";
     docsString += "<br /><br />Push the space bar to play or pause the film.";
     docsString += "<br /><br />Click on the large slider below (which acts as a timeline) to jump anywhere in the film.";
     docsString += "<br /><br />If you unfold the panels below by clicking on their titles, you'll see various sliders used while developing this film. They're unusable in this demo state.";
