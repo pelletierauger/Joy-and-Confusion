@@ -117,8 +117,8 @@ function configureInterface() {
         for (var p = 0; p < valleyArray.length; p++) {
             valleyArray[p].privateValues.paletteSubgroupIndex = 0;
         }
-        fastSpiral2.privateValues.paletteIndex = 0;
-        fastSpiral2.privateValues.paletteIndex2 = 58;
+        // fastSpiral2.privateValues.paletteIndex = 0;
+        // fastSpiral2.privateValues.paletteIndex2 = 58;
         if (!userControl) {
             repositionSong = true;
         }
@@ -375,8 +375,8 @@ function repositionXSheet(t) {
     for (var p = 0; p < valleyArray.length; p++) {
         valleyArray[p].privateValues.paletteSubgroupIndex = 0;
     }
-    fastSpiral2.privateValues.paletteIndex = 0;
-    fastSpiral2.privateValues.paletteIndex2 = 58;
+    // fastSpiral2.privateValues.paletteIndex = 0;
+    // fastSpiral2.privateValues.paletteIndex2 = 58;
     drawCount = t;
     if (songPlay) {
         repositionSong = true;
