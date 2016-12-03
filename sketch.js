@@ -48,7 +48,8 @@ function configureInterface() {
     docsString += "<br /><br />If you unfold the panels below by clicking on their titles, you'll see various sliders used while developing this film. They're unusable in this demo state.";
     docsString += "<br /><br />Press 'V' to toggle the visibility of the whole interface. Press 'B' to toggle only the visibility of the foldable panels.";
     docsString += "<br /><br />The film was originally synchronized with a copyrighted song that I'm currently trying to license for use.";
-    docsString += "You can watch the <a href='https://www.youtube.com/watch?v=FAQV680acEU'>film with music here</a> (an unlisted YouTube link allowed by the rights holder).";
+    // docsString += "You can watch the <a href='https://www.youtube.com/watch?v=FAQV680acEU'>film with music here</a> (an unlisted YouTube link allowed by the rights holder).";
+    docsString += "<br /><br /> The code for this project <a href='https://github.com/pelletierauger/Joy-and-Confusion'>is on GitHub</a>.";
 
     var docs = createP(docsString);
     docs.parent(folders.documentation.div);
