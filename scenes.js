@@ -1572,8 +1572,12 @@ fastSpiral2.runLayout = function(t) {
 };
 
 fastSpiral2.runPositions = function(t) {
-    this.privateValues.paletteIndex += 2;
-    this.privateValues.paletteIndex2 += 2;
+    // this.privateValues.paletteIndex += 2;
+    // this.privateValues.paletteIndex2 += 2;
+
+    var paletteRunner = round(abs(sin(t)) * 4000);
+    this.privateValues.paletteIndex = paletteRunner;
+    this.privateValues.paletteIndex2 = paletteRunner;
     var sc = map(sin(t / 4), -1, 1, 5, 175);
     this.privateValues.scalar = sc;
 
