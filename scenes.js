@@ -7,19 +7,23 @@ userControlledParticle.runBackground = function(t) {
     this.localValues.gradient = [{
         offset: 0,
         r: 255,
-        g: 50,
-        b: 255
+        g: 255,
+        b: 0
     }, {
-        offset: step,
-        r: 255,
+        offset: 0.25,
+        r: 55,
         g: 120,
         b: 0
     }, {
         offset: 0.8,
-        r: 55,
-        g: 0,
-        b: 255
+        r: 255,
+        g: 50,
+        b: 0
     }];
+    for (var i = 0; i < this.localValues.gradient.length; i++) {
+        this.localValues.gradient[i] = adjustLevels(sliders.darkBg.value, sliders.midBg.value, sliders.lightBg.value, this.localValues.gradient[i]);
+        this.localValues.gradient[i] = adjustHsv(sliders.hueBg.value, sliders.satBg.value, sliders.brightnessBg.value, this.localValues.gradient[i]);
+    }
 };
 
 userControlledParticle.runLayout = function(t) {
@@ -48,6 +52,27 @@ userControlledParticle.runPositions = function(t) {
     this.privateValues.graphs = this.particle.run(this, t);
     this.privateValues.posGraph = this.privateValues.graphs.g;
     this.localValues.yellowGraph = this.privateValues.graphs.yellowGraph;
+};
+
+userControlledParticle.runColors = function(t) {
+    this.privateValues.paletteIndex = sliders.dotPalette.value;
+    if (allPalettes) {
+        this.privateValues.palette = allPalettes[this.privateValues.paletteIndex];
+    } else {
+        this.privateValues.palette = palette;
+    }
+    this.privateValues.colorGraph = [];
+    var currentColor = 0;
+    for (var i = 0; i < 1000; i++) {
+        var colorValues = hexToRgb(this.privateValues.palette[currentColor]);
+        colorValues = adjustLevels(sliders.dark.value, sliders.mid.value, sliders.light.value, colorValues);
+        colorValues = adjustHsv(sliders.hue.value, sliders.sat.value, sliders.brightness.value, colorValues);
+        currentColor++;
+        if (currentColor > 4) {
+            currentColor = 0;
+        }
+        this.privateValues.colorGraph.push(colorValues);
+    }
 };
 
 //--------------------------------------------------------------------------------------------//
@@ -124,14 +149,14 @@ exitParticle.runSizes = function(t) {
 var userControlledSpiral = new Scene();
 
 userControlledSpiral.runBackground = function(t) {
-    var step = map(abs(sin(t / 20)), 0, 1, 0.1, 0.3);
+    // var step = map(abs(sin(t / 20)), 0, 1, 0.1, 0.3);
     this.localValues.gradient = [{
         offset: 0,
-        r: 255,
-        g: 255,
+        r: 155,
+        g: 175,
         b: 0
     }, {
-        offset: step,
+        offset: 0.1,
         r: 55,
         g: 120,
         b: 0
@@ -141,6 +166,10 @@ userControlledSpiral.runBackground = function(t) {
         g: 50,
         b: 0
     }];
+    for (var i = 0; i < this.localValues.gradient.length; i++) {
+        this.localValues.gradient[i] = adjustLevels(sliders.darkBg.value, sliders.midBg.value, sliders.lightBg.value, this.localValues.gradient[i]);
+        this.localValues.gradient[i] = adjustHsv(sliders.hueBg.value, sliders.satBg.value, sliders.brightnessBg.value, this.localValues.gradient[i]);
+    }
 };
 
 userControlledSpiral.runLayout = function(t) {
@@ -170,13 +199,35 @@ userControlledSpiral.runPositions = function(t) {
         this.privateValues.spiral = {
             startingAngle: 0,
             angle: 0,
-            speed: 0.05 / 360 * Math.PI * 2
+            speed: sliders.spiSpeed.value
         };
     }
+    this.privateValues.spiral.speed = sliders.spiSpeed.value;
     var spiralVal = this.privateValues.spiral;
     this.privateValues.spiral.angle = spiralVal.startingAngle + t * spiralVal.speed * -1;
 
-    this.privateValues.posGraph = spiral(this, t);
+    this.privateValues.posGraph = currentSpiralFormula(this, t);
+};
+
+userControlledSpiral.runColors = function(t) {
+    this.privateValues.paletteIndex = sliders.dotPalette.value;
+    if (allPalettes) {
+        this.privateValues.palette = allPalettes[this.privateValues.paletteIndex];
+    } else {
+        this.privateValues.palette = palette;
+    }
+    this.privateValues.colorGraph = [];
+    var currentColor = 0;
+    for (var i = 0; i < 1000; i++) {
+        var colorValues = hexToRgb(this.privateValues.palette[currentColor]);
+        colorValues = adjustLevels(sliders.dark.value, sliders.mid.value, sliders.light.value, colorValues);
+        colorValues = adjustHsv(sliders.hue.value, sliders.sat.value, sliders.brightness.value, colorValues);
+        currentColor++;
+        if (currentColor > 4) {
+            currentColor = 0;
+        }
+        this.privateValues.colorGraph.push(colorValues);
+    }
 };
 
 //--------------------------------------------------------------------------------------------//
@@ -1192,10 +1243,10 @@ starSpiral2.runColors = function(t) {
         // colorValues = adjustLevels(0, mapMiddle, 0, colorValues)
 
         //New, temporary way of adjusting the color levels.
-        var lev = sliders.levels.value;
-        colorValues.r = constrain(map(colorValues.r, 0, 255, lev, 255), 0, 255);
-        colorValues.g = constrain(map(colorValues.g, 0, 255, lev, 255), 0, 255);
-        colorValues.b = constrain(map(colorValues.b, 0, 255, lev, 255), 0, 255);
+        // var lev = sliders.levels.value;
+        // colorValues.r = constrain(map(colorValues.r, 0, 255, lev, 255), 0, 255);
+        // colorValues.g = constrain(map(colorValues.g, 0, 255, lev, 255), 0, 255);
+        // colorValues.b = constrain(map(colorValues.b, 0, 255, lev, 255), 0, 255);
 
 
 
@@ -1995,10 +2046,10 @@ autumnSpiral2.runColors = function(t) {
     var currentColor = 0;
     for (var i = 0; i < 1000; i++) {
         var colorValues = hexToRgb(this.privateValues.palette[currentColor]);
-        var lev = sliders.levels.value;
-        colorValues.r = constrain(map(colorValues.r, 0, 255, lev, 255), 0, 255);
-        colorValues.g = constrain(map(colorValues.g, 0, 255, lev, 255), 0, 255);
-        colorValues.b = constrain(map(colorValues.b, 0, 255, lev, 255), 0, 255);
+        // var lev = sliders.levels.value;
+        // colorValues.r = constrain(map(colorValues.r, 0, 255, lev, 255), 0, 255);
+        // colorValues.g = constrain(map(colorValues.g, 0, 255, lev, 255), 0, 255);
+        // colorValues.b = constrain(map(colorValues.b, 0, 255, lev, 255), 0, 255);
 
         colorValues = adjustLevels(-90, 0, 0, colorValues)
 
@@ -2121,10 +2172,10 @@ autumnSpiral2b.runColorsB = function(t) {
     var currentColor = 0;
     for (var i = 0; i < 1000; i++) {
         var colorValues = hexToRgb(this.privateValues.palette[currentColor]);
-        var lev = sliders.levels.value;
-        colorValues.r = constrain(map(colorValues.r, 0, 255, lev, 255), 0, 255);
-        colorValues.g = constrain(map(colorValues.g, 0, 255, lev, 255), 0, 255);
-        colorValues.b = constrain(map(colorValues.b, 0, 255, lev, 255), 0, 255);
+        // var lev = sliders.levels.value;
+        // colorValues.r = constrain(map(colorValues.r, 0, 255, lev, 255), 0, 255);
+        // colorValues.g = constrain(map(colorValues.g, 0, 255, lev, 255), 0, 255);
+        // colorValues.b = constrain(map(colorValues.b, 0, 255, lev, 255), 0, 255);
 
 
         colorValues = adjustLevels(sliders.dark.value, sliders.mid.value, sliders.light.value, colorValues);
@@ -2172,10 +2223,10 @@ autumnSpiral2b.runColors = function(t) {
         };
 
         //New, temporary way of adjusting the color levels.
-        var lev = sliders.levels.value;
-        colorValues.r = constrain(map(colorValues.r, 0, 255, lev, 255), 0, 255);
-        colorValues.g = constrain(map(colorValues.g, 0, 255, lev, 255), 0, 255);
-        colorValues.b = constrain(map(colorValues.b, 0, 255, lev, 255), 0, 255);
+        // var lev = sliders.levels.value;
+        // colorValues.r = constrain(map(colorValues.r, 0, 255, lev, 255), 0, 255);
+        // colorValues.g = constrain(map(colorValues.g, 0, 255, lev, 255), 0, 255);
+        // colorValues.b = constrain(map(colorValues.b, 0, 255, lev, 255), 0, 255);
 
 
         colorValues = adjustLevels(sliders.dark.value, sliders.mid.value, sliders.light.value, colorValues);
@@ -2297,8 +2348,8 @@ autumnSpiral3.runColorsB = function(t) {
     var currentColor = 0;
     for (var i = 0; i < 1000; i++) {
         var colorValues = hexToRgb(this.privateValues.palette[currentColor]);
-        var lev = sliders.levels.value;
-        lev = -50;
+        // var lev = sliders.levels.value;
+        var lev = -50;
         colorValues.r = constrain(map(colorValues.r, 0, 255, lev, 255), 0, 255);
         colorValues.g = constrain(map(colorValues.g, 0, 255, lev, 255), 0, 255);
         colorValues.b = constrain(map(colorValues.b, 0, 255, lev, 255), 0, 255);
@@ -2466,10 +2517,10 @@ autumnSpiral4.runColors = function(t) {
     var currentColor = 0;
     for (var i = 0; i < 1000; i++) {
         var colorValues = hexToRgb(this.privateValues.palette[currentColor]);
-        var lev = sliders.levels.value;
-        colorValues.r = constrain(map(colorValues.r, 0, 255, lev, 255), 0, 255);
-        colorValues.g = constrain(map(colorValues.g, 0, 255, lev, 255), 0, 255);
-        colorValues.b = constrain(map(colorValues.b, 0, 255, lev, 255), 0, 255);
+        // var lev = sliders.levels.value;
+        // colorValues.r = constrain(map(colorValues.r, 0, 255, lev, 255), 0, 255);
+        // colorValues.g = constrain(map(colorValues.g, 0, 255, lev, 255), 0, 255);
+        // colorValues.b = constrain(map(colorValues.b, 0, 255, lev, 255), 0, 255);
         currentColor++;
         if (currentColor > 4) {
             currentColor = 0;
@@ -2581,10 +2632,10 @@ autumnSpiral5.runColors = function(t) {
     var currentColor = 0;
     for (var i = 0; i < 1000; i++) {
         var colorValues = hexToRgb(this.privateValues.palette[currentColor]);
-        var lev = sliders.levels.value;
-        colorValues.r = constrain(map(colorValues.r, 0, 255, lev, 255), 0, 255);
-        colorValues.g = constrain(map(colorValues.g, 0, 255, lev, 255), 0, 255);
-        colorValues.b = constrain(map(colorValues.b, 0, 255, lev, 255), 0, 255);
+        // var lev = sliders.levels.value;
+        // colorValues.r = constrain(map(colorValues.r, 0, 255, lev, 255), 0, 255);
+        // colorValues.g = constrain(map(colorValues.g, 0, 255, lev, 255), 0, 255);
+        // colorValues.b = constrain(map(colorValues.b, 0, 255, lev, 255), 0, 255);
         currentColor++;
         if (currentColor > 4) {
             currentColor = 0;
@@ -2710,10 +2761,10 @@ autumnSpiral6.runColors = function(t) {
     var currentColor = 0;
     for (var i = 0; i < 1000; i++) {
         var colorValues = hexToRgb(this.privateValues.palette[currentColor]);
-        var lev = sliders.levels.value;
-        colorValues.r = constrain(map(colorValues.r, 0, 255, lev, 255), 0, 255);
-        colorValues.g = constrain(map(colorValues.g, 0, 255, lev, 255), 0, 255);
-        colorValues.b = constrain(map(colorValues.b, 0, 255, lev, 255), 0, 255);
+        // var lev = sliders.levels.value;
+        // colorValues.r = constrain(map(colorValues.r, 0, 255, lev, 255), 0, 255);
+        // colorValues.g = constrain(map(colorValues.g, 0, 255, lev, 255), 0, 255);
+        // colorValues.b = constrain(map(colorValues.b, 0, 255, lev, 255), 0, 255);
 
         colorValues = adjustLevels(-90, 0, 0, colorValues);
         currentColor++;
@@ -2846,10 +2897,10 @@ autumnSpiral6c.runColors = function(t) {
     var currentColor = 0;
     for (var i = 0; i < 1000; i++) {
         var colorValues = hexToRgb(this.privateValues.palette[currentColor]);
-        var lev = sliders.levels.value;
-        colorValues.r = constrain(map(colorValues.r, 0, 255, lev, 255), 0, 255);
-        colorValues.g = constrain(map(colorValues.g, 0, 255, lev, 255), 0, 255);
-        colorValues.b = constrain(map(colorValues.b, 0, 255, lev, 255), 0, 255);
+        // var lev = sliders.levels.value;
+        // colorValues.r = constrain(map(colorValues.r, 0, 255, lev, 255), 0, 255);
+        // colorValues.g = constrain(map(colorValues.g, 0, 255, lev, 255), 0, 255);
+        // colorValues.b = constrain(map(colorValues.b, 0, 255, lev, 255), 0, 255);
 
         colorValues = adjustLevels(-90, 0, 0, colorValues)
 
@@ -2976,10 +3027,10 @@ autumnSpiral6b.runColors2 = function(t) {
     var currentColor = 0;
     for (var i = 0; i < 1000; i++) {
         var colorValues = hexToRgb(this.privateValues.palette[currentColor]);
-        var lev = sliders.levels.value;
-        colorValues.r = constrain(map(colorValues.r, 0, 255, lev, 255), 0, 255);
-        colorValues.g = constrain(map(colorValues.g, 0, 255, lev, 255), 0, 255);
-        colorValues.b = constrain(map(colorValues.b, 0, 255, lev, 255), 0, 255);
+        // var lev = sliders.levels.value;
+        // colorValues.r = constrain(map(colorValues.r, 0, 255, lev, 255), 0, 255);
+        // colorValues.g = constrain(map(colorValues.g, 0, 255, lev, 255), 0, 255);
+        // colorValues.b = constrain(map(colorValues.b, 0, 255, lev, 255), 0, 255);
         currentColor++;
         if (currentColor > 4) {
             currentColor = 0;
@@ -3085,10 +3136,10 @@ autumnSpiral6b.runColors = function(t) {
         };
 
         //New, temporary way of adjusting the color levels.
-        var lev = sliders.levels.value;
-        colorValues.r = constrain(map(colorValues.r, 0, 255, lev, 255), 0, 255);
-        colorValues.g = constrain(map(colorValues.g, 0, 255, lev, 255), 0, 255);
-        colorValues.b = constrain(map(colorValues.b, 0, 255, lev, 255), 0, 255);
+        // var lev = sliders.levels.value;
+        // colorValues.r = constrain(map(colorValues.r, 0, 255, lev, 255), 0, 255);
+        // colorValues.g = constrain(map(colorValues.g, 0, 255, lev, 255), 0, 255);
+        // colorValues.b = constrain(map(colorValues.b, 0, 255, lev, 255), 0, 255);
 
 
         colorValues = adjustLevels(sliders.dark.value, sliders.mid.value, sliders.light.value, colorValues);
@@ -3146,10 +3197,10 @@ autumnSpiral7.runColors = function(t) {
     var currentColor = 0;
     for (var i = 0; i < 1000; i++) {
         var colorValues = hexToRgb(this.privateValues.palette[currentColor]);
-        var lev = sliders.levels.value;
-        colorValues.r = constrain(map(colorValues.r, 0, 255, lev, 255), 0, 255);
-        colorValues.g = constrain(map(colorValues.g, 0, 255, lev, 255), 0, 255);
-        colorValues.b = constrain(map(colorValues.b, 0, 255, lev, 255), 0, 255);
+        // var lev = sliders.levels.value;
+        // colorValues.r = constrain(map(colorValues.r, 0, 255, lev, 255), 0, 255);
+        // colorValues.g = constrain(map(colorValues.g, 0, 255, lev, 255), 0, 255);
+        // colorValues.b = constrain(map(colorValues.b, 0, 255, lev, 255), 0, 255);
         currentColor++;
         if (currentColor > 4) {
             currentColor = 0;
@@ -3267,8 +3318,8 @@ autumnSpiral8.runColors = function(t) {
     var currentColor = 0;
     for (var i = 0; i < 1000; i++) {
         var colorValues = hexToRgb(this.privateValues.palette[currentColor]);
-        var lev = sliders.levels.value;
-        lev = -90;
+        // var lev = sliders.levels.value;
+        var lev = -90;
         colorValues.r = constrain(map(colorValues.r, 0, 255, lev, 255), 0, 255);
         colorValues.g = constrain(map(colorValues.g, 0, 255, lev, 255), 0, 255);
         colorValues.b = constrain(map(colorValues.b, 0, 255, lev, 255), 0, 255);
@@ -3399,8 +3450,8 @@ autumnSpiral9.runColors = function(t) {
     var currentColor = 0;
     for (var i = 0; i < 1000; i++) {
         var colorValues = hexToRgb(this.privateValues.palette[currentColor]);
-        var lev = sliders.levels.value;
-        lev = -90;
+        // var lev = sliders.levels.value;
+        var lev = -90;
         colorValues.r = constrain(map(colorValues.r, 0, 255, lev, 255), 0, 255);
         colorValues.g = constrain(map(colorValues.g, 0, 255, lev, 255), 0, 255);
         colorValues.b = constrain(map(colorValues.b, 0, 255, lev, 255), 0, 255);
@@ -3527,8 +3578,8 @@ autumnSpiral10.runColors = function(t) {
     var currentColor = 0;
     for (var i = 0; i < 1000; i++) {
         var colorValues = hexToRgb(this.privateValues.palette[currentColor]);
-        var lev = sliders.levels.value;
-        lev = -90;
+        // var lev = sliders.levels.value;
+        var lev = -90;
         colorValues.r = constrain(map(colorValues.r, 0, 255, lev, 255), 0, 255);
         colorValues.g = constrain(map(colorValues.g, 0, 255, lev, 255), 0, 255);
         colorValues.b = constrain(map(colorValues.b, 0, 255, lev, 255), 0, 255);
@@ -3660,8 +3711,8 @@ autumnSpiral11.runColors = function(t) {
     var currentColor = 0;
     for (var i = 0; i < 1000; i++) {
         var colorValues = hexToRgb(this.privateValues.palette[currentColor]);
-        var lev = sliders.levels.value;
-        lev = -120;
+        // var lev = sliders.levels.value;
+        var lev = -120;
         colorValues.r = constrain(map(colorValues.r, 0, 255, lev, 255), 0, 255);
         colorValues.g = constrain(map(colorValues.g, 0, 255, lev, 255), 0, 255);
         colorValues.b = constrain(map(colorValues.b, 0, 255, lev, 255), 0, 255);
@@ -3789,8 +3840,8 @@ autumnSpiral12.runColors = function(t) {
     var currentColor = 0;
     for (var i = 0; i < 1000; i++) {
         var colorValues = hexToRgb(this.privateValues.palette[currentColor]);
-        var lev = sliders.levels.value;
-        lev = -120;
+        // var lev = sliders.levels.value;
+        var lev = -120;
         colorValues.r = constrain(map(colorValues.r, 0, 255, lev, 255), 0, 255);
         colorValues.g = constrain(map(colorValues.g, 0, 255, lev, 255), 0, 255);
         colorValues.b = constrain(map(colorValues.b, 0, 255, lev, 255), 0, 255);

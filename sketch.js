@@ -16,6 +16,8 @@ var globalValues = {};
 var song;
 var repositionSong = false;
 var sumSheet;
+var spiralFormulas;
+var currentSpiralFormula;
 
 var valleyArray;
 var currentValley = 0;
@@ -47,7 +49,7 @@ function configureInterface() {
     var docsString = "<span class='hl'><i>Joy and Confusion</i></span> is a short animation film programmed with p5.js.";
     docsString += "<br /><br />Push the space bar to play or pause the film.";
     docsString += "<br /><br />Click on the large slider below (which acts as a timeline) to jump anywhere in the film.";
-    docsString += "<br /><br />If you unfold the panels below by clicking on their titles, you'll see various sliders used while developing this film. They're unusable in this demo state.";
+    docsString += "<br /><br />If you unfold the panels below by clicking on their titles, you'll see various sliders used while developing this film. You can use activate them in the <span class='hl'>Interactive Mode</span> panel.";
     docsString += "<br /><br />Press 'v' to toggle the visibility of the whole interface. Press 'b' to toggle only the visibility of the foldable panels.";
 
     docsString += "<br /><br />The film was originally synchronized with a copyrighted song that I'm currently trying to license for use.";
@@ -61,7 +63,7 @@ function configureInterface() {
     //--------------------------- Interactivity panel-------------------//
 
     folders.documentationInteractivity = new Folder("Interactive mode", true);
-    var interactivityString = "<br /><br />Press the letters q, w, e, r, t, y, u, i, o, p, a, s, or d to jump to various moments in the film. When the film is paused, press the left and right arrows to go backward and forward frame by frame.";
+    var interactivityString = "This allows you to use many tools used in the creation of <i>Joy and Confusion</i>.";
     var interactivityDocs = createP(interactivityString);
     interactivityDocs.parent(folders.documentationInteractivity.div);
     //-------- Interactivity switch------------------//
@@ -70,6 +72,9 @@ function configureInterface() {
     menus.interactivity.menu.option("Activated");
 
     menus.interactivity.menu.changed(function() {
+        if (!currentSpiralFormula) {
+            currentSpiralFormula = spiralFormulas[0][0];
+        }
         if (menus.interactivity.menu.value() == "Deactivated") {
             userControl = false;
         } else {
@@ -78,6 +83,44 @@ function configureInterface() {
 
     });
     menus.interactivity.menu.value("Deactivated");
+
+    var docsLerpy = createP("The <span class='hl'>Spiral to Particle</span> slider allows you to make a linear interpolation between a spiral shape (0) and a particle system (1). For more control over the spiral and the particle system, open more panels below.");
+    docsLerpy.parent(folders.documentationInteractivity.div);
+    sliders.lerpy = new Slider("Spiral to Particle", 0, 1, 0, 0.01, folders.documentationInteractivity.div);
+    sliders.zoom = new Slider("Canvas scale", 0, 20, 1, 0.01, folders.documentationInteractivity.div);
+    sliders.s = new Slider("Dot size", 0, 40, 2.5, 0.1, folders.documentationInteractivity.div);
+    sliders.dotPalette = new Slider("Dot color palette", 0, 4051, 0, 1, folders.documentationInteractivity.div);
+
+    sliders.spiralScalar = new Slider("Spiral scalar", 1, 200, 1, 0.01, folders.documentationInteractivity.div);
+    sliders.particleScalar = new Slider("Particle scalar", 0, 200, 1, 0.001, folders.documentationInteractivity.div);
+
+
+    folders.spiral = new Folder("Spirals", false);
+    //-------- Curve selector------------------//
+    menus.spiralFormulas = new Menu("Path", folders.spiral.div);
+    for (var c = 0; c < spiralFormulas.length; c++) {
+        menus.spiralFormulas.menu.option(spiralFormulas[c][1]);
+    }
+    menus.spiralFormulas.menu.changed(function() {
+        var item = menus.spiralFormulas.menu.value();
+        for (var i = 0; i < spiralFormulas.length; i++) {
+            if (spiralFormulas[i][1] == item) {
+                currentSpiralFormula = spiralFormulas[i][0];
+            }
+        }
+        // for (var i = 0; i < curves.length; i++) {
+        //     if (item === curves[i].name) {
+        //         shape = curves[i];
+        //     }
+        // }
+    });
+    menus.spiralFormulas.menu.value(spiralFormulas[0][1]);
+    sliders.spiSpeed = new Slider("Spiral Speed", 0, 0.001, 0.0001, 0.000001, folders.spiral.div);
+
+
+
+
+
 
 
 
@@ -110,19 +153,14 @@ function configureInterface() {
     sliders.speed = new Slider("Yellow Dot Rotation rate", 0, 1, 0.29, 0.01, folders.particles.div);
 
 
-    folders.spiral = new Folder("Spirals", false);
-    sliders.zoom = new Slider("Canvas scale", 0, 20, 1, 0.01, folders.spiral.div);
 
-    folders.superformula = new Folder("Superformula", false);
+
+    folders.superformula = new Folder("Particles - Superformula", false);
     sliders.n2 = new Slider("n2", 0, 10, 1, 0.1, folders.superformula.div);
     sliders.sc = new Slider("sc", 0, 100, 20, 1, folders.superformula.div);
     sliders.scPow = new Slider("scPow", -10, 10, 0, 1, folders.superformula.div);
     sliders.m = new Slider("m", 0, 30, 5, 1, folders.superformula.div);
-    sliders.s = new Slider("Dot size", 0, 40, 2.5, 0.1, folders.spiral.div);
-    sliders.lerpy = new Slider("Lerp", 0, 1, 0, 0.01, folders.spiral.div);
-    sliders.particleScalar = new Slider("Particle scalar", 0, 200, 1, 0.001, folders.spiral.div);
-    sliders.spiralScalar = new Slider("Spiral scalar", 1, 200, 1, 0.01, folders.spiral.div);
-    sliders.levels = new Slider("Levels", -200, 100, 0, 1, folders.spiral.div);
+    // sliders.levels = new Slider("Levels", -200, 100, 0, 1, folders.spiral.div);
 
     folders.cols = new Folder("Color adjustments, foreground", false);
     sliders.dark = new Slider("Dark", -100, 100, 0, 1, folders.cols.div);
@@ -210,7 +248,11 @@ function draw() {
         repositionSong = false;
     }
     sliders.timeline.set(drawCount);
-    sliders.timeline.paragraph.html(queryXSheet(xSheet) + ", drawCount : " + drawCount);
+    if (!userControl) {
+        sliders.timeline.paragraph.html(queryXSheet(xSheet) + ", drawCount : " + drawCount);
+    } else {
+        sliders.timeline.paragraph.html("drawCount : " + drawCount);
+    }
 }
 
 function printBackgroundGradient() {
@@ -251,6 +293,7 @@ function printDotsWobbly() {
 }
 
 showYellowDots = function() {
+    // console.log("Yip!");
     fill(255, 255, 0);
     if (globalValues.yellowGraph) {
         for (var i = 0; i < globalValues.yellowGraph.length; i++) {
