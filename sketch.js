@@ -80,7 +80,7 @@ function configureInterface() {
         } else {
             userControl = true;
         }
-
+        redraw();
     });
     menus.interactivity.menu.value("Deactivated");
 
