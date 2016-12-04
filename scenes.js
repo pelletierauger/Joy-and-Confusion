@@ -4,31 +4,50 @@ var userControlledParticle = new Scene();
 
 userControlledParticle.runBackground = function(t) {
     var step = map(abs(sin(t / 20)), 0, 1, 0.1, 0.3);
+    // this.localValues.gradient = [{
+    //     offset: 0,
+    //     r: 255,
+    //     g: 255,
+    //     b: 0
+    // }, {
+    //     offset: 0.25,
+    //     r: 55,
+    //     g: 120,
+    //     b: 0
+    // }, {
+    //     offset: 0.8,
+    //     r: 255,
+    //     g: 50,
+    //     b: 0
+    // }];
+
+    //All black background
     this.localValues.gradient = [{
         offset: 0,
-        r: 255,
-        g: 255,
+        r: 0,
+        g: 0,
         b: 0
     }, {
         offset: 0.25,
-        r: 55,
-        g: 120,
+        r: 0,
+        g: 0,
         b: 0
     }, {
         offset: 0.8,
-        r: 255,
-        g: 50,
+        r: 0,
+        g: 0,
         b: 0
     }];
-    for (var i = 0; i < this.localValues.gradient.length; i++) {
-        this.localValues.gradient[i] = adjustLevels(sliders.darkBg.value, sliders.midBg.value, sliders.lightBg.value, this.localValues.gradient[i]);
-        this.localValues.gradient[i] = adjustHsv(sliders.hueBg.value, sliders.satBg.value, sliders.brightnessBg.value, this.localValues.gradient[i]);
-    }
+
+    // for (var i = 0; i < this.localValues.gradient.length; i++) {
+    //     this.localValues.gradient[i] = adjustLevels(sliders.darkBg.value, sliders.midBg.value, sliders.lightBg.value, this.localValues.gradient[i]);
+    //     this.localValues.gradient[i] = adjustHsv(sliders.hueBg.value, sliders.satBg.value, sliders.brightnessBg.value, this.localValues.gradient[i]);
+    // }
 };
 
 userControlledParticle.runLayout = function(t) {
     this.localValues.zoom = sliders.zoom.value;
-    this.localValues.rotation = 0.01;
+    this.localValues.rotation = 0;
 };
 
 userControlledParticle.runPositions = function(t) {
@@ -71,6 +90,12 @@ userControlledParticle.runColors = function(t) {
         if (currentColor > 4) {
             currentColor = 0;
         }
+        //All white dots
+        colorValues = {
+            r: 255,
+            g: 255,
+            b: 255
+        };
         this.privateValues.colorGraph.push(colorValues);
     }
 };
@@ -227,6 +252,16 @@ userControlledSpiral.runColors = function(t) {
             currentColor = 0;
         }
         this.privateValues.colorGraph.push(colorValues);
+    }
+};
+
+userControlledSpiral.runSizes = function(t) {
+    this.localValues.sizes = [];
+    for (var i = 0; i < 1000; i++) {
+        var s = sliders.s.value;
+        var growthMap = map(i, 0, 1000, 0, sliders.sizeGrowth.value);
+        s += growthMap;
+        this.localValues.sizes.push(s);
     }
 };
 

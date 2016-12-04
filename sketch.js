@@ -10,7 +10,7 @@ var songPlay = false;
 var exporting = false;
 var fileName = "joy-and-confusion-0003";
 var shape;
-var showYellow = false;
+var showYellow = true;
 var norma = false;
 var globalValues = {};
 var song;
@@ -45,7 +45,7 @@ function setup() {
 function configureInterface() {
 
     //--------------------------- Documentation panel-------------------//
-    folders.documentation = new Folder("Documentation", false);
+    folders.documentation = new Folder("Documentation", true);
     var docsString = "<span class='hl'><i>Joy and Confusion</i></span> is a short animation film programmed with p5.js.";
     docsString += "<br /><br />Push the space bar to play or pause the film.";
     docsString += "<br /><br />Click on the large slider below (which acts as a timeline) to jump anywhere in the film.";
@@ -62,7 +62,7 @@ function configureInterface() {
 
     //--------------------------- Interactivity panel-------------------//
 
-    folders.documentationInteractivity = new Folder("Interactive mode", true);
+    folders.documentationInteractivity = new Folder("Interactive mode", false);
     var interactivityString = "This allows you to use many tools used in the creation of <i>Joy and Confusion</i>.";
     var interactivityDocs = createP(interactivityString);
     interactivityDocs.parent(folders.documentationInteractivity.div);
@@ -84,11 +84,13 @@ function configureInterface() {
     });
     menus.interactivity.menu.value("Deactivated");
 
-    var docsLerpy = createP("The <span class='hl'>Spiral to Particle</span> slider allows you to make a linear interpolation between a spiral shape (0) and a particle system (1). For more control over the spiral and the particle system, open more panels below.");
+    var docsLerpy = createP("The <span class='hl'>Spiral to particle</span> slider allows you to make a linear interpolation between a spiral shape (0) and a particle system (1). For more control over the spiral and the particle system, open more panels below.");
     docsLerpy.parent(folders.documentationInteractivity.div);
-    sliders.lerpy = new Slider("Spiral to Particle", 0, 1, 0, 0.01, folders.documentationInteractivity.div);
+    sliders.lerpy = new Slider("Spiral to particle", 0, 1, 0, 0.01, folders.documentationInteractivity.div);
     sliders.zoom = new Slider("Canvas scale", 0, 20, 1, 0.01, folders.documentationInteractivity.div);
     sliders.s = new Slider("Dot size", 0, 40, 2.5, 0.1, folders.documentationInteractivity.div);
+    sliders.sizeGrowth = new Slider("Dot size growth", 0, 250, 0, 1, folders.documentationInteractivity.div);
+
     sliders.dotPalette = new Slider("Dot color palette", 0, 4051, 0, 1, folders.documentationInteractivity.div);
 
     sliders.spiralScalar = new Slider("Spiral scalar", 1, 200, 1, 0.01, folders.documentationInteractivity.div);
@@ -97,7 +99,7 @@ function configureInterface() {
 
     folders.spiral = new Folder("Spirals", false);
     //-------- Curve selector------------------//
-    menus.spiralFormulas = new Menu("Path", folders.spiral.div);
+    menus.spiralFormulas = new Menu("Spiral shape", folders.spiral.div);
     for (var c = 0; c < spiralFormulas.length; c++) {
         menus.spiralFormulas.menu.option(spiralFormulas[c][1]);
     }
@@ -115,7 +117,7 @@ function configureInterface() {
         // }
     });
     menus.spiralFormulas.menu.value(spiralFormulas[0][1]);
-    sliders.spiSpeed = new Slider("Spiral Speed", 0, 0.001, 0.0001, 0.000001, folders.spiral.div);
+    sliders.spiSpeed = new Slider("Spiral speed", 0, 0.001, 0.0001, 0.000001, folders.spiral.div);
 
 
 
@@ -152,8 +154,24 @@ function configureInterface() {
     sliders.velMult = new Slider("White dot Friction", 0.999, 1, 0.999, 0.00001, folders.particles.div);
     sliders.speed = new Slider("Yellow Dot Rotation rate", 0, 1, 0.29, 0.01, folders.particles.div);
 
+    //-------- Curve selector------------------//
+    menus.yellShow = new Menu("Show Yellow Dot", folders.particles.div);
 
+    menus.yellShow.menu.option("True");
+    menus.yellShow.menu.option("False");
 
+    menus.yellShow.menu.changed(function() {
+        var item = menus.yellShow.menu.value();
+        if (item == "True") {
+            showYellow = true;
+        } else if (item == "False") {
+            showYellow = false;
+        }
+    });
+    menus.yellShow.menu.value("True");
+
+    var yellKey = createP("Press l to toggle Yellow dot visibility");
+    yellKey.parent(folders.particles.div);
 
     folders.superformula = new Folder("Particles - Superformula", false);
     sliders.n2 = new Slider("n2", 0, 10, 1, 0.1, folders.superformula.div);
@@ -216,6 +234,7 @@ function draw() {
     if (userControl) {
         // userControlled.run();
         userControlledSpiral.mix(0, userControlledParticle, 0, sliders.lerpy.value);
+        userControlledSpiral.localValues.yellowGraph = userControlledParticle.localValues.yellowGraph;
     } else {
         runXSheet(xSheet);
     }
@@ -226,7 +245,7 @@ function draw() {
     // rotate(globalValues.rotation);
     rotate(drawCount * globalValues.rotation);
     printDots();
-    if (showYellow) {
+    if (showYellow && userControl) {
         showYellowDots();
     };
 
@@ -294,11 +313,12 @@ function printDotsWobbly() {
 
 showYellowDots = function() {
     // console.log("Yip!");
-    fill(255, 255, 0);
+    // var mapLerp = map(
+    fill(255, 255, 0, sliders.lerpy.value * 255);
     if (globalValues.yellowGraph) {
         for (var i = 0; i < globalValues.yellowGraph.length; i++) {
             var vec = globalValues.yellowGraph[i];
-            ellipse(vec.x, vec.y, 2.5, 2.5);
+            ellipse(vec.x * sliders.particleScalar.value, vec.y * sliders.particleScalar.value, 2.5, 2.5);
         }
     }
 }
@@ -438,6 +458,15 @@ function keyPressed() {
     }
     if (key == 'd' || key == 'D') {
         repositionXSheet(5300);
+    }
+    if (key == 'l' || key == 'L') {
+        if (showYellow) {
+            showYellow = false;
+            menus.yellShow.menu.value("False");
+        } else {
+            showYellow = true;
+            menus.yellShow.menu.value("True");
+        }
     }
 }
 
