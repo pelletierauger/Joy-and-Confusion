@@ -571,10 +571,10 @@ firstSpiral.runBackground = function(t) {
         g: 0,
         b: 0
     }];
-    for (var i = 0; i < this.localValues.gradient.length; i++) {
-        this.localValues.gradient[i] = adjustLevels(sliders.darkBg.value, sliders.midBg.value, sliders.lightBg.value, this.localValues.gradient[i]);
-        this.localValues.gradient[i] = adjustHsv(sliders.hueBg.value, sliders.satBg.value, sliders.brightnessBg.value, this.localValues.gradient[i]);
-    }
+    // for (var i = 0; i < this.localValues.gradient.length; i++) {
+    //     this.localValues.gradient[i] = adjustLevels(sliders.darkBg.value, sliders.midBg.value, sliders.lightBg.value, this.localValues.gradient[i]);
+    //     this.localValues.gradient[i] = adjustHsv(sliders.hueBg.value, sliders.satBg.value, sliders.brightnessBg.value, this.localValues.gradient[i]);
+    // }
 
     if (drawCount > 540 && drawCount < 590) {
         for (var i = 0; i < this.localValues.gradient.length; i++) {
@@ -582,7 +582,7 @@ firstSpiral.runBackground = function(t) {
             var sMap = map(drawCount, 540, 590, 0, 180);
             sMap = constrain(sMap, 0, 180);
             // this.localValues.gradient[i] = adjustLevels(sliders.darkBg.value, sliders.midBg.value, sliders.lightBg.value, this.localValues.gradient[i]);
-            this.localValues.gradient[i] = adjustHsv(sMap, sliders.satBg.value, sliders.brightnessBg.value, this.localValues.gradient[i]);
+            this.localValues.gradient[i] = adjustHsv(sMap, 0, 0, this.localValues.gradient[i]);
         }
     }
 };
@@ -644,14 +644,14 @@ firstSpiral.runColors = function(t) {
 
     for (var i = 0; i < 1000; i++) {
         var colorValues = hexToRgb(this.privateValues.palette[currentColor]);
-        colorValues = adjustLevels(sliders.dark.value, sliders.mid.value, sliders.light.value, colorValues);
+        // colorValues = adjustLevels(sliders.dark.value, sliders.mid.value, sliders.light.value, colorValues);
 
-        colorValues = adjustLevels(-30, sliders.mid.value, 23, colorValues);
+        colorValues = adjustLevels(-30, 0, 23, colorValues);
 
         var hueShift = map(i, 0, 1000, 0, -180);
         colorValues = adjustHsv(hueShift, 0, 0, colorValues);
 
-        colorValues = adjustHsv(sliders.hue.value, sliders.sat.value, sliders.brightness.value, colorValues);
+        // colorValues = adjustHsv(sliders.hue.value, sliders.sat.value, sliders.brightness.value, colorValues);
 
 
         if (drawCount > 578 && drawCount < 587) {
@@ -659,7 +659,7 @@ firstSpiral.runColors = function(t) {
             var s = sin(drawCount * 10);
             var sMap = map(s, -1, 1, 0, 380);
             // this.localValues.gradient[i] = adjustLevels(sliders.darkBg.value, sliders.midBg.value, sliders.lightBg.value, this.localValues.gradient[i]);
-            colorValues = adjustHsv(sMap, sliders.satBg.value, sliders.brightnessBg.value, colorValues);
+            colorValues = adjustHsv(sMap, 0, 0, colorValues);
         }
 
 
@@ -748,7 +748,7 @@ secondSpiral.runColors = function(t) {
             g: lerp(colorValues1.g, colorValues2.g, lerpy),
             b: lerp(colorValues1.b, colorValues2.b, lerpy)
         };
-        colorValues = adjustLevels(-30, sliders.mid.value, 23, colorValues);
+        colorValues = adjustLevels(-30, 0, 23, colorValues);
 
         var hueShift = map(i, 0, 1000, 0, -80);
         // colorValues = adjustHsv(hueShift, 0, 0, colorValues);
@@ -882,7 +882,29 @@ firstParticle.runSizes = function(t) {
 //--------------------------------------------------------------------------------------------//
 
 var octoSpiral = new Scene();
-octoSpiral.runBackground = userControlledSpiral.runBackground;
+octoSpiral.runBackground = function(t) {
+    // var step = map(abs(sin(t / 20)), 0, 1, 0.1, 0.3);
+    this.localValues.gradient = [{
+        offset: 0,
+        r: 155,
+        g: 175,
+        b: 0
+    }, {
+        offset: 0.1,
+        r: 55,
+        g: 120,
+        b: 0
+    }, {
+        offset: 0.8,
+        r: 255,
+        g: 50,
+        b: 0
+    }];
+    // for (var i = 0; i < this.localValues.gradient.length; i++) {
+    //     this.localValues.gradient[i] = adjustLevels(sliders.darkBg.value, sliders.midBg.value, sliders.lightBg.value, this.localValues.gradient[i]);
+    //     this.localValues.gradient[i] = adjustHsv(sliders.hueBg.value, sliders.satBg.value, sliders.brightnessBg.value, this.localValues.gradient[i]);
+    // }
+};
 
 // L'originale
 octoSpiral.privateValues.paletteIndex = 40;
@@ -1191,10 +1213,10 @@ starSpiral2.runBackground = function(t) {
         g: 120,
         b: col2
     }];
-    for (var i = 0; i < this.localValues.gradient.length; i++) {
-        this.localValues.gradient[i] = adjustLevels(sliders.darkBg.value, sliders.midBg.value, sliders.lightBg.value, this.localValues.gradient[i]);
-        this.localValues.gradient[i] = adjustHsv(sliders.hueBg.value, sliders.satBg.value, sliders.brightnessBg.value, this.localValues.gradient[i]);
-    }
+    // for (var i = 0; i < this.localValues.gradient.length; i++) {
+    //     this.localValues.gradient[i] = adjustLevels(sliders.darkBg.value, sliders.midBg.value, sliders.lightBg.value, this.localValues.gradient[i]);
+    //     this.localValues.gradient[i] = adjustHsv(sliders.hueBg.value, sliders.satBg.value, sliders.brightnessBg.value, this.localValues.gradient[i]);
+    // }
 };
 // starSpiral2.privateValues.scalar = 10;
 starSpiral2.privateValues.paletteIndex = 116;
@@ -1269,8 +1291,8 @@ starSpiral2.runColors = function(t) {
             g: lerp(colorValues1.g, colorValues2.g, lerpy),
             b: lerp(colorValues1.b, colorValues2.b, lerpy)
         };
-        colorValues = adjustLevels(sliders.dark.value, sliders.mid.value, sliders.light.value, colorValues);
-        colorValues = adjustHsv(sliders.hue.value, sliders.sat.value, sliders.brightness.value, colorValues);
+        // colorValues = adjustLevels(sliders.dark.value, sliders.mid.value, sliders.light.value, colorValues);
+        // colorValues = adjustHsv(sliders.hue.value, sliders.sat.value, sliders.brightness.value, colorValues);
 
         colorValues = adjustLevels(-100, 0, 0, colorValues);
 
@@ -1780,7 +1802,7 @@ exitSpiral.runColors = function(t) {
             b: lerp(colorValues1.b, colorValues2.b, lerpy)
         };
 
-        colorValues = adjustLevels(sliders.dark.value, sliders.mid.value, sliders.light.value, colorValues);
+        // colorValues = adjustLevels(sliders.dark.value, sliders.mid.value, sliders.light.value, colorValues);
         // colorValues = adjustHsv(sliders.hue.value, sliders.sat.value, sliders.brightness.value, colorValues);
 
         colorValues = adjustLevels(-67, 0, 31, colorValues);
@@ -1931,7 +1953,7 @@ exitSpiral2.runColors = function(t) {
             b: lerp(colorValues1.b, colorValues2.b, lerpy)
         };
 
-        colorValues = adjustLevels(sliders.dark.value, sliders.mid.value, sliders.light.value, colorValues);
+        // colorValues = adjustLevels(sliders.dark.value, sliders.mid.value, sliders.light.value, colorValues);
         // colorValues = adjustHsv(sliders.hue.value, sliders.sat.value, sliders.brightness.value, colorValues);
 
         colorValues = adjustLevels(-67, 0, 31, colorValues);
@@ -2181,10 +2203,10 @@ autumnSpiral2b.runBackground = function(t) {
         g: 55,
         b: col
     }];
-    for (var i = 0; i < this.localValues.gradient.length; i++) {
-        this.localValues.gradient[i] = adjustLevels(sliders.darkBg.value, sliders.midBg.value, sliders.lightBg.value, this.localValues.gradient[i]);
-        this.localValues.gradient[i] = adjustHsv(sliders.hueBg.value, sliders.satBg.value, sliders.brightnessBg.value, this.localValues.gradient[i]);
-    }
+    // for (var i = 0; i < this.localValues.gradient.length; i++) {
+    //     this.localValues.gradient[i] = adjustLevels(sliders.darkBg.value, sliders.midBg.value, sliders.lightBg.value, this.localValues.gradient[i]);
+    //     this.localValues.gradient[i] = adjustHsv(sliders.hueBg.value, sliders.satBg.value, sliders.brightnessBg.value, this.localValues.gradient[i]);
+    // }
 };
 // autumnSpiral.privateValues.paletteIndex = 1244;
 // autumnSpiral2.privateValues.paletteIndex = 1304;
@@ -2213,8 +2235,8 @@ autumnSpiral2b.runColorsB = function(t) {
         // colorValues.b = constrain(map(colorValues.b, 0, 255, lev, 255), 0, 255);
 
 
-        colorValues = adjustLevels(sliders.dark.value, sliders.mid.value, sliders.light.value, colorValues);
-        colorValues = adjustHsv(sliders.hue.value, sliders.sat.value, sliders.brightness.value, colorValues);
+        // colorValues = adjustLevels(sliders.dark.value, sliders.mid.value, sliders.light.value, colorValues);
+        // colorValues = adjustHsv(sliders.hue.value, sliders.sat.value, sliders.brightness.value, colorValues);
 
         colorValues = adjustLevels(-70, 0, 0, colorValues);
 
@@ -2264,8 +2286,8 @@ autumnSpiral2b.runColors = function(t) {
         // colorValues.b = constrain(map(colorValues.b, 0, 255, lev, 255), 0, 255);
 
 
-        colorValues = adjustLevels(sliders.dark.value, sliders.mid.value, sliders.light.value, colorValues);
-        colorValues = adjustHsv(sliders.hue.value, sliders.sat.value, sliders.brightness.value, colorValues);
+        // colorValues = adjustLevels(sliders.dark.value, sliders.mid.value, sliders.light.value, colorValues);
+        // colorValues = adjustHsv(sliders.hue.value, sliders.sat.value, sliders.brightness.value, colorValues);
 
 
         colorValues = adjustLevels(-51, 0, 33, colorValues);
@@ -3177,8 +3199,8 @@ autumnSpiral6b.runColors = function(t) {
         // colorValues.b = constrain(map(colorValues.b, 0, 255, lev, 255), 0, 255);
 
 
-        colorValues = adjustLevels(sliders.dark.value, sliders.mid.value, sliders.light.value, colorValues);
-        colorValues = adjustHsv(sliders.hue.value, sliders.sat.value, sliders.brightness.value, colorValues);
+        // colorValues = adjustLevels(sliders.dark.value, sliders.mid.value, sliders.light.value, colorValues);
+        // colorValues = adjustHsv(sliders.hue.value, sliders.sat.value, sliders.brightness.value, colorValues);
 
         currentColor++;
         if (currentColor > 4) {
@@ -3977,10 +3999,10 @@ autumnSpiral13.runBackground = function(t) {
         g: 0,
         b: 180
     }];
-    for (var i = 0; i < this.localValues.gradient.length; i++) {
-        this.localValues.gradient[i] = adjustLevels(sliders.darkBg.value, sliders.midBg.value, sliders.lightBg.value, this.localValues.gradient[i]);
-        this.localValues.gradient[i] = adjustHsv(sliders.hueBg.value, sliders.satBg.value, sliders.brightnessBg.value, this.localValues.gradient[i]);
-    }
+    // for (var i = 0; i < this.localValues.gradient.length; i++) {
+    //     this.localValues.gradient[i] = adjustLevels(sliders.darkBg.value, sliders.midBg.value, sliders.lightBg.value, this.localValues.gradient[i]);
+    //     this.localValues.gradient[i] = adjustHsv(sliders.hueBg.value, sliders.satBg.value, sliders.brightnessBg.value, this.localValues.gradient[i]);
+    // }
 };
 // autumnSpiral.privateValues.paletteIndex = 1244;
 // autumnSpiral2.privateValues.paletteIndex = 1304;
@@ -4009,8 +4031,8 @@ autumnSpiral13.runColors = function(t) {
     var currentColor = 0;
     for (var i = 0; i < 1000; i++) {
         var colorValues = hexToRgb(this.privateValues.palette[currentColor]);
-        colorValues = adjustLevels(sliders.dark.value, sliders.mid.value, sliders.light.value, colorValues);
-        colorValues = adjustHsv(sliders.hue.value, sliders.sat.value, sliders.brightness.value, colorValues);
+        // colorValues = adjustLevels(sliders.dark.value, sliders.mid.value, sliders.light.value, colorValues);
+        // colorValues = adjustHsv(sliders.hue.value, sliders.sat.value, sliders.brightness.value, colorValues);
         currentColor++;
         if (currentColor > 4) {
             currentColor = 0;
@@ -4110,10 +4132,10 @@ autumnSpiral13b.runBackground = function(t) {
         g: 55,
         b: 250
     }];
-    for (var i = 0; i < this.localValues.gradient.length; i++) {
-        this.localValues.gradient[i] = adjustLevels(sliders.darkBg.value, sliders.midBg.value, sliders.lightBg.value, this.localValues.gradient[i]);
-        this.localValues.gradient[i] = adjustHsv(sliders.hueBg.value, sliders.satBg.value, sliders.brightnessBg.value, this.localValues.gradient[i]);
-    }
+    // for (var i = 0; i < this.localValues.gradient.length; i++) {
+    //     this.localValues.gradient[i] = adjustLevels(sliders.darkBg.value, sliders.midBg.value, sliders.lightBg.value, this.localValues.gradient[i]);
+    //     this.localValues.gradient[i] = adjustHsv(sliders.hueBg.value, sliders.satBg.value, sliders.brightnessBg.value, this.localValues.gradient[i]);
+    // }
 };
 
 
@@ -4141,13 +4163,13 @@ autumnSpiral13b.runColors = function(t) {
     var currentColor = 0;
     for (var i = 0; i < 1000; i++) {
         var colorValues = hexToRgb(this.privateValues.palette[currentColor]);
-        colorValues = adjustLevels(sliders.dark.value, sliders.mid.value, sliders.light.value, colorValues);
+        // colorValues = adjustLevels(sliders.dark.value, sliders.mid.value, sliders.light.value, colorValues);
         colorValues = adjustLevels(-30, 0, 0, colorValues);
 
         var mapMiddle = map(i, 0, 1000, -50, 0);
         colorValues = adjustLevels(0, mapMiddle, 0, colorValues)
 
-        colorValues = adjustHsv(sliders.hue.value, sliders.sat.value, sliders.brightness.value, colorValues);
+        // colorValues = adjustHsv(sliders.hue.value, sliders.sat.value, sliders.brightness.value, colorValues);
         currentColor++;
         if (currentColor > 4) {
             currentColor = 0;
@@ -4290,10 +4312,10 @@ autumnSpiral14.runBackground = function(t) {
         g: 0,
         b: 180
     }];
-    for (var i = 0; i < this.localValues.gradient.length; i++) {
-        this.localValues.gradient[i] = adjustLevels(sliders.darkBg.value, sliders.midBg.value, sliders.lightBg.value, this.localValues.gradient[i]);
-        this.localValues.gradient[i] = adjustHsv(sliders.hueBg.value, sliders.satBg.value, sliders.brightnessBg.value, this.localValues.gradient[i]);
-    }
+    // for (var i = 0; i < this.localValues.gradient.length; i++) {
+    //     this.localValues.gradient[i] = adjustLevels(sliders.darkBg.value, sliders.midBg.value, sliders.lightBg.value, this.localValues.gradient[i]);
+    //     this.localValues.gradient[i] = adjustHsv(sliders.hueBg.value, sliders.satBg.value, sliders.brightnessBg.value, this.localValues.gradient[i]);
+    // }
 };
 // autumnSpiral.privateValues.paletteIndex = 1244;
 // autumnSpiral2.privateValues.paletteIndex = 1304;
@@ -4322,8 +4344,8 @@ autumnSpiral14.runColors = function(t) {
     var currentColor = 0;
     for (var i = 0; i < 1000; i++) {
         var colorValues = hexToRgb(this.privateValues.palette[currentColor]);
-        colorValues = adjustLevels(sliders.dark.value, sliders.mid.value, sliders.light.value, colorValues);
-        colorValues = adjustHsv(sliders.hue.value, sliders.sat.value, sliders.brightness.value, colorValues);
+        // colorValues = adjustLevels(sliders.dark.value, sliders.mid.value, sliders.light.value, colorValues);
+        // colorValues = adjustHsv(sliders.hue.value, sliders.sat.value, sliders.brightness.value, colorValues);
         currentColor++;
         if (currentColor > 4) {
             currentColor = 0;
@@ -4420,10 +4442,10 @@ autumnSpiral15.runBackground = function(t) {
         g: 0,
         b: 180
     }];
-    for (var i = 0; i < this.localValues.gradient.length; i++) {
-        this.localValues.gradient[i] = adjustLevels(sliders.darkBg.value, sliders.midBg.value, sliders.lightBg.value, this.localValues.gradient[i]);
-        this.localValues.gradient[i] = adjustHsv(sliders.hueBg.value, sliders.satBg.value, sliders.brightnessBg.value, this.localValues.gradient[i]);
-    }
+    // for (var i = 0; i < this.localValues.gradient.length; i++) {
+    //     this.localValues.gradient[i] = adjustLevels(sliders.darkBg.value, sliders.midBg.value, sliders.lightBg.value, this.localValues.gradient[i]);
+    //     this.localValues.gradient[i] = adjustHsv(sliders.hueBg.value, sliders.satBg.value, sliders.brightnessBg.value, this.localValues.gradient[i]);
+    // }
 };
 // autumnSpiral.privateValues.paletteIndex = 1244;
 // autumnSpiral2.privateValues.paletteIndex = 1304;
@@ -4452,8 +4474,8 @@ autumnSpiral15.runColors = function(t) {
     var currentColor = 0;
     for (var i = 0; i < 1000; i++) {
         var colorValues = hexToRgb(this.privateValues.palette[currentColor]);
-        colorValues = adjustLevels(sliders.dark.value, sliders.mid.value, sliders.light.value, colorValues);
-        colorValues = adjustHsv(sliders.hue.value, sliders.sat.value, sliders.brightness.value, colorValues);
+        // colorValues = adjustLevels(sliders.dark.value, sliders.mid.value, sliders.light.value, colorValues);
+        // colorValues = adjustHsv(sliders.hue.value, sliders.sat.value, sliders.brightness.value, colorValues);
         currentColor++;
         if (currentColor > 4) {
             currentColor = 0;
