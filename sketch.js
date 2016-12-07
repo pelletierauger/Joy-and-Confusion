@@ -51,7 +51,7 @@ function configureInterface() {
     docsString += " Click on the large slider below (which acts as a timeline) to jump anywhere in the film.";
     docsString += "<br /><br />The film was originally synchronized with a copyrighted song that I'm currently trying to license for use.";
     // docsString += "You can watch the <a href='https://www.youtube.com/watch?v=FAQV680acEU'>film with music here</a> (an unlisted YouTube link allowed by the rights holder).";
-    docsString += "<br /><br /><span class='hl'>Unfold the panels below</span> by clicking on their titles for more information and to try <span class='hl'>Interactive Mode</span>.";
+    docsString += "<br /><br /><span class='hl'>Unfold the panels below</span> by clicking on their titles for more information and to try an <span class='hl'>Interactive Mode</span> (in beta version).";
     docsString += "<br /><br /> The code for this project <a href='https://github.com/pelletierauger/Joy-and-Confusion'>is on GitHub</a>.";
 
     var docs = createP(docsString);
@@ -59,14 +59,14 @@ function configureInterface() {
 
     //--------------------------- Keyboard Shortcuts Folder-------------------//
     folders.shortcuts = new Folder("Keyboard shortcuts", false);
-    var keyboardDocsString = "Press 'v' to toggle the visibility of the whole interface. Press 'b' to toggle only the visibility of the foldable panels.";
+    var keyboardDocsString = "Press 'v' to toggle the visibility of the whole interface. Press 'b' to toggle only the visibility of the foldable panels. The toggles are independant of one another.";
     keyboardDocsString += "<br /><br />Press the letters q, w, e, r, t, y, u, i, o, p, a, s, or d to jump to various moments in the film. <br /><br />When the film is paused, press the left and right arrows to go backward and forward frame by frame.";
     var keyboardDocs = createP(keyboardDocsString);
     keyboardDocs.parent(folders.shortcuts.div);
 
     //--------------------------- Interactivity Folder-------------------//
-    folders.documentationInteractivity = new Folder("Interactive mode", false);
-    var interactivityString = "Activate this mode to play with various tools that were used in the making of this film.";
+    folders.documentationInteractivity = new Folder("Interactive mode (Beta version)", false);
+    var interactivityString = "Activate this mode to play with various tools used in the making of this film.";
     var interactivityDocs = createP(interactivityString);
     interactivityDocs.parent(folders.documentationInteractivity.div);
     //-------- Interactivity switch------------------//
@@ -86,8 +86,12 @@ function configureInterface() {
         redraw();
     });
     menus.interactivity.menu.value("Deactivated");
-    var docsLerpy = createP("The <span class='hl'>Spiral to particle</span> slider makes a linear interpolation between a spiral shape (0) and a particle system (1). For more control over the spiral and the particle system, open more panels below.");
-    docsLerpy.parent(folders.documentationInteractivity.div);
+    var docsLerpy = "When activated, this mode displays a single spiral shape that you can modify. A particle system can also be displayed, using the <span class='hl'>Spiral to particle</span> slider. ";
+    docsLerpy += "<br /><br />When the slider is at 0, a spiral is shown. At 1, a particle system is shown. Values in-between will display a linear interpolation between them. For more control over the spiral and the particle system, open more panels below.";
+
+
+    var docsLerpyParagraph = createP(docsLerpy);
+    docsLerpyParagraph.parent(folders.documentationInteractivity.div);
     sliders.lerpy = new Slider("Spiral to particle", 0, 1, 0, 0.01, folders.documentationInteractivity.div);
     sliders.zoom = new Slider("Canvas scale", 0, 20, 1, 0.01, folders.documentationInteractivity.div);
     sliders.s = new Slider("Dot size", 0, 40, 2.5, 0.1, folders.documentationInteractivity.div);
@@ -99,7 +103,7 @@ function configureInterface() {
 
     //--------------------------- Spiral Folder-------------------//
     folders.spiral = new Folder("Spirals", false);
-    var spiralDocs = "The different moving shapes of <span class='hl'>Joy and Confusion</span> were made by modifying the parametric equation of a basic spiral. This menu selector allows you to switch between all the different parametric equations made for the film.";
+    var spiralDocs = "The different moving shapes of <i>Joy and Confusion</i> were made by modifying the parametric equation of a basic spiral. The <span class='hl'>Spiral shape</span> menu selector allows you to switch between all the different parametric equations made for the film.";
     var spiralDocsParagraph = createP(spiralDocs);
     spiralDocsParagraph.parent(folders.spiral.div);
 
@@ -117,24 +121,28 @@ function configureInterface() {
         }
     });
     menus.spiralFormulas.menu.value(spiralFormulas[0][1]);
+
+    var spiralDocs2 = "The movements of the spirals are caused by a constant incrementing of the angle between all of their coordinates. The <span class='hl'>Spiral speed</span> is the speed at which this angle is incremented.";
+    var spiralDocsParagraph2 = createP(spiralDocs2);
+    spiralDocsParagraph2.parent(folders.spiral.div);
     sliders.spiSpeed = new Slider("Spiral speed", 0, 0.001, 0.0001, 0.000001, folders.spiral.div);
 
 
     //--------------------------- Particles Folder-------------------//
     folders.particles = new Folder("Particles", false);
     var particleDocs = "To make the spirals tremble at various points in the film, the coordinates of the spiral were interpolated with coordinates from a particle system (of sorts).";
-    particleDocs += "<br /><br /> It consists of a yellow dot traveling on a fixed path, and a white dot on an accelerating orbit around the yellow dot. The system is run 1000 times per frame.";
-    particleDocs += "<br /><br /> When the superellipse or the superformula paths are selected, the <span id='hl'>Particles - Superformula</span> panel below gives you more control over those paths.";
+    particleDocs += "<br /><br /> It consists of a <span class='hl'>yellow dot</span> traveling on a fixed path, and a <span class='hl'>white dot</span> on an accelerating orbit around the yellow dot. The system runs 1000 times per frame.";
+    particleDocs += "<br /><br /> When the superellipse or the superformula paths are selected, the <span class='hl'>Particles - Superformula</span> panel below gives you more control over those paths.";
 
     var particleDocsParagraph = createP(particleDocs);
     particleDocsParagraph.parent(folders.particles.div);
 
-    buttons.resetW = new Button("Reset white dot position and velocity", folders.particles.div, function() {});
+    // buttons.resetW = new Button("Reset white dot position and velocity", folders.particles.div, function() {});
     // resetW = createButton('Reset white dot position and velocity');
     // resetW.parent(infoDiv);
     // resetA = createButton('Reset all');
-    buttons.resetA = new Button("Reset all", folders.particles.div, function() {});
-    buttons.resetA.button.style("float", "right");
+    // buttons.resetA = new Button("Reset all", folders.particles.div, function() {});
+    // buttons.resetA.button.style("float", "right");
     //-------- Curve selector------------------//
     menus.curves = new Menu("Path", folders.particles.div);
     for (var c = 0; c < curves.length; c++) {
@@ -176,8 +184,8 @@ function configureInterface() {
     //--------------------------- Superformula Folder-------------------//
     folders.superformula = new Folder("Particles - Superformula", false);
 
-    var superformulaDocs = "This allows you to control the <span class='hl'>n2</span> and <span class='hl'>m</span> values of a superformula.";
-    superformulaDocs += "<br /><br /> <span class='hl'>sc</span> is a scalar and <span class='hl'>scPow</span> brings the scalar <i> to the power of</i> its value";
+    var superformulaDocs = "This allows you to control the <span class='hl'>n2</span> and <span class='hl'>m</span> values of the superformula (one possible path for the yellow dot).";
+    superformulaDocs += "<br /><br /> <span class='hl'>sc</span> is a scalar and <span class='hl'>scPow</span> brings the scalar <i> to the power of</i> its value. The highest <span class='hl'>sc</span> is, the slowest the superellipse and superformula will oscillate.";
     superformulaDocs += "<br /><br /> For more information, read the Wikipedia pages on the <a href='https://en.wikipedia.org/wiki/Superellipse'>superellipse</a> and the <a href='https://en.wikipedia.org/wiki/Superformula'>superformula</a>.";
 
     var superformulaDocsParagraph = createP(superformulaDocs);
@@ -185,9 +193,9 @@ function configureInterface() {
 
 
     sliders.n2 = new Slider("n2", 0, 10, 1, 0.1, folders.superformula.div);
+    sliders.m = new Slider("m", 0, 30, 5, 1, folders.superformula.div);
     sliders.sc = new Slider("sc", 0, 100, 20, 1, folders.superformula.div);
     sliders.scPow = new Slider("scPow", -10, 10, 0, 1, folders.superformula.div);
-    sliders.m = new Slider("m", 0, 30, 5, 1, folders.superformula.div);
     // sliders.levels = new Slider("Levels", -200, 100, 0, 1, folders.spiral.div);
 
     folders.cols = new Folder("Color adjustments, foreground", false);
@@ -231,10 +239,14 @@ function playSong() {
 
 function draw() {
     if (drawCount >= sumSheet) {
-        noLoop();
-        looping = false;
-        if (!userControl && songPlay) {
-            song.pause();
+        if (userControl) {
+            sliders.timeline.value = 0;
+        } else {
+            noLoop();
+            looping = false;
+            if (!userControl && songPlay) {
+                song.pause();
+            }
         }
     };
     translate(width / 2, height / 2);
