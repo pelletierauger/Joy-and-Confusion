@@ -2472,7 +2472,7 @@ autumnSpiral3.runColors = function(t) {
 
 
 autumnSpiral3.runLayout = function(t) {
-    this.localValues.zoom = sliders.zoom.value;
+    // this.localValues.zoom = sliders.zoom.value;
     this.localValues.zoom = 0.72;
     this.localValues.rotation = 0.01;
 };
@@ -2588,7 +2588,8 @@ autumnSpiral4.runColors = function(t) {
 
 
 autumnSpiral4.runLayout = function(t) {
-    this.localValues.zoom = sliders.zoom.value;
+    // this.localValues.zoom = sliders.zoom.value;
+    this.localValues.zoom = 1;
     this.localValues.rotation = 0.01;
 };
 
@@ -2703,7 +2704,8 @@ autumnSpiral5.runColors = function(t) {
 
 
 autumnSpiral5.runLayout = function(t) {
-    this.localValues.zoom = sliders.zoom.value;
+    // this.localValues.zoom = sliders.zoom.value;
+    this.localValues.zoom = 1;
     this.localValues.rotation = 0.01;
 };
 
@@ -2834,7 +2836,8 @@ autumnSpiral6.runColors = function(t) {
 
 
 autumnSpiral6.runLayout = function(t) {
-    this.localValues.zoom = sliders.zoom.value;
+    // this.localValues.zoom = sliders.zoom.value;
+    this.localValues.zoom = 1;
     this.localValues.rotation = 0.01;
 };
 
@@ -2971,7 +2974,8 @@ autumnSpiral6c.runColors = function(t) {
 
 
 autumnSpiral6c.runLayout = function(t) {
-    this.localValues.zoom = sliders.zoom.value;
+    // this.localValues.zoom = sliders.zoom.value;
+    this.localValues.zoom = 1;
     this.localValues.rotation = 0.01;
 };
 
@@ -3098,7 +3102,8 @@ autumnSpiral6b.runColors2 = function(t) {
 
 
 autumnSpiral6b.runLayout = function(t) {
-    this.localValues.zoom = sliders.zoom.value;
+    // this.localValues.zoom = sliders.zoom.value;
+    this.localValues.zoom = 1;
     this.localValues.rotation = 0.01;
 };
 
@@ -3650,7 +3655,8 @@ autumnSpiral10.runColors = function(t) {
 
 
 autumnSpiral10.runLayout = function(t) {
-    this.localValues.zoom = sliders.zoom.value;
+    // this.localValues.zoom = sliders.zoom.value;
+    this.localValues.zoom = 1;
     this.localValues.rotation = 0.025;
 };
 
@@ -3783,8 +3789,9 @@ autumnSpiral11.runColors = function(t) {
 
 
 autumnSpiral11.runLayout = function(t) {
-    this.localValues.zoom = 1.25;
-    this.localValues.zoom = sliders.zoom.value;
+    // this.localValues.zoom = 1.25;
+    // this.localValues.zoom = sliders.zoom.value;
+    this.localValues.zoom = 1;
     this.localValues.rotation = 0.025;
 };
 
@@ -3912,8 +3919,9 @@ autumnSpiral12.runColors = function(t) {
 
 
 autumnSpiral12.runLayout = function(t) {
-    this.localValues.zoom = 1.25;
-    this.localValues.zoom = sliders.zoom.value;
+    // this.localValues.zoom = 1.25;
+    // this.localValues.zoom = sliders.zoom.value;
+    this.localValues.zoom = 1;
     this.localValues.rotation = 0.025;
 };
 
@@ -4043,8 +4051,9 @@ autumnSpiral13.runColors = function(t) {
 
 
 autumnSpiral13.runLayout = function(t) {
-    this.localValues.zoom = 1.25;
-    this.localValues.zoom = sliders.zoom.value;
+    // this.localValues.zoom = 1.25;
+    // this.localValues.zoom = sliders.zoom.value;
+    this.localValues.zoom = 1;
     this.localValues.rotation = 0.025;
 };
 
@@ -4356,8 +4365,9 @@ autumnSpiral14.runColors = function(t) {
 
 
 autumnSpiral14.runLayout = function(t) {
-    this.localValues.zoom = 1.25;
-    this.localValues.zoom = sliders.zoom.value;
+    // this.localValues.zoom = 1.25;
+    // this.localValues.zoom = sliders.zoom.value;
+    this.localValues.zoom = 1;
     this.localValues.rotation = 0.025;
 };
 
@@ -4486,8 +4496,9 @@ autumnSpiral15.runColors = function(t) {
 
 
 autumnSpiral15.runLayout = function(t) {
-    this.localValues.zoom = 1.25;
-    this.localValues.zoom = sliders.zoom.value;
+    // this.localValues.zoom = 1.25;
+    // this.localValues.zoom = sliders.zoom.value;
+    this.localValues.zoom = 1;
     this.localValues.rotation = 0.025;
 };
 
