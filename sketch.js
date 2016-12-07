@@ -6,6 +6,7 @@ var looping = false;
 var showInterface = true;
 var showPanel = true;
 var userControl = false;
+var userControlActivatedOnce = false;
 var songPlay = false;
 var exporting = false;
 var fileName = "joy-and-confusion-0003";
@@ -75,6 +76,11 @@ function configureInterface() {
     menus.interactivity.menu.option("Activated");
 
     menus.interactivity.menu.changed(function() {
+        if (!userControlActivatedOnce) {
+            sliders.timeline.value = 800;
+            drawCount = sliders.timeline.value;
+            userControlActivatedOnce = true;
+        }
         if (!currentSpiralFormula) {
             currentSpiralFormula = spiralFormulas[0][0];
         }
@@ -92,13 +98,13 @@ function configureInterface() {
 
     var docsLerpyParagraph = createP(docsLerpy);
     docsLerpyParagraph.parent(folders.documentationInteractivity.div);
-    sliders.lerpy = new Slider("Spiral to particle", 0, 1, 0, 0.01, folders.documentationInteractivity.div);
-    sliders.zoom = new Slider("Canvas scale", 0, 20, 1, 0.01, folders.documentationInteractivity.div);
-    sliders.s = new Slider("Dot size", 0, 40, 2.5, 0.1, folders.documentationInteractivity.div);
-    sliders.sizeGrowth = new Slider("Dot size growth", 0, 250, 0, 1, folders.documentationInteractivity.div);
-    sliders.dotPalette = new Slider("Dot color palette", 0, 4051, 0, 1, folders.documentationInteractivity.div);
-    sliders.spiralScalar = new Slider("Spiral scalar", 1, 200, 1, 0.01, folders.documentationInteractivity.div);
-    sliders.particleScalar = new Slider("Particle scalar", 0, 200, 1, 0.001, folders.documentationInteractivity.div);
+    sliders.lerpy = new Slider("Spiral to particle", 0, 1, 0.03, 0.01, folders.documentationInteractivity.div);
+    sliders.zoom = new Slider("Canvas scale", 0, 20, 0.64, 0.01, folders.documentationInteractivity.div);
+    sliders.s = new Slider("Dot size", 0, 40, 7, 0.1, folders.documentationInteractivity.div);
+    sliders.sizeGrowth = new Slider("Dot size growth", 0, 250, 145, 1, folders.documentationInteractivity.div);
+    sliders.dotPalette = new Slider("Dot color palette", 0, 4051, 3615, 1, folders.documentationInteractivity.div);
+    sliders.spiralScalar = new Slider("Spiral scalar", 1, 200, 2.48, 0.01, folders.documentationInteractivity.div);
+    sliders.particleScalar = new Slider("Particle scalar", 0, 200, 1.488, 0.001, folders.documentationInteractivity.div);
 
 
     //--------------------------- Spiral Folder-------------------//
@@ -125,7 +131,7 @@ function configureInterface() {
     var spiralDocs2 = "The movements of the spirals are caused by a constant incrementing of the angle between all of their coordinates. The <span class='hl'>Spiral speed</span> is the speed at which this angle is incremented.";
     var spiralDocsParagraph2 = createP(spiralDocs2);
     spiralDocsParagraph2.parent(folders.spiral.div);
-    sliders.spiSpeed = new Slider("Spiral speed", 0, 0.001, 0.0001, 0.000001, folders.spiral.div);
+    sliders.spiSpeed = new Slider("Spiral speed", 0, 0.001, 0.000064, 0.000001, folders.spiral.div);
 
 
     //--------------------------- Particles Folder-------------------//
@@ -158,9 +164,9 @@ function configureInterface() {
     });
     menus.curves.menu.value(curves[2].name);
     shape = curves[2];
-    sliders.accMult = new Slider("White dot Acceleration rate", 0, 1, 1, 0.001, folders.particles.div);
+    sliders.accMult = new Slider("White dot Acceleration rate", 0, 1, 0.339, 0.001, folders.particles.div);
     sliders.velMult = new Slider("White dot Friction", 0.999, 1, 0.999, 0.00001, folders.particles.div);
-    sliders.speed = new Slider("Yellow Dot Rotation rate", 0, 1, 0.29, 0.01, folders.particles.div);
+    sliders.speed = new Slider("Yellow Dot Rotation rate", 0, 1, 0.07, 0.01, folders.particles.div);
 
     //-------- Curve selector------------------//
     menus.yellShow = new Menu("Show Yellow Dot", folders.particles.div);
@@ -192,10 +198,10 @@ function configureInterface() {
     superformulaDocsParagraph.parent(folders.superformula.div);
 
 
-    sliders.n2 = new Slider("n2", 0, 10, 1, 0.1, folders.superformula.div);
-    sliders.m = new Slider("m", 0, 30, 5, 1, folders.superformula.div);
-    sliders.sc = new Slider("sc", 0, 100, 20, 1, folders.superformula.div);
-    sliders.scPow = new Slider("scPow", -10, 10, 0, 1, folders.superformula.div);
+    sliders.n2 = new Slider("n2", 0, 10, 5.5, 0.1, folders.superformula.div);
+    sliders.m = new Slider("m", 0, 30, 4, 1, folders.superformula.div);
+    sliders.sc = new Slider("sc", 0, 100, 61, 1, folders.superformula.div);
+    sliders.scPow = new Slider("scPow", -10, 10, 3, 1, folders.superformula.div);
     // sliders.levels = new Slider("Levels", -200, 100, 0, 1, folders.spiral.div);
 
     folders.cols = new Folder("Color adjustments, foreground", false);
