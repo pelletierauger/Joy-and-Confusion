@@ -290,7 +290,8 @@ function draw() {
     }
     sliders.timeline.set(drawCount);
     if (!userControl) {
-        sliders.timeline.paragraph.html(queryXSheet(xSheet) + ", drawCount : " + drawCount);
+        var query = (queryXSheet(xSheet)) ? queryXSheet(xSheet) + ", " : "";
+        sliders.timeline.paragraph.html(query + "drawCount: " + drawCount);
     } else {
         sliders.timeline.paragraph.html("drawCount : " + drawCount);
     }
@@ -354,6 +355,10 @@ function keyPressed() {
                 song.pause();
             }
         } else {
+            if (drawCount >= sumSheet) {
+                drawCount = 0;
+                sliders.timeline.value = 0;
+            }
             loop();
             looping = true;
             if (!userControl && songPlay) {
