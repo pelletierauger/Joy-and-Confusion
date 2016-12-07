@@ -4180,8 +4180,8 @@ autumnSpiral13b.runColors = function(t) {
 
 
 autumnSpiral13b.runLayout = function(t) {
-    this.localValues.zoom = 1.25;
-    this.localValues.zoom = sliders.zoom.value;
+    // this.localValues.zoom = 1.25;
+    this.localValues.zoom = 1;
     // this.localValues.rotation = 0.025;
     this.localValues.rotation = 0.01;
 };
