@@ -922,20 +922,20 @@ octoSpiral.runLayout = function(t) {
 octoSpiral.runPositions = function(t) {
     this.privateValues.scalar = 10;
 
-    this.speed = sliders.speed.value;
-    this.accMult = sliders.accMult.value;
-    this.velMult = sliders.velMult.value;
-    this.sc = sliders.sc.value;
-    this.scPow = sliders.scPow.value;
+    this.speed = 0.29; //sliders.speed.value;
+    this.accMult = 1; //sliders.accMult.value;
+    this.velMult = 0.999; //sliders.velMult.value;
+    this.sc = 20; //sliders.sc.value;
+    this.scPow = 0; //sliders.scPow.value;
     this.privateValues.shape = shape;
 
     this.superformula = {
-        n1: map(abs(sin(t / (sliders.sc.value * pow(10, sliders.scPow.value)))), 0, 1, 0.15, 2),
-        n2: sliders.n2.value,
+        n1: map(abs(sin(t / (this.sc * pow(10, this.scPow)))), 0, 1, 0.15, 2),
+        n2: 1, //sliders.n2.value,
         n3: 1,
         a: 1,
         b: 1,
-        m: sliders.m.value
+        m: 5 //sliders.m.value
     };
     if (!this.privateValues.spiral) {
         this.privateValues.spiral = {
@@ -4203,15 +4203,15 @@ autumnSpiral13b.runPositions = function(t) {
     mapScalar = constrain(mapScalar, 19.823, 70);
     this.privateValues.scalar = mapScalar;
     this.speed = 0.93 || sliders.speed.value;
-    this.accMult = sliders.accMult.value;
-    this.velMult = sliders.velMult.value;
-    this.sc = sliders.sc.value;
-    this.scPow = sliders.scPow.value;
+    this.accMult = 1 || sliders.accMult.value;
+    this.velMult = 0.999 || sliders.velMult.value;
+    this.sc = 20 || sliders.sc.value;
+    this.scPow = 0;
     this.privateValues.shape = shape;
 
     this.superformula = {
-        n1: map(abs(sin(t / (sliders.sc.value * pow(10, sliders.scPow.value)))), 0, 1, 0.15, 2),
-        n2: 0 || sliders.n2.value,
+        n1: map(abs(sin(t / (this.sc * pow(10, this.scPow)))), 0, 1, 0.15, 2),
+        n2: 1,
         n3: 1,
         a: 1,
         b: 1,
