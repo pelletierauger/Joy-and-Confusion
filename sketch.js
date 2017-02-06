@@ -50,7 +50,6 @@ function configureInterface() {
     var docsString = "<span class='hl'><i>Joy and Confusion</i></span> is a short animation film programmed with p5.js.";
     docsString += "<br /><br />Push the <span class='hl'>space bar</span> to play or pause the film.";
     docsString += " Click on the large slider below (which acts as a timeline) to jump anywhere in the film.";
-    docsString += "<br /><br />The film was originally synchronized with a copyrighted song that I'm currently trying to license for use.";
     // docsString += "You can watch the <a href='https://www.youtube.com/watch?v=FAQV680acEU'>film with music here</a> (an unlisted YouTube link allowed by the rights holder).";
     docsString += "<br /><br /><span class='hl'>Unfold the panels below</span> by clicking on their titles for more information and to try an <span class='hl'>Interactive Mode</span> (in beta version).";
     docsString += "<br /><br /> The code for this project <a href='https://github.com/pelletierauger/Joy-and-Confusion'>is on GitHub</a>.";
