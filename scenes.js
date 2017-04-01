@@ -133,20 +133,20 @@ exitParticle.runLayout = function(t) {
 
 exitParticle.runPositions = function(t) {
     this.privateValues.scalar = 50;
-    this.speed = sliders.speed.value;
-    this.accMult = sliders.accMult.value;
+    this.speed = 0.29;
+    this.accMult = 1;
     this.velMult = sliders.velMult.value;
-    this.sc = sliders.sc.value;
-    this.scPow = sliders.scPow.value;
+    this.sc = 20;
+    this.scPow = 0;
     this.privateValues.shape = shape;
 
     this.superformula = {
-        n1: map(abs(sin(t / (sliders.sc.value * pow(10, sliders.scPow.value)))), 0, 1, 0.15, 2),
-        n2: sliders.n2.value,
+        n1: map(abs(sin(t / (20 * pow(10, 0)))), 0, 1, 0.15, 2),
+        n2: 1,
         n3: 1,
         a: 1,
         b: 1,
-        m: sliders.m.value
+        m: 5
     };
 
     this.privateValues.graphs = this.particle.run(this, t);
@@ -157,7 +157,7 @@ exitParticle.runPositions = function(t) {
 exitParticle.runSizes = function(t) {
     this.localValues.sizes = [];
     for (var i = 0; i < 1000; i++) {
-        var s = sliders.s.value;
+        var s = 2.5;
         if (drawCount > 5482) {
             s = 0;
         }
@@ -4562,6 +4562,72 @@ autumnSpiral15.runSizes = function(t) {
         var s = 10 + map(currentPos, 0, 1000, 0, 150);
         // s = map(i, 0, 1000, 20, 200);
         // s = 10;
+        this.localValues.sizes.push(s);
+    }
+};
+
+
+//--------------------------------------------------------------------------------------------//
+
+var creditsParticle = new Scene();
+creditsParticle.privateValues.paletteIndex = 236;
+
+creditsParticle.runBackground = function(t) {
+    this.localValues.gradient = [{
+        offset: 0,
+        r: 0,
+        g: 0,
+        b: 0
+    }, {
+        offset: 0.01,
+        r: 0,
+        g: 0,
+        b: 0
+    }, {
+        offset: 0.03,
+        r: 0,
+        g: 0,
+        b: 0
+    }];
+};
+
+creditsParticle.runLayout = function(t) {
+    // this.localValues.zoom = sliders.zoom.value;
+    // this.localValues.rotation = 0.01;
+    this.localValues.zoom = 0.2;
+    this.localValues.rotation = 0.01;
+};
+
+creditsParticle.runPositions = function(t) {
+    this.privateValues.scalar = 50;
+    this.speed = 0.29;
+    this.accMult = 1;
+    this.velMult = sliders.velMult.value;
+    this.sc = 20;
+    this.scPow = 0;
+    this.privateValues.shape = shape;
+
+    this.superformula = {
+        n1: map(abs(sin(t / (20 * pow(10, 0)))), 0, 1, 0.15, 2),
+        n2: 1,
+        n3: 1,
+        a: 1,
+        b: 1,
+        m: 5
+    };
+
+    this.privateValues.graphs = this.particle.run(this, t);
+    this.privateValues.posGraph = this.privateValues.graphs.g;
+    this.localValues.yellowGraph = this.privateValues.graphs.yellowGraph;
+};
+
+creditsParticle.runSizes = function(t) {
+    this.localValues.sizes = [];
+    for (var i = 0; i < 1000; i++) {
+        var s = 2.5;
+        if (drawCount > 5482) {
+            s = 0;
+        }
         this.localValues.sizes.push(s);
     }
 };
