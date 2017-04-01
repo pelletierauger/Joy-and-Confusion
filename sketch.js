@@ -19,6 +19,7 @@ var repositionSong = false;
 var sumSheet;
 var spiralFormulas;
 var currentSpiralFormula;
+var credits;
 
 var valleyArray;
 var currentValley = 0;
@@ -28,6 +29,7 @@ function setup() {
         song = loadSound("mindonfire.mp3", playSong);
     }
     loadJSON("palettes.json", gotPalettes);
+    loadJSON("/credits/lesjoiesconfuses.json", gotCredits);
     // canvas = createCanvas(windowWidth, windowWidth * 9 / 16);
     canvas = createCanvas(min(windowHeight * 16 / 9, min(1440, windowWidth)), min(windowHeight, min(1440, windowWidth) * 9 / 16));
     ctx = canvas.drawingContext;

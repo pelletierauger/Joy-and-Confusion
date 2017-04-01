@@ -248,13 +248,23 @@ var xSheet = {
         }
     },
     exit3: {
-        d: 15,
+        d: 25,
         f: function(sum) {
             //The getSum function is used to get the sum another scene within the sheet.
             //Calling the getSum on the first scene of the x-sheet should be pointless.
             var rN = getSum(xSheet, xSheet.exit2);
             var coFade = cosineFade(sum, 10);
             exitParticle.mix(rN, exitSpiral2, rN, coFade);
+        }
+    },
+    credits1: {
+        d: 200,
+        f: function(sum) {
+            //The getSum function is used to get the sum another scene within the sheet.
+            //Calling the getSum on the first scene of the x-sheet should be pointless.
+            var rN = getSum(xSheet, xSheet.exit2);
+            var coFade = cosineFade(sum, 30);
+            creditsParticle.mix(rN, exitParticle, rN, coFade);
         }
     },
     // preChorus: {

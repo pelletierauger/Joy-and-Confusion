@@ -128,7 +128,7 @@ exitParticle.runLayout = function(t) {
     // this.localValues.zoom = sliders.zoom.value;
     // this.localValues.rotation = 0.01;
     this.localValues.zoom = 0.2;
-    this.localValues.rotation = 0.01;
+    this.localValues.rotation = 0;
 };
 
 exitParticle.runPositions = function(t) {
@@ -157,10 +157,10 @@ exitParticle.runPositions = function(t) {
 exitParticle.runSizes = function(t) {
     this.localValues.sizes = [];
     for (var i = 0; i < 1000; i++) {
-        var s = 2.5;
-        if (drawCount > 5482) {
-            s = 0;
-        }
+        var s = 25;
+        // if (drawCount > 5482) {
+        //     s = 0;
+        // }
         this.localValues.sizes.push(s);
     }
 };
@@ -4595,7 +4595,7 @@ creditsParticle.runLayout = function(t) {
     // this.localValues.zoom = sliders.zoom.value;
     // this.localValues.rotation = 0.01;
     this.localValues.zoom = 0.2;
-    this.localValues.rotation = 0.01;
+    this.localValues.rotation = 0;
 };
 
 creditsParticle.runPositions = function(t) {
@@ -4615,19 +4615,29 @@ creditsParticle.runPositions = function(t) {
         b: 1,
         m: 5
     };
+    var creditsGraph = [];
+    for (var i = 0; i <  credits.length; i++) {
+        var mapR = map(sin(t / 8), -1, 1, 0, 5);
+        var mapNX = map(noise(i + t / 10), 0, 1, 0, 8);
+        var mapNY = map(noise(i + 100 + t / 10), 0, 1, 0, 8);
+        var v = createVector(credits[i][0] + mapNX, credits[i][1] + mapNY);
+        v.mult(5);
+        creditsGraph.push(v);
+    }
 
     this.privateValues.graphs = this.particle.run(this, t);
     this.privateValues.posGraph = this.privateValues.graphs.g;
+    this.privateValues.posGraph = creditsGraph;
     this.localValues.yellowGraph = this.privateValues.graphs.yellowGraph;
 };
 
 creditsParticle.runSizes = function(t) {
     this.localValues.sizes = [];
     for (var i = 0; i < 1000; i++) {
-        var s = 2.5;
-        if (drawCount > 5482) {
-            s = 0;
-        }
+        var s = 15;
+        // if (drawCount > 5482) {
+        //     s = 0;
+        // }
         this.localValues.sizes.push(s);
     }
 };
