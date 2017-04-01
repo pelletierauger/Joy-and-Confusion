@@ -272,6 +272,7 @@ function draw() {
     // rotate(globalValues.rotation);
     rotate(drawCount * globalValues.rotation);
     printDots();
+    // printDotsFancy();
     if (showYellow && userControl) {
         showYellowDots();
     };
@@ -319,6 +320,34 @@ function printDots() {
         fill(dot.col.r, dot.col.g, dot.col.b);
         // ellipse(dot.pos.x, dot.pos.y, dot.size, dot.size);
         ellipse(dot.pos.x, dot.pos.y, size, size);
+    }
+}
+
+function printDotsFancy() {
+
+    for (var i = 0; i < globalValues.graph.length; i++) {
+        var dot = globalValues.graph[i];
+        var size = globalValues.sizes[i];
+        var zoom = globalValues.zoom;
+        // fill(dot.col.r, dot.col.g, dot.col.b);
+
+        for (var j = 3; j > 0; j -= 0.1) {
+            var mapAlpha = map(j, 3, 0, 5, 50);
+            fill(dot.col.r, dot.col.g, dot.col.b, mapAlpha);
+            ellipse(dot.pos.x, dot.pos.y, size + j / zoom);
+        }
+
+        // for (var k = 2; k > 0; k -= 0.125) {
+        //     var mapAlpha = map(k, 1, 0, 80, 155);
+        //     fill(dot.col.r, dot.col.g, dot.col.b, mapAlpha);
+        //     ellipse(dot.pos.x, dot.pos.y, size + k / zoom);
+        // }
+        fill(dot.col.r, dot.col.g, dot.col.b, 255);
+        ellipse(dot.pos.x, dot.pos.y, size);
+        // blendMode(HARD_LIGHT);
+        // fill(dot.col.r, dot.col.g, dot.col.b, 1);
+        // ellipse(dot.pos.x, dot.pos.y, size * 3);
+        // blendMode(BLEND);
     }
 }
 
